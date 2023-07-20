@@ -6,7 +6,14 @@ export default {
       sans: ['"Noto Sans"', "sans-serif"],
     },
     colors: {
-      primary: "#FFE833",
+      primary: {
+        lightest: "#fff9cc",
+        light: "#fff080",
+        DEFAULT: "#FFE833",
+        dark: "#e6cb00",
+        darker: "#998700",
+        darkest: "#1a1700",
+      },
       secondary: "#EFF3C2",
       background: "#090D09",
       body: "#F9FAF3",
