@@ -2,6 +2,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ['"Noto Sans"', "sans-serif"],
+    },
     colors: {
       primary: "#FFE833",
       secondary: "#EFF3C2",
@@ -14,6 +17,13 @@ export default {
       "accent-3": "#A3AEFF",
       "accent-4": "#33FFE8",
       "accent-5": "#F28FFF",
+    },
+    fontSize: {
+      sm: "1rem",
+      base: "1.5rem",
+      lg: "2rem",
+      xl: "2.25rem",
+      "2xl": "5.3125rem",
     },
     extend: {},
   },
