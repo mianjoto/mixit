@@ -19,11 +19,26 @@ export default {
       body: "#F9FAF3",
       subheading: "#BABAB5",
       "spotify-green": "#1DB954",
-      "accent-1": "#FF9785",
-      "accent-2": "#33FF82",
-      "accent-3": "#A3AEFF",
-      "accent-4": "#33FFE8",
-      "accent-5": "#F28FFF",
+      "accent-1": {
+        DEFAULT: "#FF9785",
+        shadow: "#52362E",
+      },
+      "accent-2": {
+        DEFAULT: "#33FF82",
+        shadow: "#15552E",
+      },
+      "accent-3": {
+        DEFAULT: "#A3AEFF",
+        shadow: "#373D52",
+      },
+      "accent-4": {
+        DEFAULT: "#33FFE8",
+        shadow: "#15554C",
+      },
+      "accent-5": {
+        DEFAULT: "#F28FFF",
+        shadow: "#4F3452",
+      },
     },
     fontSize: {
       sm: "1rem",
