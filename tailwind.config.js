@@ -47,7 +47,20 @@ export default {
       xl: "2.25rem",
       "2xl": "5.3125rem",
     },
-    extend: {},
+    extend: {
+      spacing: {
+        "3xs": "0.5rem",
+        "2xs": "1rem",
+        xs: "1.5rem",
+        sm: "2rem",
+        md: "2.5rem",
+        lg: "3rem",
+        xl: "3.5rem",
+        "2xl": "4rem",
+        "3xl": "5rem",
+        "4xl": "8rem",
+      },
+    },
   },
   plugins: [],
 };
