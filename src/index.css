@@ -22,14 +22,14 @@
   }
 
   .pretitle {
-    @apply text-pretitle text-accent block;
+    @apply block text-pretitle text-accent;
   }
 
   .subtitle {
-    @apply text-gray block;
+    @apply block text-gray;
   }
 
   .link {
-    @apply text-link text-accent underline underline-offset-4 inline-block hover:cursor-pointer;
+    @apply inline-block text-link text-accent underline underline-offset-4 hover:cursor-pointer;
   }
 }

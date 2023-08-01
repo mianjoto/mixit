@@ -2,7 +2,7 @@ import { Button } from "./components/Button";
 
 export default function App() {
   return (
-    <div className="container mx-auto  py-32">
+    <div className="container mx-auto py-32">
       <h1 className="text-primary">Heading one</h1>
 
       <h2>Heading two</h2>
