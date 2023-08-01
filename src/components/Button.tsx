@@ -1,61 +1,65 @@
-import applyClasses from "../utils/helpers";
+import { VariantProps, cva } from "class-variance-authority";
+import { cn } from "../utils/helpers";
+import { forwardRef } from "react";
+import { Link } from "react-router-dom";
 
-type ButtonType = "button" | "submit" | "reset";
-type ButtonSize = "sm" | "md" | "lg";
-type ButtonVariant = "primary" | "secondary";
+const buttonVariants = cva(
+  "w-fit rounded-[30px] select-none uppercase font-extrabold transition ease-in-out focus:ring  duration-200",
+  {
+    variants: {
+      variant: {
+        default:
+          "focus:ring-primary-700 bg-primary text-background hover:bg-primary-600  active:bg-primary-800 active:translate-y-1",
+        outline:
+          "bg-transparent text-primary border-[3px] border-primary hover:border-primary-700 hover:bg-primary/[.1] active:bg-primary/[.05] active:translate-y-1",
+      },
+      size: {
+        default: "text-btn px-20 py-2",
+        sm: "text-small px-10 py-3",
+        lg: "text-h3 px-24 py-2",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
-interface ButtonProps {
-  children: React.ReactNode;
-  className?: string;
-  type?: ButtonType;
-  size?: ButtonSize;
-  variant?: ButtonVariant;
-  disabled?: boolean;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  href?: string;
 }
 
-const classes = {
-  base: "w-fit rounded-[30px] select-none font-extrabold uppercase transition focus:ring ease-in-out duration-200", // TODO: add transition
-  variant: {
-    primary: "bg-primary text-background",
-    secondary: "bg-background text-primary border-[3px] border-primary",
-  },
-  size: {
-    sm: "text-sm px-10 py-3",
-    md: "text-md px-16 py-3",
-    lg: "text-lg px-24 py-3",
-  },
-  disabled: "opacity-50 cursor-not-allowed",
-  hoverFocusActive: (variant: string) =>
-    ({
-      primary:
-        "hover:bg-primary-dark focus:ring-primary-darker active:bg-primary-darker active:translate-y-1",
-      secondary:
-        "hover:border-primary/[.8] hover:text-primary/[.8] active:bg-primary/[.05] active:translate-y-1",
-    }[variant]),
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, children, href, variant, size, ...props }, ref) => {
+    if (href) {
+      return (
+        <Link
+          to={href}
+          className={cn(buttonVariants({ variant, size, className }))}
+        >
+          {children}
+        </Link>
+      );
+    }
+    return (
+      <button
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          props.disabled
+            ? "opacity-30 cursor-not-allowed active:translate-y-0"
+            : ""
+        )}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+Button.displayName = "Button";
 
-export default function Button({
-  children,
-  className,
-  type = "button",
-  size = "lg",
-  variant = "primary",
-  disabled = false,
-}: ButtonProps) {
-  return (
-    <button
-      disabled={disabled}
-      type={type}
-      className={applyClasses(`
-      ${classes.base}
-      ${classes.variant[variant]}
-      ${classes.size[size]}
-      ${!disabled && classes.hoverFocusActive(variant)}
-      ${disabled && classes.disabled}
-      ${className}
-      `)}
-    >
-      {children}
-    </button>
-  );
-}
+export { Button, buttonVariants };

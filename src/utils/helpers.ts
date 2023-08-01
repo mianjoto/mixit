@@ -1,8 +1,5 @@
-export default function applyClasses(input: string) {
-  return input
-    .replace(/\s+/gm, " ")
-    .split(" ")
-    .filter((cond) => typeof cond === "string" && cond !== "undefined")
-    .join(" ")
-    .trim();
+import { ClassValue, clsx } from "clsx";
+
+export function cn(...inputs: ClassValue[]) {
+  return clsx(...inputs);
 }
