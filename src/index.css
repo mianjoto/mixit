@@ -6,18 +6,30 @@
 
 @layer base {
   h1 {
-    @apply text-2xl font-bold leading-[110%] -tracking-[0.10627rem] text-primary;
+    @apply text-h1;
   }
-
   h2 {
-    @apply text-xl font-extrabold leading-[120%] uppercase;
+    @apply text-h2;
   }
-
   h3 {
-    @apply text-lg font-bold leading-[130%];
+    @apply text-h3;
+  }
+  p {
+    @apply text-body;
+  }
+  small {
+    @apply text-small;
   }
 
-  p {
-    @apply text-base font-semibold leading-[130%] -tracking-[-0.015rem];
+  .pretitle {
+    @apply text-pretitle text-accent block;
+  }
+
+  .subtitle {
+    @apply text-gray block;
+  }
+
+  .link {
+    @apply text-link text-accent underline underline-offset-4 inline-block hover:cursor-pointer;
   }
 }
