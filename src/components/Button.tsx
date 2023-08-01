@@ -1,7 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "../utils/helpers";
 import { forwardRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const buttonVariants = cva(
   "w-fit select-none rounded-[30px] font-extrabold uppercase transition duration-200 ease-in-out  focus:ring",
@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default:
           "bg-primary text-background hover:bg-primary-600 focus:ring-primary-700  active:translate-y-1 active:bg-primary-800",
         outline:
-          "border-[3px] border-primary bg-transparent text-primary hover:border-primary-700 hover:bg-primary/[.1]  active:translate-y-1 active:bg-primary/[.05]",
+          "border-[3px] border-primary  bg-transparent text-primary hover:border-primary-700 hover:bg-primary/[.1]  active:translate-y-1 active:bg-primary/[.05]",
       },
       size: {
         default: "px-20 py-2 text-btn",
@@ -37,7 +37,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     if (href) {
       return (
         <Link
-          to={href}
+          href={href}
           className={cn(buttonVariants({ variant, size, className }))}
         >
           {children}

@@ -1,6 +1,8 @@
-import { Button } from "./components/Button";
+import { ShuffleIcon } from "../assets/svgs";
+import { Button } from "../components/Button";
+import { Card } from "../components/Card";
 
-export default function App() {
+export default function Index() {
   return (
     <div className="container mx-auto py-32">
       <h1 className="text-primary">Heading one</h1>
@@ -41,6 +43,13 @@ export default function App() {
           </Button>
         </div>
       </div>
+
+      <Card>
+        <h3 className="uppercase">Subtitle</h3>
+        <span className="subtitle">
+          Never repeat songs with a truly shuffled queue
+        </span>
+      </Card>
     </div>
   );
 }

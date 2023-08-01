@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+module.exports = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     fontFamily: {
       sans: ['"Noto Sans"', "sans-serif"],
@@ -42,7 +46,7 @@ export default {
         xl: "3.5rem", // 56px
         "2xl": "4rem", // 64px
         "3xl": "5rem", // 80px
-        "4xl": "8rem" // 128px
+        "4xl": "8rem", // 128px
       },
       fontSize: {
         h1: ["5.3125rem", { lineHeight: "5.5rem", fontWeight: "bold" }],

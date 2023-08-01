@@ -1,64 +1,46 @@
-import applyClasses from "../utils/helpers";
+import { VariantProps, cva } from "class-variance-authority";
+import { cn } from "../utils/helpers";
+import { FC } from "react";
 
-export type CardSize = "auto" | "xs" | "sm" | "md" | "lg";
-
-export type CardProps = {
-  children: React.ReactNode;
-  className?: string;
-  size: CardSize;
-  bgColorClass: string;
-};
-
-export function getCardSizeDimensions(size: CardSize) {
-  switch (size) {
-    case "xs":
-      return { size: 16, sizeClass: "w-16 h-16", shadowLength: 8 };
-    case "sm":
-      return { size: 24, sizeClass: "w-24 h-24", shadowLength: 12 };
-    case "md":
-      return { size: 40, sizeClass: "w-40 h-40", shadowLength: 16 };
-    case "lg":
-      return { size: 64, sizeClass: "w-64 h-64", shadowLength: 24 };
-    default:
-      return { size: "auto", sizeClass: "w-auto h-auto", shadowLength: 0 };
-  }
-}
-
-const classes = {
-  base: "rounded-[18px]",
-  background: (bgColorClass: string) => {
-    return bgColorClass.startsWith("#")
-      ? `bg-[${bgColorClass}]`
-      : `bg-${bgColorClass}`;
+const cardVariants = cva("flex rounded-[18px] bg-secondary", {
+  variants: {
+    variant: {
+      default: "p-sm",
+      square: "aspect-square px-sm py-xs",
+    },
+    sizing: {
+      hug: "h-auto w-fit",
+      fill: "h-full w-full",
+    },
+    direction: {
+      col: "flex-col",
+      row: "flex-row",
+    },
   },
-  shadow: (bgColorClass: string, size: CardSize) => {
-    const shadowLength = getCardSizeDimensions(size).shadowLength;
-
-    return bgColorClass.startsWith("#")
-      ? `shadow-[${shadowLength}px_${shadowLength}px_0_5px_${bgColorClass}]`
-      : `shadow-[${shadowLength}px_${shadowLength}px_0_5px_theme(colors.${bgColorClass}.shadow)]`;
+  defaultVariants: {
+    variant: "default",
+    direction: "col",
+    sizing: "hug",
   },
-  size: (size: CardSize) => {
-    return getCardSizeDimensions(size).sizeClass;
-  },
-};
+});
 
-export default function Card({
-  children,
+export interface CardProps
+  extends React.BlockquoteHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {}
+
+const Card: FC<CardProps> = ({
+  variant,
+  sizing,
+  direction,
   className,
-  size,
-  bgColorClass,
-}: CardProps) {
+  ...props
+}) => {
   return (
     <div
-      className={applyClasses(`
-        ${classes.base}
-        ${classes.background(bgColorClass)}
-        ${classes.shadow(bgColorClass, size)}
-        ${classes.size(size)}
-        ${className}`)}
-    >
-      {children}
-    </div>
+      className={cn(cardVariants({ variant, sizing, direction, className }))}
+      {...props}
+    ></div>
   );
-}
+};
+
+export { Card, cardVariants };
