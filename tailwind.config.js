@@ -6,39 +6,20 @@ export default {
       sans: ['"Noto Sans"', "sans-serif"],
     },
     colors: {
-      primary: {
-        lightest: "#fff9cc",
-        light: "#fff080",
-        DEFAULT: "#FFE833",
-        dark: "#e6cb00",
-        darker: "#998700",
-        darkest: "#1a1700",
-      },
-      secondary: "#EFF3C2",
-      background: "#090D09",
-      body: "#F9FAF3",
-      subheading: "#BABAB5",
+      primary: "#FFE833",
+      secondary: "#19191A",
+      accent: "#B26EF7",
+      background: "#050505",
+      body: "#FAFAFA",
       "spotify-green": "#1DB954",
-      "accent-1": {
-        DEFAULT: "#FF9785",
-        shadow: "#52362E",
-      },
-      "accent-2": {
-        DEFAULT: "#33FF82",
-        shadow: "#15552E",
-      },
-      "accent-3": {
-        DEFAULT: "#A3AEFF",
-        shadow: "#373D52",
-      },
-      "accent-4": {
-        DEFAULT: "#33FFE8",
-        shadow: "#15554C",
-      },
-      "accent-5": {
-        DEFAULT: "#F28FFF",
-        shadow: "#4F3452",
-      },
+      "accent-1": "#FF9785",
+      "accent-2": "#33FF82",
+      "accent-3": "#A3AEFF",
+      "accent-4": "#33FFE8",
+      "accent-5": "#F28FFF",
+    },
+    fontColors: {
+      subtitle: "#CACACA",
     },
     fontSize: {
       sm: "1rem",
