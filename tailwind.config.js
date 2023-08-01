@@ -33,16 +33,16 @@ export default {
         "accent-5": "#F28FFF",
       },
       spacing: {
-        "3xs": "0.5rem",
-        "2xs": "1rem",
-        xs: "1.5rem",
-        sm: "2rem",
-        md: "2.5rem",
-        lg: "3rem",
-        xl: "3.5rem",
-        "2xl": "4rem",
-        "3xl": "5rem",
-        "4xl": "8rem",
+        "3xs": "0.5rem", // 8px
+        "2xs": "1rem", // 16px
+        xs: "1.5rem", // 24px
+        sm: "2rem", // 32px
+        md: "2.5rem", // 40px
+        lg: "3rem", // 48px
+        xl: "3.5rem", // 56px
+        "2xl": "4rem", // 64px
+        "3xl": "5rem", // 80px
+        "4xl": "8rem" // 128px
       },
       fontSize: {
         h1: ["5.3125rem", { lineHeight: "5.5rem", fontWeight: "bold" }],
