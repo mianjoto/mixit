@@ -14,7 +14,9 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={`${notoSans.className} container bg-background`}>
+      <body
+        className={`${notoSans.className} container flex flex-col bg-background px-3xl py-3xl`}
+      >
         {children}
       </body>
     </html>
