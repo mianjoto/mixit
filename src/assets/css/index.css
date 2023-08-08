@@ -3,33 +3,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  h1 {
-    @apply text-h1;
-  }
-  h2 {
-    @apply text-h2;
-  }
-  h3 {
-    @apply text-h3;
-  }
-  p {
-    @apply text-body;
-  }
-  small {
-    @apply text-small;
-  }
-
-  .pretitle {
-    @apply block text-pretitle text-accent;
-  }
-
-  .subtitle {
-    @apply block text-gray;
-  }
-
-  .link {
-    @apply inline-block text-link text-accent underline underline-offset-4 hover:cursor-pointer;
-  }
-}

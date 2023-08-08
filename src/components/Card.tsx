@@ -42,5 +42,6 @@ const Card: FC<CardProps> = ({
     ></div>
   );
 };
+Card.displayName = "Card";
 
 export { Card, cardVariants };

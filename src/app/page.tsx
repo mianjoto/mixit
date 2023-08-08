@@ -1,24 +1,37 @@
-import { ShuffleIcon } from "../assets/svgs";
+import { Heading } from "@/components/base/Heading";
+import { Text } from "@/components/base/Text";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { Pretitle } from "@/components/base/Pretitle";
 
 export default function Index() {
   return (
-    <div className="container mx-auto py-32">
-      <h1 className="text-primary">Heading one</h1>
+    <>
+      <Heading level="h1" textColor="primary">
+        Heading one
+      </Heading>
+      <Heading level="h2">Heading two</Heading>
 
-      <h2>Heading two</h2>
-      <h3>Heading three</h3>
-      <p className="text-body">
-        Paragraph paragraph paragraph, paragraph paragraph.
-      </p>
-
-      <p className="subtitle">Subtitle subtitle subtitle.</p>
+      <Heading level="h3" textColor="accent">
+        Heading three
+      </Heading>
+      <Heading level="h4" textColor="gray">
+        Heading four
+      </Heading>
+      <Text textType="p">
+        Paragraph paragraph paragraph, paragraph paragraph. Paragraph paragraph
+        paragraph, paragraph paragraph. Paragraph paragraph paragraph, paragraph
+        paragraph. Paragraph paragraph paragraph, paragraph paragraph.
+      </Text>
+      <Heading level="h4" textColor="gray">
+        Subtitle subtitle subtitle.
+      </Heading>
+      <p className="text-subtitle"></p>
       <p className="link">Link link</p>
       <small>Small small.</small>
-      <span className="pretitle">PRETITLE</span>
+      <Pretitle level={"h1"}>PRETITLE</Pretitle>
 
-      <div className="grid grid-flow-col">
+      <div className="w-fit grid-cols-3">
         <div>
           <Button size="lg">Large Button</Button>
           <Button size="lg" variant="outline">
@@ -50,6 +63,6 @@ export default function Index() {
           Never repeat songs with a truly shuffled queue
         </span>
       </Card>
-    </div>
+    </>
   );
 }
