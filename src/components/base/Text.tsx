@@ -2,10 +2,10 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const textVariants = cva("", {
+const textVariants = cva("font-normal leading-[24px]", {
   variants: {
-    textType: {
-      p: "text-body leading-8",
+    level: {
+      p: "text-body",
       small: "text-sm",
       strong: "font-bold",
       u: "inline-block font-bold text-accent underline underline-offset-4 hover:cursor-pointer",
@@ -31,7 +31,7 @@ const textVariants = cva("", {
     },
   },
   defaultVariants: {
-    textType: "p",
+    level: "p",
     textColor: "body",
   },
 });
@@ -39,7 +39,7 @@ const textVariants = cva("", {
 export interface TextProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof textVariants> {
-  textType:
+  level:
     | "p"
     | "span"
     | "small"
@@ -51,7 +51,7 @@ export interface TextProps
 }
 
 const Text: FC<TextProps> = ({
-  textType = "p",
+  level: textType = "p",
   textColor,
   className,
   ...props
@@ -61,7 +61,7 @@ const Text: FC<TextProps> = ({
 
   return (
     <TextElement
-      className={cn(textVariants({ textType, textColor, className }))}
+      className={cn(textVariants({ level: textType, textColor, className }))}
       {...props}
     ></TextElement>
   );

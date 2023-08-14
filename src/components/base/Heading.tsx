@@ -2,14 +2,14 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const headingVariants = cva("", {
+const headingVariants = cva("font-bold", {
   variants: {
     level: {
-      h1: "text-2xl font-extrabold leading-tight tracking-tighter",
-      h2: "text-xl font-bold leading-tight tracking-tight",
-      h3: "text-lg font-bold",
-      h4: "text-md font-semibold",
-      h5: "text-sm font-extrabold tracking-widest",
+      h1: "text-2xl leading-[80px] tracking-tighter",
+      h2: "text-xl leading-[56px] tracking-tight",
+      h3: "text-lg leading-[40px] tracking-tight",
+      h4: "text-base leading-[24px]",
+      h5: "text-base font-medium leading-[24px] tracking-widest",
 
       /**  This heading is unused at the moment, but left open
        *   intentionally for future expansion.                  */

@@ -18,18 +18,14 @@ export default function Index() {
       <Heading level="h4" textColor="gray">
         Heading four
       </Heading>
-      <Text textType="p">
+      <Heading level="h5">Heading five</Heading>
+      <Text level="p">
         Paragraph paragraph paragraph, paragraph paragraph. Paragraph paragraph
         paragraph, paragraph paragraph. Paragraph paragraph paragraph, paragraph
         paragraph. Paragraph paragraph paragraph, paragraph paragraph.
       </Text>
-      <Heading level="h4" textColor="gray">
-        Subtitle subtitle subtitle.
-      </Heading>
-      <p className="text-subtitle"></p>
-      <p className="link">Link link</p>
-      <small>Small small.</small>
-      <Pretitle level={"h1"}>PRETITLE</Pretitle>
+      <Text level="small">Text small.</Text>
+      <Pretitle>PRETITLE</Pretitle>
 
       <div className="w-fit grid-cols-3">
         <div>

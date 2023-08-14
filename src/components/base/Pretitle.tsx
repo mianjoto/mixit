@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { HeadingProps } from "./Heading";
 import { headingVariants } from "./Heading";
 
-interface PretitleProps extends HeadingProps {}
+interface PretitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 const Pretitle: FC<PretitleProps> = ({ className, ...props }) => {
   const HeadingElement = ({
