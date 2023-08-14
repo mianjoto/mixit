@@ -49,12 +49,12 @@ module.exports = {
         "4xl": "clamp(3.19rem, calc(1.51rem + 8.37vw), 8.00rem)", // max 128px
       },
       fontSize: {
-        "2xl": "clamp(3.25rem, calc(2.56rem + 3.44vw), 5.31rem)",
-        xl: "clamp(2.50rem, calc(2.25rem + 1.25vw), 3.25rem)",
-        lg: "clamp(1.50rem, calc(1.33rem + 0.83vw), 2.00rem)",
-        md: "clamp(1.25rem, calc(1.17rem + 0.42vw), 1.50rem)",
-        sm: "clamp(1.00rem, calc(0.92rem + 0.42vw), 1.25rem)",
-        xs: "clamp(0.63rem, calc(0.54rem + 0.42vw), 0.88rem)",
+        xs: "clamp(0.75rem, 0.23vw + 0.69rem, 0.88rem)", // Pretitle
+        sm: "clamp(12px, 0.23vw + 11.09px, 14px)", // Small
+        base: "clamp(1rem, 0.23vw + 0.94rem, 1.13rem)", // Body / H4/H5/H6
+        lg: "clamp(1.5rem, 0.58vw + 1.35rem, 1.82rem)", // Item heading - H3
+        xl: "clamp(2.25rem, 1.26vw + 1.93rem, 2.95rem)", // Section heading - H2
+        "2xl": "clamp(3.38rem, 2.53vw + 2.74rem, 4.77rem)", // Title - H1
       },
     },
   },
