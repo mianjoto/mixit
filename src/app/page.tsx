@@ -33,27 +33,18 @@ export default function Index() {
 
       <div className="w-fit grid-cols-3">
         <div>
-          <Button size="lg">Large Button</Button>
-          <Button size="lg" variant="outline">
-            Large Button
+          <Button size="cta">Call to action</Button>
+          <Button size="cta" variant="outline">
+            Call to action
           </Button>
-          <Button size="lg" disabled>
-            Large Button
+          <Button size="cta" disabled>
+            Call to action
           </Button>
         </div>
         <div>
           <Button>Medium Button</Button>
           <Button variant="outline">Medium Button</Button>
           <Button disabled>Medium Button</Button>
-        </div>
-        <div>
-          <Button size="sm">Small Button</Button>
-          <Button size="sm" variant="outline">
-            Small Button
-          </Button>
-          <Button size="sm" disabled>
-            Small Button
-          </Button>
         </div>
       </div>
 

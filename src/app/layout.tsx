@@ -3,7 +3,7 @@ import { Noto_Sans } from "next/font/google";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
-  weight: "500",
+  weight: ["400", "500", "700"],
 });
 
 export const metadata = {
@@ -15,7 +15,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body
-        className={`${notoSans.className} container flex flex-col bg-background px-3xl py-3xl`}
+        className={`${notoSans.className} container flex flex-col bg-background px-64 py-80`}
       >
         {children}
       </body>
