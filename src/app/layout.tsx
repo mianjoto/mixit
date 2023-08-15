@@ -15,7 +15,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body
-        className={`${notoSans.className} container flex flex-col bg-background px-64 py-80`}
+        className={`${notoSans.className} container m-auto bg-background px-64 py-80`}
       >
         {children}
       </body>
