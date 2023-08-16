@@ -39,7 +39,7 @@ const textVariants = cva("font-normal leading-[24px]", {
 export interface TextProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof textVariants> {
-  level:
+  level?:
     | "p"
     | "span"
     | "small"
