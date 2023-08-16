@@ -1,4 +1,5 @@
 import React from "react";
+import { Section } from "@/components/base/Section";
 import { Heading } from "@/components/base/Heading";
 import { Text } from "@/components/base/Text";
 import { Button } from "../Button";
@@ -6,8 +7,8 @@ import { Button } from "../Button";
 export function Hero({}) {
   return (
     <>
-      <div className="grid grid-cols-1 gap-8 md:col-span-1 md:grid-cols-2">
-        <div>
+      <Section level="main">
+        <div className="col-span-full md:col-span-4 lg:col-span-6">
           <Heading level="h1" textColor="primary" className="mb-40">
             Ready to mix things up?
           </Heading>
@@ -16,8 +17,10 @@ export function Hero({}) {
           </Text>
           <Button size="cta">GET STARTED</Button>
         </div>
-        {/* Add Disc art here */}
-      </div>
+        <div className="col-span-full bg-primary md:col-span-4 lg:col-span-6">
+          {/* Add Disc art here */}
+        </div>
+      </Section>
     </>
   );
 }
