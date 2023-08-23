@@ -4,6 +4,7 @@ import { Heading } from "@/components/base/Heading";
 import { Text } from "@/components/base/Text";
 import { Button } from "../Button";
 import Link from "next/link";
+import { Disc } from "../decorations/Disc";
 
 export function Hero({}) {
   return (
@@ -20,8 +21,8 @@ export function Hero({}) {
             <Button size="cta">GET STARTED</Button>
           </Link>
         </div>
-        <div className="col-span-full bg-primary md:col-span-4 lg:col-span-6">
-          {/* Add Disc art here */}
+        <div className="col-span-full md:col-span-4 lg:col-span-6">
+          <Disc ringColor="primary" spin="clockwise" />
         </div>
       </Section>
     </>

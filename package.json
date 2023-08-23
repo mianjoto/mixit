@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@total-typescript/ts-reset": "^0.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
