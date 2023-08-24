@@ -3,3 +3,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Provided by Utopia.fyi:@link https://utopia.fyi/grid/calculator?c=400,16,1.25,1215,18,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,m,2xl,12 */
+
+:root {
+  --space-s-m: clamp(1rem, calc(0.66rem + 1.35vw), 1.69rem);
+  --grid-max-width: 75.94rem;
+  --grid-gutter: var(--space-s-m, clamp(1rem, calc(0.66rem + 1.35vw), 1.69rem));
+  --grid-columns: 12;
+}
+
+.u-container {
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-gutter);
+  margin-inline: auto;
+}
+
+.u-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}

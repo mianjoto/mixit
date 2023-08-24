@@ -2,7 +2,7 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const sectionVariants = cva("w-full", {
+const sectionVariants = cva("u-container", {
   variants: {
     level: {
       section: "",
@@ -20,7 +20,12 @@ const sectionVariants = cva("w-full", {
       dialog: "",
     },
     grid: {
-      true: "grid grid-cols-4 gap-6 bg-background px-4 md:grid-cols-8 lg:grid-cols-12",
+      true: "u-grid",
+      // true: "grid grid-flow-row grid-cols-4 gap-6 bg-background md:grid-cols-8 lg:grid-cols-12",
+      false: "",
+    },
+    padding: {
+      true: "",
       false: "",
     },
     sticky: {
@@ -53,12 +58,14 @@ interface SectionProps
     | "time"
     | "dialog";
   grid?: boolean;
+  padding?: boolean;
   sticky?: boolean;
 }
 
 const Section: FC<SectionProps> = ({
   level = "section",
   grid = true,
+  padding = true,
   sticky = false,
   className,
   ...props
@@ -67,7 +74,9 @@ const Section: FC<SectionProps> = ({
     React.createElement(level, props, props.children);
   return (
     <SectionElement
-      className={cn(sectionVariants({ level, grid, sticky }))}
+      className={`${cn(
+        sectionVariants({ level, grid, padding, sticky })
+      )} ${className}`}
       {...props}
     >
       {props.children}

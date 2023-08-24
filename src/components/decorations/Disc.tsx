@@ -3,7 +3,7 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import { FC } from "react";
 
-const discVariants = cva("h-full w-full", {
+const discVariants = cva("-z-10", {
   variants: {
     ringColor: {
       primary: "text-primary",

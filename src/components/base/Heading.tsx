@@ -5,11 +5,11 @@ import React, { FC } from "react";
 const headingVariants = cva("font-bold", {
   variants: {
     level: {
-      h1: "text-2xl leading-[80px] tracking-tighter",
-      h2: "text-xl leading-[56px] tracking-tight",
-      h3: "text-lg leading-[40px] tracking-tight",
-      h4: "text-base leading-[24px]",
-      h5: "text-base font-medium leading-[24px] tracking-widest",
+      h1: "text-2xl leading-none tracking-tighter ",
+      h2: "text-xl leading-tight tracking-tight",
+      h3: "text-lg leading-none tracking-tight sm:leading-snug",
+      h4: "text-base leading-normal",
+      h5: "text-base font-medium leading-normal tracking-widest",
 
       /**  This heading is unused at the moment, but left open
        *   intentionally for future expansion.                  */
