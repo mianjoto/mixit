@@ -58,6 +58,10 @@ module.exports = {
         xl: "clamp(2.25rem, 1.26vw + 1.93rem, 2.95rem)", // Section heading - H2
         "2xl": "clamp(3.38rem, 2.53vw + 2.74rem, 4.77rem)", // Title - H1
       },
+      animation: {
+        "disc-spin-cw": "spin 45s linear infinite",
+        "disc-spin-ccw": "spin 45s linear infinite reverse",
+      },
     },
   },
   plugins: [require("@shrutibalasa/tailwind-grid-auto-fit")],

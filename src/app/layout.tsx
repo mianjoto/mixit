@@ -16,7 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body
         className={`${notoSans.className}
-        mx-auto max-w-screen-xl bg-background px-4`}
+        w-screen bg-background`}
       >
         {children}
       </body>
