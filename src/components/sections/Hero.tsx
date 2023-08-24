@@ -14,7 +14,7 @@ export function Hero({}) {
         className="h-screen w-full items-end overflow-x-hidden px-32 pb-64 md:grid-rows-none lg:px-64 lg:py-80"
       >
         {/* Content */}
-        <div className="col-span-full row-start-2 md:col-span-6 md:row-start-1">
+        <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">
           <Heading level="h1" textColor="primary" className="mb-16 md:mb-40">
             Ready to mix things up?
           </Heading>
@@ -26,12 +26,12 @@ export function Hero({}) {
           </Link>
         </div>
         {/* Disc */}
-        <div className="col-span-full row-span-full row-start-1 flex flex-col items-end md:col-span-6 md:block">
+        <div className="col-span-full row-span-full row-start-1 flex flex-col items-end lg:col-span-6 lg:block">
           {/* -md:right-1/5 absolute -bottom-1/4 -right-[60%] col-span-full md:absolute md:col-span-6 md:h-full md:overflow-hidden */}
           <Disc
             ringColor="primary"
             spin="clockwise"
-            className="relative -right-[12.5%] h-auto w-full max-w-sm overflow-x-hidden md:static md:bottom-0 md:right-0 md:max-w-4xl"
+            className="relative -right-[12.5%] h-auto w-full max-w-md overflow-x-hidden md:max-w-2xl lg:static lg:bottom-0 lg:right-0 lg:max-w-3xl"
           />
         </div>
       </Section>
