@@ -11,7 +11,7 @@ export function Hero({}) {
     <>
       <Section
         level="main"
-        className="h-screen w-full items-end overflow-x-hidden px-32 pb-64 md:grid-rows-none lg:px-64 lg:py-80"
+        className="h-screen w-full items-end overflow-hidden px-32 pb-64 md:grid-rows-none lg:px-64 lg:py-80"
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">
@@ -31,7 +31,7 @@ export function Hero({}) {
           <Disc
             ringColor="primary"
             spin="clockwise"
-            className="relative -right-[12.5%] h-auto w-full max-w-md overflow-x-hidden md:max-w-2xl lg:static lg:bottom-0 lg:right-0 lg:max-w-3xl"
+            className="relative -right-[12.5%] h-auto w-full max-w-md overflow-x-hidden md:max-w-2xl lg:static lg:bottom-0 lg:right-0 lg:max-w-3xl xl:min-w-[110%] xl:max-w-6xl"
           />
         </div>
       </Section>
