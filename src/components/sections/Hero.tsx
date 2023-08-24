@@ -11,7 +11,7 @@ export function Hero({}) {
     <>
       <Section
         level="main"
-        className="h-screen w-full auto-rows-min content-center  items-end overflow-hidden px-32 pb-80 md:grid-rows-none lg:px-0 lg:pb-80 lg:pl-100"
+        className="lg:pl-100 h-screen w-full auto-rows-min  content-center items-end overflow-hidden px-32 pb-80 md:grid-rows-none lg:px-0 lg:pb-80 lg:ps-32"
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">
