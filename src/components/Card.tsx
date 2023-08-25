@@ -1,45 +1,57 @@
+import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
-import { cn } from "../utils/helpers";
-import { FC } from "react";
 
-const cardVariants = cva("flex rounded-[18px] bg-secondary", {
+const cardVariants = cva("rounded-[16px]", {
   variants: {
-    variant: {
-      default: "p-sm",
-      square: "aspect-square px-sm py-xs",
+    bgColor: {
+      primary: "bg-primary",
+      secondary: "bg-secondary",
+      tertiary: "bg-tertiary",
+      accent: "bg-accent",
+      body: "bg-body",
+      gray: "bg-gray",
+      background: "bg-background",
     },
-    sizing: {
-      hug: "h-auto w-fit",
-      fill: "h-full w-full",
-    },
-    direction: {
-      col: "flex-col",
-      row: "flex-row",
+    flexDirection: {
+      row: "inline-flex flex-row",
+      col: "inline-flex flex-col",
+      none: "",
     },
   },
   defaultVariants: {
-    variant: "default",
-    direction: "col",
-    sizing: "hug",
+    bgColor: "secondary",
+    flexDirection: "row",
   },
 });
 
 export interface CardProps
-  extends React.BlockquoteHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {
+  bgColor:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "accent"
+    | "body"
+    | "gray"
+    | "background";
+  flexDirection: "row" | "col" | "none";
+}
 
-const Card: FC<CardProps> = ({
-  variant,
-  sizing,
-  direction,
+const Card: React.FC<CardProps> = ({
+  bgColor = "secondary",
+  flexDirection = "row",
+  children,
   className,
   ...props
-}) => {
+}: CardProps) => {
   return (
     <div
-      className={cn(cardVariants({ variant, sizing, direction, className }))}
+      className={cn(cardVariants({ bgColor, flexDirection, className }))}
       {...props}
-    ></div>
+    >
+      {children}
+    </div>
   );
 };
 Card.displayName = "Card";

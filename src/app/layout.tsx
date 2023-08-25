@@ -16,7 +16,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="en">
       <body
         className={`${notoSans.className}
-        w-screen bg-background`}
+        w-screen overflow-x-hidden bg-background`}
       >
         {children}
       </body>
