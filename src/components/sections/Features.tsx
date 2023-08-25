@@ -61,7 +61,7 @@ function Features() {
           Whether you have hundreds of Liked Songs or only three playlists,
           Mixit is your new home for shaking up your library.
         </Text>
-        <Link href="/dashboard" className="hidden lg:block">
+        <Link href="/dashboard" className="hidden w-fit lg:block">
           <Button size="cta">Explore all</Button>
         </Link>
       </Section>
