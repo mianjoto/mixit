@@ -25,8 +25,9 @@ module.exports = {
           DEFAULT: "#ffe833",
         },
         secondary: "#19191A",
-        accent: "#B26EF7",
+        tertiary: "#141415",
         background: "#050505",
+        accent: "#B26EF7",
         body: "#FAFAFA",
         gray: "#CACACA",
         "spotify-green": "#1DB954",
@@ -49,6 +50,7 @@ module.exports = {
         64: "64px",
         80: "80px",
         128: "128px",
+        160: "160px",
       },
       fontSize: {
         xs: "clamp(0.75rem, 0.23vw + 0.69rem, 0.88rem)", // Pretitle

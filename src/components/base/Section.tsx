@@ -2,11 +2,11 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const sectionVariants = cva("u-container", {
+const sectionVariants = cva("mx-auto", {
   variants: {
     level: {
       section: "",
-      main: "",
+      main: "u-container",
       article: "",
       aside: "",
       header: "",
@@ -21,7 +21,6 @@ const sectionVariants = cva("u-container", {
     },
     grid: {
       true: "u-grid",
-      // true: "grid grid-flow-row grid-cols-4 gap-6 bg-background md:grid-cols-8 lg:grid-cols-12",
       false: "",
     },
     padding: {
@@ -64,7 +63,7 @@ interface SectionProps
 
 const Section: FC<SectionProps> = ({
   level = "section",
-  grid = true,
+  grid = false,
   padding = true,
   sticky = false,
   className,
@@ -74,9 +73,9 @@ const Section: FC<SectionProps> = ({
     React.createElement(level, props, props.children);
   return (
     <SectionElement
-      className={`${cn(
-        sectionVariants({ level, grid, padding, sticky })
-      )} ${className}`}
+      className={cn(
+        sectionVariants({ level, grid, padding, sticky, className })
+      )}
       {...props}
     >
       {props.children}

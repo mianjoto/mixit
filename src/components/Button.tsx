@@ -15,7 +15,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "px-24 py-8 text-base tracking-tight",
-        cta: "px-56 py-12 text-lg tracking-tight",
+        cta: "w-full px-56 py-12 text-lg tracking-tight lg:w-fit",
       },
     },
     defaultVariants: {
