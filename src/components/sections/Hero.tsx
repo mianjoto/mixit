@@ -13,7 +13,8 @@ export function Hero({}) {
       <Section
         level="main"
         grid
-        className="lg:pl-100 min-h-screen w-full auto-rows-min  content-center items-end overflow-hidden px-32 pb-80 md:grid-rows-none lg:px-32 lg:pb-80"
+        padding
+        className="min-h-screen w-full auto-rows-min content-center items-end overflow-hidden md:grid-rows-none"
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">

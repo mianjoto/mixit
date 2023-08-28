@@ -2,11 +2,11 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const sectionVariants = cva("mx-auto", {
+const sectionVariants = cva("", {
   variants: {
     level: {
       section: "",
-      main: "u-container",
+      main: "u-container mx-auto",
       article: "",
       aside: "",
       header: "",
@@ -20,11 +20,11 @@ const sectionVariants = cva("mx-auto", {
       dialog: "",
     },
     grid: {
-      true: "u-grid",
+      true: "u-grid auto-rows-min place-content-center",
       false: "",
     },
     padding: {
-      true: "",
+      true: "px-32 pb-80 pt-64 lg:px-64 lg:py-80",
       false: "",
     },
     sticky: {
@@ -34,8 +34,9 @@ const sectionVariants = cva("mx-auto", {
   },
   defaultVariants: {
     level: "section",
-    grid: true,
+    grid: false,
     sticky: false,
+    padding: false,
   },
 });
 
@@ -64,7 +65,7 @@ interface SectionProps
 const Section: FC<SectionProps> = ({
   level = "section",
   grid = false,
-  padding = true,
+  padding = false,
   sticky = false,
   className,
   ...props

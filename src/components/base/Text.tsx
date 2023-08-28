@@ -6,10 +6,11 @@ import React, { FC } from "react";
 const textVariants = cva("font-normal leading-[24px]", {
   variants: {
     level: {
-      p: "text-base",
+      p: "max-w-prose text-base",
       small: "text-sm",
       strong: "font-bold",
       u: "inline-block font-bold text-accent underline underline-offset-4 hover:cursor-pointer",
+      figcaption: "max-w-prose",
 
       /**  This is left intentionally blank to provide client abstraction
        *   for the HTML span element while giving access to brand

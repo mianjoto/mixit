@@ -13,6 +13,7 @@ export enum TextLevels {
   small = "small",
   strong = "strong",
   u = "u",
+  figcaption = "figcaption",
   mark = "mark",
   summary = "summary",
   blockquote = "blockquote",
