@@ -14,21 +14,19 @@ const WhyUseMixit: React.FC = () => (
     padding
     className="u-container mx-auto min-h-screen auto-rows-min place-content-center"
   >
-    <div className="u-grid col-span-full mb-24">
-      <div className="col-span-full lg:col-span-6 lg:mb-32">
-        <div className="mb-16">
-          <Pretitle>Why use Mixit</Pretitle>
-          <Heading>Enjoy a new, true shuffle</Heading>
-        </div>
-        <Text>Spotify's shuffle can repeat songs, even in big playlists.</Text>
+    <div className="col-span-full mb-24 lg:col-span-6 lg:mb-32">
+      <div className="mb-16">
+        <Pretitle>Why use Mixit</Pretitle>
+        <Heading>Enjoy a new, true shuffle</Heading>
       </div>
-      <div className="col-span-full col-start-7 hidden lg:flex lg:flex-row lg:justify-center">
-        <Disc
-          className="h-full w-auto"
-          ringColor="accent-5"
-          spin="counterClockwise"
-        />
-      </div>
+      <Text>Spotify's shuffle can repeat songs, even in big playlists.</Text>
+    </div>
+    <div className="col-span-full col-start-7 row-start-1 row-end-2 hidden lg:flex lg:flex-row lg:justify-end">
+      <Disc
+        className="h-[130%] w-auto xl:h-[160%]"
+        ringColor="accent-5"
+        spin="counterClockwise"
+      />
     </div>
 
     <Section
