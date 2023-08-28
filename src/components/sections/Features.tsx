@@ -36,7 +36,7 @@ function Features() {
         }}
         bgColor={"secondary"}
         flexDirection={"col"}
-        className="mb-16 min-w-[75%] snap-start items-center gap-16 px-24 py-16 lg:min-w-fit lg:snap-none"
+        className="min-w-[75%] snap-start items-center gap-16 px-24 py-16 lg:min-w-fit lg:snap-none"
       />
     );
   });
@@ -44,11 +44,12 @@ function Features() {
   return (
     <Section
       grid
-      className="u-container min-h-screen auto-rows-min place-content-center overflow-hidden px-32 pb-80 pt-64 md:grid-rows-none lg:px-32 lg:py-80"
+      padding
+      className="u-container mx-auto min-h-screen overflow-hidden md:grid-rows-none"
     >
       <Section
         level="figure"
-        className="col-span-full row-start-2 inline-flex  w-full snap-x snap-mandatory scroll-px-16 flex-row gap-4 overflow-x-auto lg:col-span-6 lg:row-start-1 lg:grid lg:grid-cols-2  lg:grid-rows-[auto] lg:overflow-x-hidden"
+        className="col-span-full row-start-2 inline-flex w-full snap-x snap-mandatory scroll-px-16 flex-row gap-4 overflow-x-auto lg:col-span-6 lg:row-start-1 lg:grid lg:grid-cols-2 lg:grid-rows-[auto]  lg:gap-8 lg:overflow-x-hidden xl:gap-24"
       >
         {appCards}
       </Section>

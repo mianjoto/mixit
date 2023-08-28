@@ -11,18 +11,29 @@ import { Disc } from "../decorations/Disc";
 const WhyUseMixit: React.FC = () => (
   <Section
     grid
-    className="u-container min-h-screen auto-rows-min place-content-center px-32 py-64"
+    padding
+    className="u-container mx-auto min-h-screen auto-rows-min place-content-center"
   >
-    <div className="col-span-full mb-24">
-      <div className="mb-16">
-        <Pretitle>Why use Mixit</Pretitle>
-        <Heading>Enjoy a new, true shuffle</Heading>
+    <div className="u-grid col-span-full mb-24">
+      <div className="col-span-full lg:col-span-6 lg:mb-32">
+        <div className="mb-16">
+          <Pretitle>Why use Mixit</Pretitle>
+          <Heading>Enjoy a new, true shuffle</Heading>
+        </div>
+        <Text>Spotify's shuffle can repeat songs, even in big playlists.</Text>
       </div>
-      <Text>Spotify's shuffle can repeat songs, even in big playlists.</Text>
+      <div className="col-span-full col-start-7 hidden lg:flex lg:flex-row lg:justify-center">
+        <Disc
+          className="h-full w-auto"
+          ringColor="accent-5"
+          spin="counterClockwise"
+        />
+      </div>
     </div>
+
     <Section
       level="figure"
-      className="col-span-full flex h-fit flex-col border-l-[3px] border-[#CACACA]/10 py-16 ps-20"
+      className="col-span-full flex h-fit flex-col border-l-[3px] border-[#CACACA]/10 py-16 ps-20 lg:col-start-5 lg:self-end"
     >
       <div className="mb-8 flex min-h-[30px] max-w-[30px] flex-col items-center justify-center rounded-[8px] bg-secondary">
         <BarChartIcon className="h-auto min-h-[20px] fill-accent-1" />
@@ -35,12 +46,16 @@ const WhyUseMixit: React.FC = () => (
         shuffle every time.
       </Text>
     </Section>
-    <div className="col-start-1 col-end-3">
-      <Disc className="absolute -left-[30%] h-[50vw] w-[50vw]" />
+    <div className="col-start-1 col-end-3 row-start-3 lg:col-span-4 lg:row-span-2 lg:row-start-2">
+      <Disc
+        ringColor="accent-4"
+        className="absolute -left-[30%] h-[50vw] w-[50vw] lg:static lg:-left-0 lg:h-auto lg:w-full lg:max-w-[700px]"
+      />
     </div>
+
     <Section
       level="figure"
-      className="col-span-full col-start-3 flex h-fit flex-col border-l-[3px] border-[#CACACA]/10 py-16 ps-20"
+      className="col-span-full col-start-3 flex h-fit flex-col border-l-[3px] border-[#CACACA]/10 py-16 ps-20 lg:col-start-6"
     >
       <div className="mb-8 flex min-h-[30px] max-w-[30px] flex-col items-center justify-center rounded-[8px] bg-secondary">
         <QueueIcon className="h-auto min-h-[20px] fill-accent-2" />
