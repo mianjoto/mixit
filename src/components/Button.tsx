@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import Link from "next/link";
 
 const buttonVariants = cva(
-  "h-fit w-fit select-none rounded-[30px] font-bold uppercase transition duration-200 ease-in-out focus:ring",
+  "h-fit w-fit select-none rounded-[30px] text-center font-bold uppercase transition duration-200 ease-in-out focus:ring",
   {
     variants: {
       variant: {
