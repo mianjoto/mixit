@@ -9,11 +9,7 @@ import { QueueIcon } from "@/assets/svg";
 import { Disc } from "../decorations/Disc";
 
 const WhyUseMixit: React.FC = () => (
-  <Section
-    grid
-    padding
-    className="u-container mx-auto min-h-screen auto-rows-min place-content-center"
-  >
+  <Section grid padding container>
     <div className="col-span-full mb-24 lg:col-span-6 lg:mb-32">
       <div className="mb-16">
         <Pretitle>Why use Mixit</Pretitle>

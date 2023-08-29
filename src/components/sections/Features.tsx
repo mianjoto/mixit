@@ -42,11 +42,7 @@ function Features() {
   });
 
   return (
-    <Section
-      grid
-      padding
-      className="u-container mx-auto min-h-screen overflow-hidden md:grid-rows-none"
-    >
+    <Section grid padding container className="md:grid-rows-none">
       <Section
         level="figure"
         className="col-span-full row-start-2 inline-flex w-full snap-x snap-mandatory scroll-px-16 flex-row gap-4 overflow-x-auto lg:col-span-6 lg:row-start-1 lg:grid lg:grid-cols-2 lg:grid-rows-[auto]  lg:gap-8 lg:overflow-x-hidden xl:gap-24"
