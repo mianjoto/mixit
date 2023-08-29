@@ -45,7 +45,9 @@ function Features() {
     <Section
       grid
       padding
-      className="u-container mx-auto min-h-screen overflow-hidden md:grid-rows-none"
+      container
+      fitScreenHeight
+      className="md:grid-rows-none"
     >
       <Section
         level="figure"

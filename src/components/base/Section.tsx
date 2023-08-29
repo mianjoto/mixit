@@ -23,8 +23,16 @@ const sectionVariants = cva("", {
       true: "u-grid auto-rows-min place-content-center",
       false: "",
     },
+    container: {
+      true: "u-container mx-auto auto-rows-min place-content-center overflow-hidden",
+      false: "",
+    },
     padding: {
-      true: "px-32 pb-80 pt-64 lg:px-64 lg:py-80",
+      true: "px-32 py-64 lg:px-64 lg:py-80",
+      false: "",
+    },
+    fitScreenHeight: {
+      true: "min-h-screen",
       false: "",
     },
     sticky: {
@@ -35,8 +43,10 @@ const sectionVariants = cva("", {
   defaultVariants: {
     level: "section",
     grid: false,
-    sticky: false,
+    container: false,
     padding: false,
+    fitScreenHeight: false,
+    sticky: false,
   },
 });
 
@@ -65,7 +75,9 @@ interface SectionProps
 const Section: FC<SectionProps> = ({
   level = "section",
   grid = false,
+  container = false,
   padding = false,
+  fitScreenHeight = false,
   sticky = false,
   className,
   ...props
@@ -75,7 +87,15 @@ const Section: FC<SectionProps> = ({
   return (
     <SectionElement
       className={cn(
-        sectionVariants({ level, grid, padding, sticky, className })
+        sectionVariants({
+          level,
+          grid,
+          container,
+          padding,
+          sticky,
+          fitScreenHeight,
+          className,
+        })
       )}
       {...props}
     >

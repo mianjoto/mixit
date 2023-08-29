@@ -14,7 +14,9 @@ export function Hero({}) {
         level="main"
         grid
         padding
-        className="min-h-screen w-full auto-rows-min content-center items-end overflow-hidden md:grid-rows-none"
+        container
+        fitScreenHeight
+        className="items-end md:grid-rows-none"
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">

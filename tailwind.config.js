@@ -65,6 +65,15 @@ module.exports = {
         "disc-spin-cw": "spin 45s linear infinite",
         "disc-spin-ccw": "spin 45s linear infinite reverse",
       },
+      minHeight: {
+        screen: ["100vh /* fallback for Opera, IE and etc. */", "100svh"],
+      },
+      transitionProperty: {
+        height: "height, min-height",
+      },
+      height: {
+        screen: ["100vh /* fallback for Opera, IE and etc. */", "100svh"],
+      },
     },
   },
   plugins: [require("@shrutibalasa/tailwind-grid-auto-fit")],
