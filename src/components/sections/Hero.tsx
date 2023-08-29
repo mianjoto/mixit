@@ -15,6 +15,7 @@ export function Hero({}) {
         grid
         padding
         container
+        fitScreenHeight
         className="items-end md:grid-rows-none"
       >
         {/* Content */}
