@@ -15,9 +15,6 @@ function Features() {
   Object.keys(Apps).map((appKey) => {
     const appValue = Apps[appKey as keyof typeof Apps];
 
-    // Skip queue as it is not an advertised feature of Mixit
-    if (appValue === Apps.Queue) return;
-
     appCards.push(
       <AppCard
         key={appValue}

@@ -12,27 +12,34 @@ export enum Apps {
   Blender = "Blender",
   PickAndMix = "Pick And Mix",
   TimeMachine = "Time Machine",
+}
+
+export enum Features {
   Queue = "Queue",
 }
 
-type AppDataRecord = Record<
-  Apps,
+type AppOrFeature = Apps | Features;
+
+type AppFeatureDataRecord = Record<
+  AppOrFeature,
   {
     name: string;
     description: string;
     shortDescription: string;
     icon: any;
     iconBgColorClass: string;
+    href: string;
   }
 >;
 
-export const AppData: AppDataRecord = {
+export const AppData: AppFeatureDataRecord = {
   [Apps.Shuffler]: {
     name: "Shuffler",
     description: "Never repeat songs with a truly shuffled queue",
     shortDescription: "Truly shuffle your music",
     icon: ShufflerIcon,
     iconBgColorClass: ColorData["Accent-1"].bgClass,
+    href: "/shuffler",
   },
   [Apps.Blender]: {
     name: "Blender",
@@ -40,6 +47,7 @@ export const AppData: AppDataRecord = {
     shortDescription: "Blend from all playlists",
     icon: BlenderIcon,
     iconBgColorClass: ColorData["Accent-2"].bgClass,
+    href: "/blender",
   },
   [Apps.PickAndMix]: {
     name: "Pick And Mix",
@@ -47,6 +55,7 @@ export const AppData: AppDataRecord = {
     shortDescription: "Choose genres to blend",
     icon: PickAndMixIcon,
     iconBgColorClass: ColorData["Accent-3"].bgClass,
+    href: "/pick-and-mix",
   },
   [Apps.TimeMachine]: {
     name: "Time Machine",
@@ -54,12 +63,17 @@ export const AppData: AppDataRecord = {
     shortDescription: "Go back in time",
     icon: TimeMachineIcon,
     iconBgColorClass: ColorData["Accent-4"].bgClass,
+    href: "/time-machine",
   },
-  [Apps.Queue]: {
+} as AppFeatureDataRecord;
+
+export const FeatureData: AppFeatureDataRecord = {
+  [Features.Queue]: {
     name: "Queue",
     description: "Look at what tracks are coming up next.",
     shortDescription: "See upcoming tracks",
     icon: QueueIcon,
     iconBgColorClass: ColorData["Primary"].bgClass,
+    href: "/queue",
   },
-};
+} as AppFeatureDataRecord;
