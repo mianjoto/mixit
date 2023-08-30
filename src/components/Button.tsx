@@ -51,6 +51,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             ? "cursor-not-allowed opacity-30 active:translate-y-0"
             : ""
         )}
+        type="button"
         ref={ref}
         {...props}
       >
