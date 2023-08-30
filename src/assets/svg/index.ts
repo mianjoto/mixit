@@ -5,3 +5,6 @@ export { default as TimeMachineIcon } from "./time-machine-icon.svg";
 export { default as QueueIcon } from "./queue-icon.svg";
 export { default as BarChartIcon } from "./bar-chart.svg";
 export { default as DiscSVG } from "./disc.svg";
+export { default as InfoIcon } from "./info.svg";
+export { default as AppsIcon } from "./apps.svg";
+export { default as UserIcon } from "./user.svg";
