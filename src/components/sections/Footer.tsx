@@ -226,8 +226,8 @@ const MobileFooter: React.FC = () => {
 
 export const DesktopFooter: React.FC = () => {
   return (
-    <div className="u-grid hidden h-full max-h-[330px] w-full flex-1 lg:grid">
-      <div className="col-span-5 flex max-h-fit flex-col justify-between">
+    <div className="hidden h-full max-h-[330px] w-full flex-1 grid-cols-[2.5fr_1.5fr_1.25fr_1fr] lg:grid">
+      <div className="flex max-h-fit flex-col justify-between">
         <div className="flex flex-col gap-32">
           <Link href={"/"} aria-label="Mixit">
             <MixitLogo
@@ -255,7 +255,7 @@ export const DesktopFooter: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-3 flex h-full w-4/5 flex-1 flex-col gap-32">
+      <div className="flex h-full w-4/5 flex-col gap-32">
         <Heading
           level={HeadingLevels.h6}
           className="uppercase tracking-[3px] text-body"
@@ -263,7 +263,7 @@ export const DesktopFooter: React.FC = () => {
           About
         </Heading>
 
-        <div className="flex h-full flex-col gap-32">
+        <div className="flex h-full flex-col gap-24">
           {Object.values(Links.about).map((linkData) => (
             <LinkText
               href={linkData.href}
@@ -276,7 +276,7 @@ export const DesktopFooter: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-2 flex h-full flex-1 flex-col gap-32">
+      <div className="flex h-full flex-col gap-32">
         <Heading
           level={HeadingLevels.h6}
           className="uppercase tracking-[3px] text-body"
@@ -284,10 +284,10 @@ export const DesktopFooter: React.FC = () => {
           Apps
         </Heading>
 
-        <div className="flex h-full flex-col gap-32">{appsLinks}</div>
+        <div className="flex h-full flex-col gap-24">{appsLinks}</div>
       </div>
 
-      <div className="col-span-2 flex h-full flex-1 flex-col gap-32">
+      <div className="flex h-full flex-col gap-32">
         <Heading
           level={HeadingLevels.h6}
           className="uppercase tracking-[3px] text-body"
@@ -295,7 +295,7 @@ export const DesktopFooter: React.FC = () => {
           Contact
         </Heading>
 
-        <div className="flex h-full flex-col gap-32">
+        <div className="flex h-full flex-col gap-24">
           {Object.values(Links.contact).map((linkData) => (
             <LinkText
               href={linkData.href}

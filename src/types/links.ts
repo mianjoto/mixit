@@ -58,7 +58,7 @@ export const Links = {
       href: ContactData.links.github,
     } as Link,
     repo: {
-      text: "GitHub repository",
+      text: "Repository",
       href: ContactData.links.repo,
     } as Link,
   },
