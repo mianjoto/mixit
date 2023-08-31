@@ -12,7 +12,6 @@ export enum TextLevels {
   span = "span",
   small = "small",
   strong = "strong",
-  u = "u",
   figcaption = "figcaption",
   mark = "mark",
   summary = "summary",

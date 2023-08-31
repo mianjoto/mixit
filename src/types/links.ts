@@ -2,7 +2,7 @@ import { AppData } from "@/data/records/apps";
 import { Apps } from "./apps";
 import { ContactData } from "@/data/objects/contact";
 
-interface Link {
+export interface Link {
   text: string;
   href: string;
 }
@@ -18,7 +18,7 @@ export const Links = {
       href: "/about/404",
     } as Link,
     spotifyShuffle: {
-      text: "Why does Spotify shuffle not shuffle properly?",
+      text: "Why is Spotify shuffle not random?",
       href: "/about/404",
     } as Link,
     whatIsRandom: {
@@ -49,10 +49,6 @@ export const Links = {
       text: "Contact us",
       href: "/contact",
     } as Link,
-    email: {
-      text: "Email",
-      href: ContactData.links.email,
-    } as Link,
     linkedIn: {
       text: "LinkedIn",
       href: ContactData.links.linkedIn,
@@ -61,5 +57,15 @@ export const Links = {
       text: "GitHub",
       href: ContactData.links.github,
     } as Link,
+    repo: {
+      text: "GitHub repository",
+      href: ContactData.links.repo,
+    } as Link,
+  },
+  privacy: {
+    privacyPolicy: {
+      text: "Privacy Policy",
+      href: "/privacy",
+    },
   },
 };

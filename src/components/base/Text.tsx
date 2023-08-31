@@ -3,19 +3,14 @@ import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 
-const textVariants = cva("font-normal leading-[24px]", {
+const textVariants = cva("text-base leading-[24px]", {
   variants: {
     level: {
       p: "max-w-prose text-base",
       small: "text-sm",
       strong: "font-bold",
-      u: "inline-block font-bold text-accent underline underline-offset-4 hover:cursor-pointer",
       figcaption: "max-w-prose",
-
-      /**  This is left intentionally blank to provide client abstraction
-       *   for the HTML span element while giving access to brand
-       *   colors and apply any custom classes                             */
-      span: "",
+      span: "inline",
 
       /**  These text elements are unused at the moment, but this is left
        *   open for future expansion.                                      */
@@ -40,6 +35,10 @@ const textVariants = cva("font-normal leading-[24px]", {
       start: "text-start",
       end: "text-end",
     },
+    underline: {
+      true: "inline-block underline underline-offset-[6px] hover:cursor-pointer",
+      false: "",
+    },
   },
   defaultVariants: {
     level: "p",
@@ -57,6 +56,7 @@ const Text: FC<TextProps> = ({
   level = TextLevels.p,
   alignment = "left",
   textColor,
+  underline = false,
   className,
   ...props
 }) => {
@@ -65,7 +65,9 @@ const Text: FC<TextProps> = ({
 
   return (
     <TextElement
-      className={cn(textVariants({ level, alignment, textColor, className }))}
+      className={cn(
+        textVariants({ level, alignment, textColor, underline, className })
+      )}
       {...props}
     ></TextElement>
   );

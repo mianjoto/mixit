@@ -11,7 +11,6 @@ import { Disc } from "../decorations/Disc";
 import * as Accordion from "@radix-ui/react-accordion";
 import { PlusIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { InfoIcon, AppsIcon } from "@/assets/svg";
-import Link from "next/link";
 import ContactForm from "../ContactForm";
 import { Text } from "@/components/base/Text";
 import { ColorData } from "@/types/colors";
@@ -23,6 +22,9 @@ import AppCard from "../AppCard";
 import { Card } from "../Card";
 import { MixitLogo } from "@/assets/mixit";
 import { Links } from "@/types/links";
+import { LinkText } from "../base/LinkText";
+import { ContactData } from "@/data/objects/contact";
+import Link from "next/link";
 
 interface AccordionItemProps extends Accordion.AccordionItemProps {
   className?: string;
@@ -98,47 +100,40 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
     );
   }
 );
-
-interface FooterProps {
-  data: typeof Links;
-  className?: string;
-}
-
-const MobileFooter: React.FC<FooterProps> = ({
-  data,
-  className,
-}: FooterProps) => {
-  const aboutLinks = Object.values(data.about).map((linkData) => (
-    <Link href={linkData.href} className="block" key={linkData.text}>
-      {linkData.text}
+const appsLinks = Object.keys(AppData).map((appKey) => {
+  const app = AppData[appKey as Apps];
+  return (
+    <Link
+      href={app.href}
+      className="inline-flex w-fit flex-row items-center gap-8"
+      key={appKey}
+    >
+      <AppIcon
+        app={appKey as Apps}
+        shape={AppIconShapes.Square}
+        className="h-[20px] w-[20px] rounded-[3px] text-background"
+      />
+      <Text level={TextLevels.span}>{app.name}</Text>
     </Link>
-  ));
+  );
+});
 
-  const appsLinks = Object.keys(AppData).map((appKey) => {
-    const app = AppData[appKey as Apps];
-    return (
-      <Link
-        key={appKey}
-        href={app.href}
-        className="inline-flex flex-row items-center gap-8"
-      >
-        <AppIcon
-          app={appKey as Apps}
-          shape={AppIconShapes.Square}
-          className="h-[20px] w-[20px] rounded-[3px] text-background"
-        />
-        {app.name}
-      </Link>
-    );
-  });
+const MobileFooter: React.FC = () => {
+  const aboutLinks = Object.values(Links.about).map((linkData) => (
+    <LinkText href={linkData.href} key={linkData.text}>
+      {linkData.text}
+    </LinkText>
+  ));
 
   return (
     <Accordion.Root
       type="multiple"
       defaultValue={["item-1", "item-2"]}
-      className={cn("flex flex-col gap-24", className)}
+      className="flex flex-col gap-24 lg:hidden"
     >
-      <MixitLogo width="104px" height="auto" fill="#fff" />
+      <Link href={"/"} aria-label="Mixit">
+        <MixitLogo width="104px" height="auto" fill="#fff" className="block" />
+      </Link>
       <AccordionItem value="item-1">
         <AccordionTrigger>
           <div className="flex flex-row items-center gap-8">
@@ -189,11 +184,109 @@ const MobileFooter: React.FC<FooterProps> = ({
   );
 };
 
+export const DesktopFooter: React.FC = () => {
+  return (
+    <div className="u-grid hidden h-full max-h-[330px] w-full flex-1 lg:grid">
+      <div className="col-span-5 flex max-h-fit flex-col justify-between">
+        <div className="flex flex-col gap-32">
+          <Link href={"/"} aria-label="Mixit">
+            <MixitLogo
+              width="180px"
+              height="auto"
+              fill="#fff"
+              className="block"
+            />
+          </Link>
+          <LinkText href={Links.privacy.privacyPolicy}>Privacy Policy</LinkText>
+        </div>
+
+        <div className="flex flex-col">
+          <Text level={TextLevels.small}>Made with ❤️ by Miguel Jover.</Text>
+          <Text level={TextLevels.small}>
+            Find the code{" "}
+            <LinkText
+              href={Links.contact.repo}
+              textProps={{ level: TextLevels.small, underline: true }}
+            >
+              here
+            </LinkText>
+            .
+          </Text>
+        </div>
+      </div>
+
+      <div className="col-span-3 flex h-full w-4/5 flex-1 flex-col gap-32">
+        <Heading
+          level={HeadingLevels.h6}
+          className="uppercase tracking-[3px] text-body"
+        >
+          About
+        </Heading>
+
+        <div className="flex h-full flex-col gap-32">
+          {Object.values(Links.about).map((linkData) => (
+            <LinkText
+              href={linkData.href}
+              className="block"
+              key={linkData.text}
+            >
+              {linkData.text}
+            </LinkText>
+          ))}
+        </div>
+      </div>
+
+      <div className="col-span-2 flex h-full flex-1 flex-col gap-32">
+        <Heading
+          level={HeadingLevels.h6}
+          className="uppercase tracking-[3px] text-body"
+        >
+          Apps
+        </Heading>
+
+        <div className="flex h-full flex-col gap-32">{appsLinks}</div>
+      </div>
+
+      <div className="col-span-2 flex h-full flex-1 flex-col gap-32">
+        <Heading
+          level={HeadingLevels.h6}
+          className="uppercase tracking-[3px] text-body"
+        >
+          Contact
+        </Heading>
+
+        <div className="flex h-full flex-col gap-32">
+          {Object.values(Links.contact).map((linkData) => (
+            <LinkText
+              href={linkData.href}
+              className="block"
+              textProps={
+                linkData.text === Links.contact.contactUs.text
+                  ? { underline: true, className: "decoration-primary" }
+                  : {}
+              }
+              key={linkData.text}
+            >
+              {linkData.text}
+            </LinkText>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Footer: React.FC = () => {
   return (
     <>
-      <Section level="footer" padding>
-        <MobileFooter data={Links} className="lg:hidden" />
+      <Section
+        level="footer"
+        container
+        padding
+        className="flex flex-col justify-end lg:min-h-[80svh]"
+      >
+        <MobileFooter />
+        <DesktopFooter />
       </Section>
     </>
   );
