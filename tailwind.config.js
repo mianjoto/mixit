@@ -30,6 +30,10 @@ module.exports = {
         accent: "#B26EF7",
         body: "#FAFAFA",
         gray: "#CACACA",
+        success: "#a6e707",
+        caution: "#dbc217",
+        danger: "#e43446",
+        info: "#08a2f3",
         "spotify-green": "#1DB954",
         "accent-1": "#FF9785",
         "accent-2": "#33FF82",
@@ -61,7 +65,19 @@ module.exports = {
         xl: "clamp(2.25rem, 1.26vw + 1.93rem, 2.95rem)", // Section heading - H2
         "2xl": "clamp(3.38rem, 2.53vw + 2.74rem, 4.77rem)", // Title - H1
       },
+      keyframes: {
+        slideDown: {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        slideUp: {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
       animation: {
+        slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
         "disc-spin-cw": "spin 45s linear infinite",
         "disc-spin-ccw": "spin 45s linear infinite reverse",
       },
@@ -73,6 +89,13 @@ module.exports = {
       },
       height: {
         screen: ["100vh /* fallback for Opera, IE and etc. */", "100svh"],
+      },
+      backgroundColor: {
+        "accent-gradient": "rgb(255, 232, 51)",
+      },
+      backgroundImage: {
+        "accent-gradient":
+          "linear-gradient(45deg, rgba(255, 232, 51, 1) 0%, rgba(51, 255, 130, 1) 100%)",
       },
     },
   },

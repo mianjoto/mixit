@@ -1,7 +1,8 @@
 import { HeadingLevels, TextLevels } from "@/types/text";
 import AppCard from "../AppCard";
 import { Section } from "../base/Section";
-import { Apps, AppData } from "@/types/apps";
+import { Apps } from "@/types/apps";
+import { AppData } from "@/data/app-data";
 import React from "react";
 import { AppIconShapes } from "../AppIcon";
 import { Pretitle } from "../base/Pretitle";
@@ -14,9 +15,6 @@ function Features() {
   const appCards: React.JSX.Element[] = [];
   Object.keys(Apps).map((appKey) => {
     const appValue = Apps[appKey as keyof typeof Apps];
-
-    // Skip queue as it is not an advertised feature of Mixit
-    if (appValue === Apps.Queue) return;
 
     appCards.push(
       <AppCard

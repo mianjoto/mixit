@@ -1,6 +1,7 @@
 import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
-import { Apps, AppData } from "@/types/apps";
+import { Apps, Features } from "@/types/apps";
+import { AppData } from "@/data/records/apps";
 import { ColorData } from "@/types/colors";
 
 export enum AppIconShapes {
@@ -19,7 +20,7 @@ const appIconVariants = cva(
         [Apps.Blender]: "bg-accent-2",
         [Apps.PickAndMix]: "bg-accent-3",
         [Apps.TimeMachine]: "bg-accent-4",
-        [Apps.Queue]: "bg-accent-5",
+        [Features.Queue]: "bg-accent-5",
       },
       shape: {
         [AppIconShapes.Circle]: "rounded-full",

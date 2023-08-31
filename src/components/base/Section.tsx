@@ -20,7 +20,7 @@ const sectionVariants = cva("", {
       dialog: "",
     },
     grid: {
-      true: "u-grid auto-rows-min place-content-center",
+      true: "u-grid grid auto-rows-min place-content-center",
       false: "",
     },
     container: {
