@@ -9,7 +9,7 @@ import { BarChartIcon, ShufflerIcon, UserIcon } from "@/assets/svg";
 import { QueueIcon } from "@/assets/svg";
 import { Disc } from "../decorations/Disc";
 import * as Accordion from "@radix-ui/react-accordion";
-import { PlusIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { InfoIcon, AppsIcon } from "@/assets/svg";
 import ContactForm from "../ContactForm";
 import { Text } from "@/components/base/Text";
@@ -64,8 +64,8 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
           {...props}
         >
           {children}
-          <PlusIcon
-            className="transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180"
+          <ChevronDownIcon
+            className="text-body transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180"
             aria-hidden
           />
         </Accordion.Trigger>
