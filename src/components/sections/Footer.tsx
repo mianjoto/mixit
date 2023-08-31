@@ -126,61 +126,101 @@ const MobileFooter: React.FC = () => {
   ));
 
   return (
-    <Accordion.Root
-      type="multiple"
-      defaultValue={["item-1", "item-2"]}
-      className="flex flex-col gap-24 lg:hidden"
-    >
-      <Link href={"/"} aria-label="Mixit">
-        <MixitLogo width="104px" height="auto" fill="#fff" className="block" />
-      </Link>
-      <AccordionItem value="item-1">
-        <AccordionTrigger>
-          <div className="flex flex-row items-center gap-8">
-            <InfoIcon />
-            About
+    <>
+      <div className="lg:hidden">
+        <Accordion.Root
+          type="multiple"
+          defaultValue={["item-1", "item-2"]}
+          className="flex flex-col gap-24"
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <div className="flex flex-row items-center gap-8">
+                <InfoIcon />
+                About
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>{aboutLinks}</AccordionContent>
+          </AccordionItem>
+
+          <Separator />
+
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+              <div className="flex flex-row items-center gap-8">
+                <AppsIcon />
+                Apps
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              {/* TODO: Add API endpoints */}
+              <div className="grid grid-cols-2 gap-24">{appsLinks}</div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <Separator />
+
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              <div className="flex flex-row items-center gap-8">
+                <UserIcon fill="#fff" />
+                Contact
+              </div>
+            </AccordionTrigger>
+            <AccordionContent contentGapClass="gap-[20px]" className="mt-20">
+              <div>
+                <Heading level={HeadingLevels.h3} className="mb-[10px]">
+                  Want to get in touch?
+                </Heading>
+                <Text textColor="gray">
+                  Send me a message, and I'll get back to you as soon as
+                  possible.
+                </Text>
+              </div>
+              <ContactForm />
+            </AccordionContent>
+          </AccordionItem>
+          <Separator />
+        </Accordion.Root>
+
+        <div className="mt-64 flex flex-col gap-16 sm:items-center">
+          <div className="flex flex-col gap-8 sm:items-center">
+            <Link href={"/"} aria-label="Mixit" className="w-fit">
+              <MixitLogo
+                width="104px"
+                height="auto"
+                fill="#fff"
+                className="inline"
+              />
+            </Link>
+            <LinkText
+              href={Links.privacy.privacyPolicy}
+              textProps={{ level: TextLevels.small }}
+            >
+              Privacy Policy
+            </LinkText>
           </div>
-        </AccordionTrigger>
-        <AccordionContent>{aboutLinks}</AccordionContent>
-      </AccordionItem>
 
-      <Separator />
-
-      <AccordionItem value="item-2">
-        <AccordionTrigger>
-          <div className="flex flex-row items-center gap-8">
-            <AppsIcon />
-            Apps
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          {/* TODO: Add API endpoints */}
-          <div className="grid grid-cols-2 gap-24">{appsLinks}</div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <Separator />
-
-      <AccordionItem value="item-3">
-        <AccordionTrigger>
-          <div className="flex flex-row items-center gap-8">
-            <UserIcon fill="#fff" />
-            Contact
-          </div>
-        </AccordionTrigger>
-        <AccordionContent contentGapClass="gap-[20px]" className="mt-20">
-          <div>
-            <Heading level={HeadingLevels.h3} className="mb-[10px]">
-              Want to get in touch?
-            </Heading>
-            <Text textColor="gray">
-              Send me a message, and I'll get back to you as soon as possible.
+          <div className="flex flex-col sm:items-center">
+            <Text level={TextLevels.small}>Made with ❤️ by Miguel Jover.</Text>
+            <Text level={TextLevels.small}>
+              Find the code{" "}
+              <LinkText
+                href={Links.contact.repo}
+                textProps={{
+                  level: TextLevels.small,
+                  underline: true,
+                  underlineColor: "primary",
+                }}
+              >
+                here
+              </LinkText>
+              .
             </Text>
           </div>
-          <ContactForm />
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion.Root>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -262,7 +302,7 @@ export const DesktopFooter: React.FC = () => {
               className="block"
               textProps={
                 linkData.text === Links.contact.contactUs.text
-                  ? { underline: true, className: "decoration-primary" }
+                  ? { underline: true, underlineColor: "primary" }
                   : {}
               }
               key={linkData.text}

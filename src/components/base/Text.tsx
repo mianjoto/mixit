@@ -36,13 +36,25 @@ const textVariants = cva("text-base leading-[24px]", {
       end: "text-end",
     },
     underline: {
-      true: "inline-block underline underline-offset-[6px] hover:cursor-pointer",
+      true: "inline-block underline underline-offset-4 hover:cursor-pointer lg:underline-offset-[6px]",
       false: "",
+    },
+    underlineColor: {
+      primary: "decoration-primary",
+      secondary: "decoration-secondary",
+      tertiary: "decoration-tertiary",
+      accent: "decoration-accent",
+      body: "decoration-body",
+      gray: "decoration-gray",
+      background: "decoration-background",
     },
   },
   defaultVariants: {
     level: "p",
     textColor: "body",
+    alignment: "left",
+    underline: false,
+    underlineColor: "primary",
   },
 });
 
@@ -57,6 +69,7 @@ const Text: FC<TextProps> = ({
   alignment = "left",
   textColor,
   underline = false,
+  underlineColor,
   className,
   ...props
 }) => {
@@ -66,7 +79,14 @@ const Text: FC<TextProps> = ({
   return (
     <TextElement
       className={cn(
-        textVariants({ level, alignment, textColor, underline, className })
+        textVariants({
+          level,
+          alignment,
+          textColor,
+          underline,
+          underlineColor,
+          className,
+        })
       )}
       {...props}
     ></TextElement>
