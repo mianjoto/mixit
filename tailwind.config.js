@@ -90,6 +90,13 @@ module.exports = {
       height: {
         screen: ["100vh /* fallback for Opera, IE and etc. */", "100svh"],
       },
+      backgroundColor: {
+        "accent-gradient": "rgb(255, 232, 51)",
+      },
+      backgroundImage: {
+        "accent-gradient":
+          "linear-gradient(45deg, rgba(255, 232, 51, 1) 0%, rgba(51, 255, 130, 1) 100%)",
+      },
     },
   },
   plugins: [require("@shrutibalasa/tailwind-grid-auto-fit")],

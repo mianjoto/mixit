@@ -2,7 +2,7 @@ import { HeadingLevels, TextLevels } from "@/types/text";
 import AppCard from "../AppCard";
 import { Section } from "../base/Section";
 import { Apps } from "@/types/apps";
-import { AppData } from "@/data/records/apps";
+import { AppData } from "@/data/app-data";
 import React from "react";
 import { AppIconShapes } from "../AppIcon";
 import { Pretitle } from "../base/Pretitle";
