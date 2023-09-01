@@ -21,10 +21,10 @@ import { AppData } from "@/data/records/apps";
 import AppCard from "../AppCard";
 import { Card } from "../Card";
 import { MixitLogo } from "@/assets/mixit";
-import { Links } from "@/types/links";
 import { LinkText } from "../base/LinkText";
 import { ContactData } from "@/data/objects/contact";
 import Link from "next/link";
+import { FooterLinks } from "@/data/objects/footer-links";
 
 interface AccordionItemProps extends Accordion.AccordionItemProps {
   className?: string;
@@ -119,11 +119,9 @@ const appsLinks = Object.keys(AppData).map((appKey) => {
 });
 
 const MobileFooter: React.FC = () => {
-  const aboutLinks = Object.values(Links.about).map((linkData) => (
-    <LinkText href={linkData.href} key={linkData.text}>
-      {linkData.text}
-    </LinkText>
-  ));
+  const aboutLinks = Object.values(FooterLinks.columnLinks.about.links).map(
+    (linkData) => <LinkText link={linkData} key={linkData.text} />
+  );
 
   return (
     <>
@@ -194,28 +192,26 @@ const MobileFooter: React.FC = () => {
               />
             </Link>
             <LinkText
-              href={Links.privacy.privacyPolicy}
+              link={FooterLinks.watermark.links.privacyPolicy}
               textProps={{ level: TextLevels.small }}
-            >
-              Privacy Policy
-            </LinkText>
+            />
           </div>
 
           <div className="flex flex-col sm:items-center">
-            <Text level={TextLevels.small}>Made with ❤️ by Miguel Jover.</Text>
             <Text level={TextLevels.small}>
-              Find the code{" "}
+              {FooterLinks.watermark.links.madeWithLove.before}
               <LinkText
-                href={Links.contact.repo}
+                link={{
+                  text: FooterLinks.watermark.links.madeWithLove.linkText,
+                  href: FooterLinks.watermark.links.madeWithLove.href,
+                }}
                 textProps={{
                   level: TextLevels.small,
                   underline: true,
                   underlineColor: "primary",
                 }}
-              >
-                here
-              </LinkText>
-              .
+              />
+              {FooterLinks.watermark.links.madeWithLove.after}
             </Text>
           </div>
         </div>
@@ -229,89 +225,122 @@ export const DesktopFooter: React.FC = () => {
     <div className="hidden h-full max-h-[330px] w-full flex-1 grid-cols-[2.5fr_1.5fr_1.25fr_1fr] lg:grid">
       <div className="flex max-h-fit flex-col justify-between">
         <div className="flex flex-col gap-32">
-          <Link href={"/"} aria-label="Mixit">
+          <Link href={"/"} aria-label="Mixit" className="w-fit">
             <MixitLogo
               width="180px"
               height="auto"
               fill="#fff"
-              className="block"
+              className="inline"
             />
           </Link>
-          <LinkText href={Links.privacy.privacyPolicy}>Privacy Policy</LinkText>
+          <LinkText link={FooterLinks.watermark.links.privacyPolicy} />
         </div>
 
         <div className="flex flex-col">
-          <Text level={TextLevels.small}>Made with ❤️ by Miguel Jover.</Text>
           <Text level={TextLevels.small}>
-            Find the code{" "}
+            {FooterLinks.watermark.links.madeWithLove.before}
             <LinkText
-              href={Links.contact.repo}
-              textProps={{ level: TextLevels.small, underline: true }}
-            >
-              here
-            </LinkText>
-            .
+              link={{
+                text: FooterLinks.watermark.links.madeWithLove.linkText,
+                href: FooterLinks.watermark.links.madeWithLove.href,
+              }}
+              textProps={{
+                level: TextLevels.small,
+                underline: true,
+                underlineColor: "primary",
+              }}
+            />
+            {FooterLinks.watermark.links.madeWithLove.after}
           </Text>
         </div>
       </div>
+      {Object.entries(FooterLinks.columnLinks).map(([key, value]) => (
+        <div className="flex h-full flex-col gap-32">
+          <LinkText
+            link={value.header.link}
+            textProps={{
+              level: HeadingLevels.h6,
+              className: "uppercase tracking-[3px] text-body font-bold",
+            }}
+            key={key}
+          />
 
-      <div className="flex h-full w-4/5 flex-col gap-32">
-        <Heading
-          level={HeadingLevels.h6}
-          className="uppercase tracking-[3px] text-body"
-        >
-          About
-        </Heading>
+          <div className="flex h-full flex-col gap-24">
+            {/* Render logos if the app column */}
+            {value.header === FooterLinks.columnLinks.apps.header
+              ? appsLinks
+              : Object.values(value.links).map((link) => (
+                  <LinkText
+                    link={link}
+                    className="block"
+                    key={link.text}
+                    textProps={
+                      link.text === "Contact us"
+                        ? {
+                            level: TextLevels.span,
+                            underline: true,
+                            underlineColor: "primary",
+                          }
+                        : { level: TextLevels.span }
+                    }
+                  />
+                ))}
+          </div>
+        </div>
+      ))}
+
+      {/* <div className="flex h-full flex-col gap-32">
+        <LinkText
+          link={{
+            text: "About",
+            href: FooterLinks.columnLinks.about.header.link.href,
+          }}
+          textProps={{
+            level: HeadingLevels.h6,
+            className: "uppercase tracking-[3px] text-body font-bold",
+          }}
+        />
 
         <div className="flex h-full flex-col gap-24">
-          {Object.values(Links.about).map((linkData) => (
-            <LinkText
-              href={linkData.href}
-              className="block"
-              key={linkData.text}
-            >
-              {linkData.text}
-            </LinkText>
+          {Object.values(FooterLinks.columnLinks.about.links).map((link) => (
+            <LinkText link={link} className="block" key={link.text} />
           ))}
         </div>
       </div>
 
       <div className="flex h-full flex-col gap-32">
-        <Heading
-          level={HeadingLevels.h6}
-          className="uppercase tracking-[3px] text-body"
-        >
-          Apps
-        </Heading>
+        <LinkText
+          link={{
+            text: "Apps",
+            href: FooterLinks.columnLinks.apps.header.link.href,
+          }}
+          textProps={{
+            level: HeadingLevels.h6,
+            className: "uppercase tracking-[3px] text-body font-bold",
+          }}
+        />
 
         <div className="flex h-full flex-col gap-24">{appsLinks}</div>
       </div>
 
       <div className="flex h-full flex-col gap-32">
-        <Heading
-          level={HeadingLevels.h6}
-          className="uppercase tracking-[3px] text-body"
-        >
-          Contact
-        </Heading>
+        <LinkText
+          link={{
+            text: "Contact",
+            href: FooterLinks.columnLinks.contact.header.link.href,
+          }}
+          textProps={{
+            level: HeadingLevels.h6,
+            className: "uppercase tracking-[3px] text-body font-bold",
+          }}
+        />
 
         <div className="flex h-full flex-col gap-24">
-          {Object.values(Links.contact).map((linkData) => (
-            <LinkText
-              href={linkData.href}
-              className="block"
-              textProps={
-                linkData.text === Links.contact.contactUs.text
-                  ? { underline: true, underlineColor: "primary" }
-                  : {}
-              }
-              key={linkData.text}
-            >
-              {linkData.text}
-            </LinkText>
+          {Object.values(FooterLinks.columnLinks.contact.links).map((link) => (
+            <LinkText link={link} className="block" key={link.text} />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
