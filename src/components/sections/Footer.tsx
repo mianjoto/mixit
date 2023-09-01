@@ -2,27 +2,20 @@
 import React, { forwardRef } from "react";
 import { cn } from "@/utils/helpers";
 import { Section } from "../base/Section";
-import { Pretitle } from "@/components/base/Pretitle";
 import { Heading } from "../base/Heading";
 import { HeadingLevels, TextLevels } from "@/types/text";
-import { BarChartIcon, ShufflerIcon, UserIcon } from "@/assets/svg";
-import { QueueIcon } from "@/assets/svg";
-import { Disc } from "../decorations/Disc";
+import { UserIcon } from "@/assets/svg";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { InfoIcon, AppsIcon } from "@/assets/svg";
 import ContactForm from "../ContactForm";
 import { Text } from "@/components/base/Text";
-import { ColorData } from "@/types/colors";
 import Separator from "../Separator";
-import { AppIcon, AppIconShapes, AppIconProps } from "../AppIcon";
+import { AppIcon, AppIconShapes } from "../AppIcon";
 import { Apps } from "@/types/apps";
 import { AppData } from "@/data/records/apps";
-import AppCard from "../AppCard";
-import { Card } from "../Card";
 import { MixitLogo } from "@/assets/mixit";
 import { LinkText } from "../base/LinkText";
-import { ContactData } from "@/data/objects/contact";
 import Link from "next/link";
 import { FooterLinks } from "@/data/objects/footer-links";
 
@@ -288,59 +281,6 @@ export const DesktopFooter: React.FC = () => {
           </div>
         </div>
       ))}
-
-      {/* <div className="flex h-full flex-col gap-32">
-        <LinkText
-          link={{
-            text: "About",
-            href: FooterLinks.columnLinks.about.header.link.href,
-          }}
-          textProps={{
-            level: HeadingLevels.h6,
-            className: "uppercase tracking-[3px] text-body font-bold",
-          }}
-        />
-
-        <div className="flex h-full flex-col gap-24">
-          {Object.values(FooterLinks.columnLinks.about.links).map((link) => (
-            <LinkText link={link} className="block" key={link.text} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex h-full flex-col gap-32">
-        <LinkText
-          link={{
-            text: "Apps",
-            href: FooterLinks.columnLinks.apps.header.link.href,
-          }}
-          textProps={{
-            level: HeadingLevels.h6,
-            className: "uppercase tracking-[3px] text-body font-bold",
-          }}
-        />
-
-        <div className="flex h-full flex-col gap-24">{appsLinks}</div>
-      </div>
-
-      <div className="flex h-full flex-col gap-32">
-        <LinkText
-          link={{
-            text: "Contact",
-            href: FooterLinks.columnLinks.contact.header.link.href,
-          }}
-          textProps={{
-            level: HeadingLevels.h6,
-            className: "uppercase tracking-[3px] text-body font-bold",
-          }}
-        />
-
-        <div className="flex h-full flex-col gap-24">
-          {Object.values(FooterLinks.columnLinks.contact.links).map((link) => (
-            <LinkText link={link} className="block" key={link.text} />
-          ))}
-        </div>
-      </div> */}
     </div>
   );
 };

@@ -74,10 +74,20 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        rotate180: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(180deg)" },
+        },
+        fadeOut: { from: { opacity: 1 }, to: { opacity: 0 } },
+        fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
       },
       animation: {
         slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
         slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        spinFadeOut:
+          "rotate180 300ms cubic-bezier(.8,0,.2,1), fadeOut 300ms ease-in-out",
+        spinFadeIn:
+          "rotate180 300ms cubic-bezier(.8,0,.2,1), fadeIn 300ms ease-in-out",
         "disc-spin-cw": "spin 45s linear infinite",
         "disc-spin-ccw": "spin 45s linear infinite reverse",
       },
@@ -96,6 +106,12 @@ module.exports = {
       backgroundImage: {
         "accent-gradient":
           "linear-gradient(45deg, rgba(255, 232, 51, 1) 0%, rgba(51, 255, 130, 1) 100%)",
+      },
+      minWidth: {
+        screen: ["100vh /* fallback for Opera, IE and etc. */", "100svw"],
+      },
+      width: {
+        screen: ["100vh /* fallback for Opera, IE and etc. */", "100svw"],
       },
     },
   },
