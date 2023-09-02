@@ -2,7 +2,7 @@
 import { MixitLogo } from "@/assets/mixit";
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
 import { LinkText } from "../base/LinkText";
@@ -11,6 +11,8 @@ import { NavbarHeight, NavbarLinks } from "@/data/objects/navbar-data";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { Heading, HeadingProps } from "../base/Heading";
 import { Button } from "../Button";
+
+let hideAccordion: boolean = false;
 
 const Navbar: React.FC = () => {
   const mobileLinkStyles: HeadingProps = {
@@ -31,13 +33,15 @@ const Navbar: React.FC = () => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
-    console.log("latest=" + latest + ", previous=" + previous);
     if (latest > previous && latest > 150) {
       setHidden(true);
+      hideAccordion = true;
     } else {
       setHidden(false);
+      hideAccordion = false;
     }
   });
+
   return (
     <motion.nav
       variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
@@ -136,7 +140,7 @@ function MobileNavbar(navbarLinkElements: React.ReactNode) {
         width="auto"
         className="w-fit max-w-[70px]"
       />
-      <Accordion.Item value="item-1" className="group">
+      <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
         <AccordionTrigger />
         <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
           <div className="flex flex-col items-end gap-40 px-32 py-64">
