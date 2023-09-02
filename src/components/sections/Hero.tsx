@@ -17,7 +17,7 @@ export function Hero({}) {
         padding
         container
         fitScreenHeight
-        className={`relative -top-[${NavbarHeight.mobile}] items-end md:grid-rows-none`}
+        className={`relative -top-[${NavbarHeight.mobile}] items-end md:grid-rows-none lg:top-0`}
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">
