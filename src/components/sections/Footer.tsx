@@ -14,10 +14,10 @@ import Separator from "../Separator";
 import { AppIcon, AppIconShapes } from "../AppIcon";
 import { Apps } from "@/types/apps";
 import { AppData } from "@/data/records/apps";
-import { MixitLogo } from "@/assets/mixit";
 import { LinkText } from "../base/LinkText";
 import Link from "next/link";
 import { FooterLinks } from "@/data/objects/footer-links";
+import MixitHomeLogo from "../MixitHomeLogo";
 
 interface AccordionItemProps extends Accordion.AccordionItemProps {
   className?: string;
@@ -144,7 +144,6 @@ const MobileFooter: React.FC = () => {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              {/* TODO: Add API endpoints */}
               <div className="grid grid-cols-2 gap-24">{appsLinks}</div>
             </AccordionContent>
           </AccordionItem>
@@ -176,14 +175,7 @@ const MobileFooter: React.FC = () => {
 
         <div className="mt-64 flex flex-col gap-16 sm:items-center">
           <div className="flex flex-col gap-8 sm:items-center">
-            <Link href={"/"} aria-label="Mixit" className="w-fit">
-              <MixitLogo
-                width="104px"
-                height="auto"
-                fill="#fff"
-                className="inline"
-              />
-            </Link>
+            <MixitHomeLogo width="108px" />
             <LinkText
               link={FooterLinks.watermark.links.privacyPolicy}
               textProps={{ level: TextLevels.small }}
@@ -218,14 +210,7 @@ export const DesktopFooter: React.FC = () => {
     <div className="hidden h-full max-h-[330px] w-full flex-1 grid-cols-[2.5fr_1.5fr_1.25fr_1fr] lg:grid">
       <div className="flex max-h-fit flex-col justify-between">
         <div className="flex flex-col gap-32">
-          <Link href={"/"} aria-label="Mixit" className="w-fit">
-            <MixitLogo
-              width="180px"
-              height="auto"
-              fill="#fff"
-              className="inline"
-            />
-          </Link>
+          <MixitHomeLogo width="180px" />
           <LinkText link={FooterLinks.watermark.links.privacyPolicy} />
         </div>
 
