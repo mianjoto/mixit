@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
       animate={hidden ? "hidden" : "visible"}
       className={cn(
         `h-${NavbarHeight.mobile}`,
-        "sticky top-0 z-40 mx-auto flex h-[60px] w-screen flex-row overflow-x-hidden bg-background px-32 py-16 lg:py-32"
+        "sticky top-0 z-40 mx-auto flex h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:py-32"
       )}
     >
       {mobileNavbar}
