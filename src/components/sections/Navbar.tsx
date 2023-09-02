@@ -2,66 +2,35 @@
 import { MixitLogo } from "@/assets/mixit";
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 
-import React, { forwardRef } from "react";
+import React from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
 import { LinkText } from "../base/LinkText";
-import { Links } from "@/types/links";
+import { Links, Link as LinkType } from "@/types/links";
 import { NavbarLinks } from "@/data/objects/navbar-links";
 import { HeadingLevels, TextLevels } from "@/types/text";
-import Link from "next/link";
 import { Heading, HeadingProps } from "../base/Heading";
 import { Button } from "../Button";
+import { TextProps } from "../base/Text";
 
 const Navbar: React.FC = () => {
+  const mobileLinkStyles: HeadingProps = {
+    level: HeadingLevels.h2,
+    className: "uppercase",
+  };
+  const desktopLinkStyles: HeadingProps = {
+    level: HeadingLevels.h4,
+    className: "uppercase tracking-[3px]",
+  };
+
+  const mobileNavbar = MobileNavbar(NavbarLinkElements(mobileLinkStyles));
+  const desktopNavbar = DesktopNavbar(NavbarLinkElements(desktopLinkStyles));
+
   return (
-    <nav className="absolute z-40 flex h-[60px] w-screen flex-row bg-background px-32 py-16">
-      <Accordion.Root
-        type="single"
-        collapsible
-        className="flex flex-1 flex-row items-center justify-between"
-      >
-        <MixitLogo
-          fill="#fff"
-          height="auto"
-          width="auto"
-          className="w-fit max-w-[70px]"
-        />
-        <Accordion.Item value="item-1" className="group">
-          <AccordionTrigger />
-          <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-            <div className="flex flex-col items-end gap-40 px-32 py-64">
-              <div className="flex flex-col items-end gap-20">
-                {NavbarLinks.map((link) => (
-                  <LinkText
-                    link={link}
-                    textProps={{
-                      className: "uppercase",
-                      level: HeadingLevels.h2,
-                    }}
-                    isHeading
-                  />
-                ))}
-              </div>
-              <Button
-                variant="outline"
-                size="cta"
-                href={Links.apps.root.href}
-                className="w-fit"
-              >
-                <Heading
-                  className="uppercase"
-                  textColor="primary"
-                  alignment="center"
-                  level={HeadingLevels.h2}
-                >
-                  Mix now
-                </Heading>
-              </Button>
-            </div>
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
+    <nav className="absolute z-40 mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:py-32">
+      {mobileNavbar}
+      {/* Desktop Navbar is rendered when viewport >= lg breakpoint (1024px) */}
+      {desktopNavbar}
     </nav>
   );
 };
@@ -101,4 +70,80 @@ const AccordionTrigger = React.forwardRef<
   );
 });
 
+const NavbarLinkElements = (
+  linkHeadingStyle: HeadingProps
+): React.ReactNode => {
+  return NavbarLinks.map((link) => {
+    return RenderNavbarLinkElement(link, linkHeadingStyle);
+  });
+};
+
+const RenderNavbarLinkElement = (
+  link: LinkType,
+  textStyle: HeadingProps
+): React.ReactNode => {
+  return link.href === Links.apps.root.href ? (
+    <Button
+      variant="outline"
+      size="default"
+      href={Links.apps.root.href}
+      className="w-fit"
+    >
+      <Heading
+        className={cn("uppercase", textStyle.className)}
+        textColor="primary"
+        alignment="center"
+        level={textStyle.level}
+      >
+        Mix now
+      </Heading>
+    </Button>
+  ) : (
+    <LinkText link={link} textProps={textStyle} isHeading />
+  );
+};
+
+function MobileNavbar(navbarLinkElements: React.ReactNode) {
+  return (
+    <Accordion.Root
+      type="single"
+      collapsible
+      className="flex flex-1 flex-row items-center justify-between lg:hidden"
+    >
+      <MixitLogo
+        fill="#fff"
+        height="auto"
+        width="auto"
+        className="w-fit max-w-[70px]"
+      />
+      <Accordion.Item value="item-1" className="group">
+        <AccordionTrigger />
+        <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+          <div className="flex flex-col items-end gap-40 px-32 py-64">
+            <div className="flex flex-col items-end gap-20">
+              {navbarLinkElements}
+            </div>
+          </div>
+        </Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
+  );
+}
+
 export default Navbar;
+
+function DesktopNavbar(navbarLinkElements: React.ReactNode) {
+  return (
+    <div className="u-container mx-auto hidden h-fit flex-1 flex-row items-center justify-between px-64 py-16 lg:flex">
+      <MixitLogo
+        fill="#fff"
+        height="auto"
+        width="auto"
+        className="w-fit max-w-[125px]"
+      />
+      <div className="flex flex-row items-center gap-64 ">
+        {navbarLinkElements}
+      </div>
+    </div>
+  );
+}
