@@ -9,6 +9,10 @@ export interface Link {
 
 export const Links = {
   about: {
+    root: {
+      text: "About",
+      href: "/about",
+    },
     whyUseMixit: {
       text: "Why use Mixit?",
       href: "/about/404",
@@ -27,6 +31,10 @@ export const Links = {
     } as Link,
   },
   apps: {
+    root: {
+      text: "Dashboard",
+      href: "/dashboard",
+    },
     [Apps.Shuffler]: {
       text: AppData.Shuffler.name,
       href: AppData.Shuffler.href,
@@ -45,8 +53,8 @@ export const Links = {
     } as Link,
   },
   contact: {
-    contactUs: {
-      text: "Contact us",
+    root: {
+      text: "Contact",
       href: "/contact",
     } as Link,
     linkedIn: {
@@ -63,7 +71,7 @@ export const Links = {
     } as Link,
   },
   privacy: {
-    privacyPolicy: {
+    root: {
       text: "Privacy Policy",
       href: "/privacy",
     },

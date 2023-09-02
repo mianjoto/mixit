@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import Link from "next/link";
 
 const buttonVariants = cva(
-  "h-fit w-fit select-none rounded-[30px] text-center font-bold uppercase transition duration-200 ease-in-out focus:ring",
+  "h-fit w-fit select-none rounded-[30px] text-center font-bold uppercase leading-normal transition duration-200 ease-in-out focus:ring lg:leading-none",
   {
     variants: {
       variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "px-24 py-8 text-base tracking-tight",
-        cta: "w-full px-56 py-12 text-lg tracking-tight lg:w-fit",
+        cta: "w-full px-32 py-12 text-lg tracking-tight lg:w-fit lg:px-56 lg:text-[32px]",
       },
     },
     defaultVariants: {

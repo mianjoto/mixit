@@ -2,29 +2,31 @@ import React, { FC } from "react";
 import { Text, TextProps } from "./Text";
 import Link, { LinkProps } from "next/link";
 import { Link as LinkType } from "@/types/links";
-import { TextLevels } from "@/types/text";
+import { HeadingLevels, TextLevels } from "@/types/text";
 import { cn } from "@/utils/helpers";
+import { Heading, HeadingProps } from "./Heading";
 
 interface LinkTextProps {
-  href: LinkType | string;
-  textProps?: TextProps;
-  children?: React.ReactNode;
+  link: LinkType;
+  textProps?: TextProps | HeadingProps;
+  isHeading?: boolean;
   className?: string;
 }
 
 const LinkText: FC<LinkTextProps> = ({
-  href,
+  link = { href: "/404", text: "MISSING LINK, PLEASE FIX :)" },
   textProps = { level: TextLevels.span },
+  isHeading = false,
   className,
   ...props
 }: LinkTextProps) => {
   return (
-    <Link
-      {...props}
-      className={cn("w-fit", className)}
-      href={typeof href === "object" ? href.href : href}
-    >
-      <Text {...textProps}>{props.children}</Text>
+    <Link {...props} className={cn("w-fit", className)} href={link.href}>
+      {isHeading ? (
+        <Heading {...(textProps as HeadingProps)}>{link.text}</Heading>
+      ) : (
+        <Text {...(textProps as TextProps)}>{link.text}</Text>
+      )}
     </Link>
   );
 };

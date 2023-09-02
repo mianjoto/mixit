@@ -4,10 +4,12 @@ import WhyUseMixit from "@/components/sections/WhyUseMixit";
 import CallToAction from "@/components/sections/CallToAction";
 import Footer from "@/components/sections/Footer";
 import Separator from "@/components/Separator";
+import Navbar from "@/components/sections/Navbar";
 
 export default function Index() {
   return (
     <>
+      <Navbar />
       <Hero />
       <Features />
       <WhyUseMixit />

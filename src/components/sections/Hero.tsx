@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import Link from "next/link";
 import { Disc } from "../decorations/Disc";
 import { HeadingLevels, TextLevels } from "@/types/text";
+import { NavbarHeight } from "@/data/objects/navbar-data";
 
 export function Hero({}) {
   return (
@@ -16,7 +17,7 @@ export function Hero({}) {
         padding
         container
         fitScreenHeight
-        className="items-end md:grid-rows-none"
+        className={`relative -top-[${NavbarHeight.mobile}] items-end md:grid-rows-none lg:top-0`}
       >
         {/* Content */}
         <div className="col-span-full row-start-2 lg:col-span-6 lg:row-start-1">
