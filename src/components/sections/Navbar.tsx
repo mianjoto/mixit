@@ -1,17 +1,16 @@
 "use client";
 import { MixitLogo } from "@/assets/mixit";
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
-
-import React from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import React, { useEffect, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
 import { LinkText } from "../base/LinkText";
 import { Links, Link as LinkType } from "@/types/links";
-import { NavbarLinks } from "@/data/objects/navbar-links";
+import { NavbarHeight, NavbarLinks } from "@/data/objects/navbar-data";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { Heading, HeadingProps } from "../base/Heading";
 import { Button } from "../Button";
-import { TextProps } from "../base/Text";
 
 const Navbar: React.FC = () => {
   const mobileLinkStyles: HeadingProps = {
@@ -26,12 +25,33 @@ const Navbar: React.FC = () => {
   const mobileNavbar = MobileNavbar(NavbarLinkElements(mobileLinkStyles));
   const desktopNavbar = DesktopNavbar(NavbarLinkElements(desktopLinkStyles));
 
+  const { scrollY } = useScroll();
+
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    console.log("latest=" + latest + ", previous=" + previous);
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
   return (
-    <nav className="absolute z-40 mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:py-32">
+    <motion.nav
+      variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      animate={hidden ? "hidden" : "visible"}
+      className={cn(
+        `h-${NavbarHeight.mobile}`,
+        "sticky top-0 z-40 mx-auto flex h-[60px] w-screen flex-row overflow-x-hidden bg-background px-32 py-16 lg:py-32"
+      )}
+    >
       {mobileNavbar}
       {/* Desktop Navbar is rendered when viewport >= lg breakpoint (1024px) */}
       {desktopNavbar}
-    </nav>
+    </motion.nav>
   );
 };
 
