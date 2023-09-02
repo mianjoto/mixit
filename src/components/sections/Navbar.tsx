@@ -43,19 +43,25 @@ const Navbar: React.FC = () => {
   });
 
   return (
-    <motion.nav
-      variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      animate={hidden ? "hidden" : "visible"}
-      className={cn(
-        `h-${NavbarHeight.mobile}`,
-        "sticky top-0 z-40 mx-auto flex h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:py-32"
-      )}
-    >
-      {mobileNavbar}
-      {/* Desktop Navbar is rendered when viewport >= lg breakpoint (1024px) */}
-      {desktopNavbar}
-    </motion.nav>
+    <nav className="sticky top-0 z-40 lg:absolute">
+      <motion.div
+        variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        animate={hidden ? "hidden" : "visible"}
+        className=" mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden"
+      >
+        {mobileNavbar}
+      </motion.div>
+
+      <div
+        className={cn(
+          `h-${NavbarHeight.mobile}`,
+          "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32 "
+        )}
+      >
+        {desktopNavbar}
+      </div>
+    </nav>
   );
 };
 
@@ -158,7 +164,7 @@ export default Navbar;
 
 function DesktopNavbar(navbarLinkElements: React.ReactNode) {
   return (
-    <div className="u-container mx-auto hidden h-fit flex-1 flex-row items-center justify-between px-64 py-16 lg:flex">
+    <div className="u-container mx-auto  flex h-fit flex-1 flex-row items-center justify-between px-64 py-16">
       <MixitLogo
         fill="#fff"
         height="auto"
