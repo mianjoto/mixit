@@ -15,6 +15,7 @@ import { LinkText } from "../base/LinkText";
 import { Links } from "@/types/links";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../HoverCard";
 import { Button } from "../Button";
+import Separator from "../Separator";
 
 export const DashboardNavbar = () => {
   return (
@@ -69,11 +70,19 @@ const mobileNavbarContent = MobileNavbarWrapper(
       </div>
       <NavigationMenu.Indicator />
     </NavigationMenu.List>
+    <div className="flex flex-row items-center justify-center gap-16 text-center uppercase tracking-widest opacity-30">
+      <LinkText link={Links.about.root} textProps={{ className: "text-xs" }} />
+      <Separator orientation="vertical" className="h-[10px]" />
+
+      <LinkText
+        link={{ href: Links.privacy.root.href, text: "Privacy" }}
+        textProps={{ className: "text-xs" }}
+      />
+    </div>
   </NavigationMenu.Root>
 );
 
 const desktopNavbarContent = (): React.ReactElement => {
-  const privacyLink = { href: Links.privacy.root.href, text: "Privacy" };
   return (
     <NavigationMenu.Root className="hidden h-screen flex-col items-center justify-between bg-tertiary px-16 py-64 lg:flex">
       <MixitLogo
@@ -143,7 +152,10 @@ const desktopNavbarContent = (): React.ReactElement => {
           link={Links.about.root}
           textProps={{ className: "text-xs" }}
         />
-        <LinkText link={privacyLink} textProps={{ className: "text-xs" }} />
+        <LinkText
+          link={{ href: Links.privacy.root.href, text: "Privacy" }}
+          textProps={{ className: "text-xs" }}
+        />
       </div>
     </NavigationMenu.Root>
   );

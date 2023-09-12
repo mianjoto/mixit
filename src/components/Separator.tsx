@@ -4,6 +4,10 @@ import React from "react";
 
 const separatorVariants = cva("", {
   variants: {
+    orientation: {
+      horizontal: "h-[1px] w-full",
+      vertical: "h-full w-[1px]",
+    },
     color: {
       gray: "bg-gray",
       white: "bg-body",
@@ -22,7 +26,7 @@ const separatorVariants = cva("", {
       "15px": "h-[15px]",
     },
   },
-  defaultVariants: { color: "gray", height: "1px" },
+  defaultVariants: { orientation: "horizontal", color: "gray", height: "1px" },
 });
 
 interface SeparatorProps extends VariantProps<typeof separatorVariants> {
@@ -40,10 +44,18 @@ interface SeparatorProps extends VariantProps<typeof separatorVariants> {
   className?: string;
 }
 
-const Separator = ({ color = "gray", height, className }: SeparatorProps) => {
+const Separator = ({
+  orientation,
+  color = "gray",
+  height,
+  className,
+}: SeparatorProps) => {
   return (
     <span
-      className={cn(separatorVariants({ color, height }), className)}
+      className={cn(
+        separatorVariants({ orientation, color, height }),
+        className
+      )}
     ></span>
   );
 };
