@@ -6,14 +6,14 @@ import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
-import { LinkText } from "../base/LinkText";
+import { LinkText } from "./ui/link-text";
 import { Links, Link as LinkType } from "@/types/links";
 import { NavbarHeight, NavbarLinks } from "@/data/objects/navbar-data";
 import { HeadingLevels, TextLevels } from "@/types/text";
-import { Heading, HeadingProps } from "../base/Heading";
-import { Button } from "../Button";
+import { Heading, HeadingProps } from "./ui/heading";
+import { Button } from "./ui/button";
 import { VariantProps, cva } from "class-variance-authority";
-import MixitHomeLogo from "../MixitHomeLogo";
+import MixitHomeLogo from "./ui/mixit-home-logo";
 
 let hideAccordion: boolean = false;
 const VISIBILITY_THRESHOLD = 150;

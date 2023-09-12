@@ -1,14 +1,13 @@
 import { HeadingLevels, TextLevels } from "@/types/text";
-import AppCard from "../AppCard";
-import { Section } from "../base/Section";
+import AppCard from "./ui/app-card";
+import { Section } from "./ui/section";
 import { Apps } from "@/types/apps";
-import { AppData } from "@/data/app-data";
 import React from "react";
-import { AppIconShapes } from "../AppIcon";
-import { Pretitle } from "../base/Pretitle";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
-import { Button } from "../Button";
+import { AppIconShapes } from "./ui/app-icon";
+import { Pretitle } from "./ui/pretitle";
+import { Heading } from "./ui/heading";
+import { Text } from "./ui/text";
+import { Button } from "./ui/button";
 import Link from "next/link";
 
 function Features() {

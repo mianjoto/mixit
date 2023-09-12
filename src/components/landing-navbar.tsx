@@ -1,11 +1,11 @@
 "use client";
 import { HeadingLevels } from "@/types/text";
-import { HeadingProps } from "./base/Heading";
+import { HeadingProps } from "./ui/heading";
 import Navbar, {
   DesktopNavbarWrapper,
   MobileNavbarWrapper,
   NavbarLinkElements,
-} from "./sections/Navbar";
+} from "./navbar";
 
 export const LandingNavbar = () => {
   const mobileLinkStyles: HeadingProps = {

@@ -3,19 +3,19 @@
 import React from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { AppData } from "@/data/records/apps";
-import { AppIcon, AppIconShapes } from "../AppIcon";
+import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
-import { HeadingLevels } from "../../types/text";
+import { Heading } from "./ui/heading";
+import { Text } from "./ui/text";
+import { HeadingLevels } from "../types/text";
 import { AppsIcon } from "@/assets/svg";
-import Navbar, { MobileNavbarWrapper } from "./Navbar";
-import { LinkText } from "../base/LinkText";
+import Navbar, { MobileNavbarWrapper } from "./navbar";
+import { LinkText } from "./ui/link-text";
 import { Links } from "@/types/links";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../HoverCard";
-import { Button } from "../Button";
-import Separator from "../Separator";
-import MixitHomeLogo from "../MixitHomeLogo";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { Button } from "./ui/button";
+import Separator from "./ui/separator";
+import MixitHomeLogo from "./ui/mixit-home-logo";
 
 export const DashboardNavbar = () => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
-import { Section } from "../base/Section";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
-import { Button } from "../Button";
+import { Section } from "./ui/section";
+import { Heading } from "./ui/heading";
+import { Text } from "./ui/text";
+import { Button } from "./ui/button";
 
 const CallToAction: React.FC = () => (
   <Section

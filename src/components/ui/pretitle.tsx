@@ -1,8 +1,8 @@
 import { cn } from "@/utils/helpers";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
-import { HeadingProps } from "./Heading";
-import { headingVariants } from "./Heading";
+import { HeadingProps } from "./heading";
+import { headingVariants } from "./heading";
 import { HeadingLevels } from "@/types/text";
 
 interface PretitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
