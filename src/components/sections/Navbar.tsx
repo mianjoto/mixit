@@ -2,7 +2,7 @@
 import { MixitLogo } from "@/assets/mixit";
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
@@ -12,17 +12,61 @@ import { NavbarHeight, NavbarLinks } from "@/data/objects/navbar-data";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { Heading, HeadingProps } from "../base/Heading";
 import { Button } from "../Button";
+import { VariantProps, cva } from "class-variance-authority";
 
 let hideAccordion: boolean = false;
+const VISIBILITY_THRESHOLD = 150;
 
-interface NavbarProps {
-  mobileNavbarContent: React.ReactElement;
-  desktopNavbarContent: React.ReactElement;
+const navbarVariants = cva("z-40", {
+  variants: {
+    position: {
+      default: "sticky lg:absolute",
+      sticky: "sticky",
+      absolute: "absolute",
+      static: "static",
+    },
+    mobileAnchor: {
+      none: "",
+      top: "top-0",
+      right: "right-0",
+      left: "left-0",
+      bottom: "bottom-0",
+    },
+    desktopAnchor: {
+      none: "",
+      top: "lg:top-0",
+      right: "lg:right-0",
+      left: "lg:left-0",
+      bottom: "lg:bottom-0",
+    },
+  },
+  defaultVariants: {
+    position: "default",
+    mobileAnchor: "top",
+    desktopAnchor: "top",
+  },
+});
+
+interface NavbarProps
+  extends VariantProps<typeof navbarVariants>,
+    HTMLAttributes<HTMLElement> {
+  mobileNavbar: {
+    content: React.ReactElement;
+    asChild?: boolean;
+  };
+  desktopNavbar: {
+    content: React.ReactElement;
+    asChild?: boolean;
+  };
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-  mobileNavbarContent,
-  desktopNavbarContent,
+  position,
+  mobileAnchor,
+  desktopAnchor,
+  className,
+  mobileNavbar = { content: "", asChild: false },
+  desktopNavbar = { content: "", asChild: false },
 }) => {
   const { scrollY } = useScroll();
 
@@ -30,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
-    if (latest > previous && latest > 150) {
+    if (latest > previous && latest > VISIBILITY_THRESHOLD) {
       setHidden(true);
       hideAccordion = true;
     } else {
@@ -38,26 +82,43 @@ const Navbar: React.FC<NavbarProps> = ({
       hideAccordion = false;
     }
   });
+  const motionDivProps = {
+    variants: { visible: { y: 0 }, hidden: { y: "-100%" } },
+    transition: { duration: 0.35, ease: "easeInOut" },
+    animate: hidden ? "hidden" : "visible",
+  };
+
+  const mobileClasses =
+    "mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden";
+  const desktopClasses = cn(
+    `h-${NavbarHeight.mobile}`,
+    "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32 "
+  );
 
   return (
-    <nav className="sticky top-0 z-40 lg:absolute">
-      <motion.div
-        variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        animate={hidden ? "hidden" : "visible"}
-        className=" mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden"
-      >
-        {mobileNavbarContent}
-      </motion.div>
+    <nav
+      className={cn(
+        navbarVariants({
+          position,
+          mobileAnchor,
+          desktopAnchor,
+          className,
+        })
+      )}
+    >
+      {mobileNavbar.asChild ? (
+        mobileNavbar.content
+      ) : (
+        <motion.div {...motionDivProps} className={mobileClasses}>
+          {mobileNavbar.content}
+        </motion.div>
+      )}
 
-      <div
-        className={cn(
-          `h-${NavbarHeight.mobile}`,
-          "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32 "
-        )}
-      >
-        {desktopNavbarContent}
-      </div>
+      {desktopNavbar.asChild ? (
+        desktopNavbar.content
+      ) : (
+        <div className={desktopClasses}>{desktopNavbar.content}</div>
+      )}
     </nav>
   );
 };

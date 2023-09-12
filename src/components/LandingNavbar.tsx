@@ -17,22 +17,23 @@ export const LandingNavbar = () => {
     className: "uppercase tracking-[3px]",
   };
 
-  const mobileNavbar = MobileNavbarWrapper(
-    <div className="flex flex-col items-end gap-40 px-32 py-64">
-      <div className="flex flex-col items-end gap-20">
-        {NavbarLinkElements(mobileLinkStyles)}
+  const mobileNavbar = {
+    content: MobileNavbarWrapper(
+      <div className="flex flex-col items-end gap-40 px-32 py-64">
+        <div className="flex flex-col items-end gap-20">
+          {NavbarLinkElements(mobileLinkStyles)}
+        </div>
       </div>
-    </div>
-  );
-  const desktopNavbar = DesktopNavbarWrapper(
-    <div className="flex flex-row items-center gap-64">
-      {NavbarLinkElements(desktopLinkStyles)}
-    </div>
-  );
-  return (
-    <Navbar
-      mobileNavbarContent={mobileNavbar}
-      desktopNavbarContent={desktopNavbar}
-    />
-  );
+    ),
+    asChild: false,
+  };
+  const desktopNavbar = {
+    content: DesktopNavbarWrapper(
+      <div className="flex flex-row items-center gap-64">
+        {NavbarLinkElements(desktopLinkStyles)}
+      </div>
+    ),
+    asChild: false,
+  };
+  return <Navbar mobileNavbar={mobileNavbar} desktopNavbar={desktopNavbar} />;
 };
