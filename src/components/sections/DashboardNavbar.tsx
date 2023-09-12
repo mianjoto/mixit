@@ -84,80 +84,79 @@ const mobileNavbarContent = MobileNavbarWrapper(
 
 const desktopNavbarContent = (): React.ReactElement => {
   return (
-    <NavigationMenu.Root className="hidden h-screen flex-col items-center justify-between bg-tertiary px-16 py-64 lg:flex">
-      <MixitHomeLogo
-        fill="#fff"
-        height="auto"
-        width="80"
-        className="h-fit w-fit max-w-[80px]"
-      />
-
-      <div className="flex flex-col gap-24 rounded-2xl bg-secondary px-[12px] py-16">
-        {/* Title */}
-        <div className="flex flex-row items-center gap-[5px] text-xs text-body">
-          <AppsIcon className="text-base" />
-          <Heading
-            level={HeadingLevels.h2}
-            className="text-xs font-bold uppercase tracking-widest"
-          >
-            Apps
-          </Heading>
-        </div>
-
-        {/* Apps Buttons */}
-        <NavigationMenu.List className="flex flex-col items-center gap-16">
-          {Object.values(AppData).map((app) => {
-            return (
-              <NavigationMenu.Item value={app.name}>
-                <HoverCard openDelay={300} closeDelay={50}>
-                  <HoverCardTrigger asChild>
-                    <NavigationMenu.Link
-                      href={app.href}
-                      className="flex flex-row items-center gap-16 lg:gap-16"
-                    >
-                      <AppIcon
-                        app={app.appType as Apps}
-                        shape={AppIconShapes.SoftSquare}
-                        className="h-[60px] w-[60px] text-background"
-                      />
-                    </NavigationMenu.Link>
-                  </HoverCardTrigger>
-                  <HoverCardContent
-                    className="w-fit px-12 py-16"
-                    side="right"
-                    sideOffset={10}
-                  >
-                    <div className="flex flex-col gap-[6px]">
-                      <Heading
-                        level={HeadingLevels.h2}
-                        className="text-base font-bold uppercase leading-none"
+    <div className="hidden h-screen items-center justify-center bg-background px-16 py-16 lg:flex">
+      <NavigationMenu.Root className="flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary px-16 py-64">
+        <MixitHomeLogo
+          fill="#fff"
+          height="auto"
+          width="80"
+          className="h-fit w-fit max-w-[80px]"
+        />
+        <div className="flex flex-col gap-24 rounded-2xl bg-secondary px-[12px] py-16">
+          {/* Title */}
+          <div className="flex flex-row items-center gap-[5px] text-xs text-body">
+            <AppsIcon className="text-base" />
+            <Heading
+              level={HeadingLevels.h2}
+              className="text-xs font-bold uppercase tracking-widest"
+            >
+              Apps
+            </Heading>
+          </div>
+          {/* Apps Buttons */}
+          <NavigationMenu.List className="flex flex-col items-center gap-16">
+            {Object.values(AppData).map((app) => {
+              return (
+                <NavigationMenu.Item value={app.name}>
+                  <HoverCard openDelay={300} closeDelay={50}>
+                    <HoverCardTrigger asChild>
+                      <NavigationMenu.Link
+                        href={app.href}
+                        className="flex flex-row items-center gap-16 lg:gap-16"
                       >
-                        {app.name}
-                      </Heading>
-                      <Text textColor="gray" className="font-medium">
-                        {app.shortDescription}
-                      </Text>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </NavigationMenu.Item>
-            );
-          })}
-        </NavigationMenu.List>
-      </div>
-
-      {/* About */}
-      <div className="flex flex-col items-center gap-16 text-center uppercase tracking-widest opacity-30">
-        <LinkText
-          link={Links.about.root}
-          textProps={{ className: "text-xs" }}
-        />
-        <LinkText
-          link={{ href: Links.privacy.root.href, text: "Privacy" }}
-          textProps={{ className: "text-xs" }}
-        />
-      </div>
-    </NavigationMenu.Root>
+                        <AppIcon
+                          app={app.appType as Apps}
+                          shape={AppIconShapes.SoftSquare}
+                          className="h-[60px] w-[60px] text-background"
+                        />
+                      </NavigationMenu.Link>
+                    </HoverCardTrigger>
+                    <HoverCardContent
+                      className="w-fit px-12 py-16"
+                      side="right"
+                      sideOffset={10}
+                    >
+                      <div className="flex flex-col gap-[6px]">
+                        <Heading
+                          level={HeadingLevels.h2}
+                          className="text-base font-bold uppercase leading-none"
+                        >
+                          {app.name}
+                        </Heading>
+                        <Text textColor="gray" className="font-medium">
+                          {app.shortDescription}
+                        </Text>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
+                </NavigationMenu.Item>
+              );
+            })}
+          </NavigationMenu.List>
+        </div>
+        {/* About */}
+        <div className="flex flex-col items-center gap-16 text-center uppercase tracking-widest opacity-30">
+          <LinkText
+            link={Links.about.root}
+            textProps={{ className: "text-xs" }}
+          />
+          <LinkText
+            link={{ href: Links.privacy.root.href, text: "Privacy" }}
+            textProps={{ className: "text-xs" }}
+          />
+        </div>
+      </NavigationMenu.Root>
+    </div>
   );
 };
 
