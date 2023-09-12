@@ -13,6 +13,7 @@ import { HeadingLevels, TextLevels } from "@/types/text";
 import { Heading, HeadingProps } from "../base/Heading";
 import { Button } from "../Button";
 import { VariantProps, cva } from "class-variance-authority";
+import MixitHomeLogo from "../MixitHomeLogo";
 
 let hideAccordion: boolean = false;
 const VISIBILITY_THRESHOLD = 150;
@@ -202,12 +203,7 @@ const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
       collapsible
       className="flex flex-1 flex-row items-center justify-between lg:hidden"
     >
-      <MixitLogo
-        fill="#fff"
-        height="auto"
-        width="auto"
-        className="w-fit max-w-[70px]"
-      />
+      <MixitHomeLogo className="w-fit max-w-[70px]" />
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
         <AccordionTrigger />
         <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown">
@@ -221,12 +217,7 @@ const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
 const DesktopNavbarWrapper = (navbarContent: React.ReactNode) => {
   return (
     <div className="u-container mx-auto flex h-fit flex-1 flex-row items-center justify-between px-64 py-16">
-      <MixitLogo
-        fill="#fff"
-        height="auto"
-        width="auto"
-        className="w-fit max-w-[125px]"
-      />
+      <MixitHomeLogo width="125px" className="w-fit max-w-[125px]" />
       {navbarContent}
     </div>
   );

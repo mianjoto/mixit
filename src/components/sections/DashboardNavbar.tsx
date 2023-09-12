@@ -10,12 +10,12 @@ import { Text } from "../base/Text";
 import { HeadingLevels } from "../../types/text";
 import { AppsIcon } from "@/assets/svg";
 import Navbar, { MobileNavbarWrapper } from "./Navbar";
-import { MixitLogo } from "@/assets/mixit";
 import { LinkText } from "../base/LinkText";
 import { Links } from "@/types/links";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../HoverCard";
 import { Button } from "../Button";
 import Separator from "../Separator";
+import MixitHomeLogo from "../MixitHomeLogo";
 
 export const DashboardNavbar = () => {
   return (
@@ -85,10 +85,10 @@ const mobileNavbarContent = MobileNavbarWrapper(
 const desktopNavbarContent = (): React.ReactElement => {
   return (
     <NavigationMenu.Root className="hidden h-screen flex-col items-center justify-between bg-tertiary px-16 py-64 lg:flex">
-      <MixitLogo
+      <MixitHomeLogo
         fill="#fff"
         height="auto"
-        width="auto"
+        width="80"
         className="h-fit w-fit max-w-[80px]"
       />
 
