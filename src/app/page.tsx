@@ -1,10 +1,10 @@
-import { Hero } from "@/components/sections/Hero";
-import Features from "@/components/sections/Features";
-import WhyUseMixit from "@/components/sections/WhyUseMixit";
-import CallToAction from "@/components/sections/CallToAction";
-import Footer from "@/components/sections/Footer";
-import Separator from "@/components/Separator";
-import { LandingNavbar } from "@/components/LandingNavbar";
+import { Hero } from "@/components/hero";
+import Features from "@/components/features";
+import WhyUseMixit from "@/components/why-use-mixit";
+import CallToAction from "@/components/call-to-action";
+import Footer from "@/components/footer";
+import Separator from "@/components/ui/separator";
+import { LandingNavbar } from "@/components/landing-navbar";
 
 export default function Index() {
   return (

@@ -1,10 +1,10 @@
-import { Card, CardProps, cardVariants } from "./Card";
+import { Card, CardProps, cardVariants } from "./card";
 import { cn } from "@/utils/helpers";
-import { Heading, HeadingProps } from "./base/Heading";
-import { Text, TextProps } from "./base/Text";
+import { Heading, HeadingProps } from "./heading";
+import { Text, TextProps } from "./text";
 import { Apps } from "@/types/apps";
 import { AppData } from "@/data/records/apps";
-import { AppIcon, AppIconProps } from "./AppIcon";
+import { AppIcon, AppIconProps } from "./app-icon";
 
 interface AppCardProps extends React.HTMLAttributes<HTMLDivElement>, CardProps {
   app: Apps;

@@ -1,12 +1,12 @@
 import React from "react";
-import { Section } from "../base/Section";
-import { Pretitle } from "@/components/base/Pretitle";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
+import { Section } from "./ui/section";
+import { Pretitle } from "@/components/ui/pretitle";
+import { Heading } from "./ui/heading";
+import { Text } from "./ui/text";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { BarChartIcon } from "@/assets/svg";
 import { QueueIcon } from "@/assets/svg";
-import { Disc } from "../decorations/Disc";
+import { Disc } from "./disc";
 
 const WhyUseMixit: React.FC = () => (
   <Section grid padding container fitScreenHeight>

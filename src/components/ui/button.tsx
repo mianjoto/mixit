@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import { cn } from "../utils/helpers";
+import { cn } from "../../utils/helpers";
 import { forwardRef } from "react";
 import Link from "next/link";
 

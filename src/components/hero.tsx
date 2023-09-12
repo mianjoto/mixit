@@ -1,10 +1,10 @@
 import React from "react";
-import { Section } from "@/components/base/Section";
-import { Heading } from "@/components/base/Heading";
-import { Text } from "@/components/base/Text";
-import { Button } from "../Button";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { Button } from "./ui/button";
 import Link from "next/link";
-import { Disc } from "../decorations/Disc";
+import { Disc } from "./disc";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { NavbarHeight } from "@/data/objects/navbar-data";
 

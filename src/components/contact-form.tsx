@@ -1,6 +1,6 @@
 import React from "react";
 import * as Form from "@radix-ui/react-form";
-import { Button } from "./Button";
+import { Button } from "./ui/button";
 import { cn } from "@/utils/helpers";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
