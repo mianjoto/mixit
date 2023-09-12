@@ -3,6 +3,7 @@ import { MixitLogo } from "@/assets/mixit";
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/utils/helpers";
 import { LinkText } from "../base/LinkText";
