@@ -29,7 +29,7 @@ module.exports = {
         background: "#050505",
         accent: "#B26EF7",
         body: "#FAFAFA",
-        gray: "#CACACA",
+        gray: "#A1A1A1",
         success: "#a6e707",
         caution: "#dbc217",
         danger: "#e43446",
