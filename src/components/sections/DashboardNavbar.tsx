@@ -13,6 +13,8 @@ import Navbar, { MobileNavbarWrapper } from "./Navbar";
 import { MixitLogo } from "@/assets/mixit";
 import { LinkText } from "../base/LinkText";
 import { Links } from "@/types/links";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../HoverCard";
+import { Button } from "../Button";
 
 export const DashboardNavbar = () => {
   return (
@@ -98,16 +100,37 @@ const desktopNavbarContent = (): React.ReactElement => {
           {Object.values(AppData).map((app) => {
             return (
               <NavigationMenu.Item value={app.name}>
-                <NavigationMenu.Link
-                  href={app.href}
-                  className="flex flex-row items-center gap-16 lg:gap-16"
-                >
-                  <AppIcon
-                    app={app.appType as Apps}
-                    shape={AppIconShapes.SoftSquare}
-                    className="h-[60px] w-[60px] text-background"
-                  />
-                </NavigationMenu.Link>
+                <HoverCard openDelay={300} closeDelay={50}>
+                  <HoverCardTrigger asChild>
+                    <NavigationMenu.Link
+                      href={app.href}
+                      className="flex flex-row items-center gap-16 lg:gap-16"
+                    >
+                      <AppIcon
+                        app={app.appType as Apps}
+                        shape={AppIconShapes.SoftSquare}
+                        className="h-[60px] w-[60px] text-background"
+                      />
+                    </NavigationMenu.Link>
+                  </HoverCardTrigger>
+                  <HoverCardContent
+                    className="w-fit px-12 py-16"
+                    side="right"
+                    sideOffset={10}
+                  >
+                    <div className="flex flex-col gap-[6px]">
+                      <Heading
+                        level={HeadingLevels.h2}
+                        className="text-base font-bold uppercase leading-none"
+                      >
+                        {app.name}
+                      </Heading>
+                      <Text textColor="gray" className="font-medium">
+                        {app.shortDescription}
+                      </Text>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
               </NavigationMenu.Item>
             );
           })}
@@ -125,26 +148,5 @@ const desktopNavbarContent = (): React.ReactElement => {
     </NavigationMenu.Root>
   );
 };
-
-interface ListItemProps {
-  className?: string;
-  children: React.ReactNode;
-  title: string;
-  props?: any;
-  forwardedRef?: React.Ref<HTMLAnchorElement>;
-}
-
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
-  ({ className, children, title, ...props }, forwardedRef) => (
-    <li>
-      <NavigationMenu.Link asChild>
-        <a {...props} ref={forwardedRef}>
-          <div>{title}</div>
-          <p>{children}</p>
-        </a>
-      </NavigationMenu.Link>
-    </li>
-  )
-);
 
 export default DashboardNavbar;
