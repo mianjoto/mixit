@@ -14,19 +14,15 @@ import { Button } from "../Button";
 
 let hideAccordion: boolean = false;
 
-const Navbar: React.FC = () => {
-  const mobileLinkStyles: HeadingProps = {
-    level: HeadingLevels.h2,
-    className: "uppercase",
-  };
-  const desktopLinkStyles: HeadingProps = {
-    level: HeadingLevels.h4,
-    className: "uppercase tracking-[3px]",
-  };
+interface NavbarProps {
+  mobileNavbarContent: React.ReactElement;
+  desktopNavbarContent: React.ReactElement;
+}
 
-  const mobileNavbar = MobileNavbar(NavbarLinkElements(mobileLinkStyles));
-  const desktopNavbar = DesktopNavbar(NavbarLinkElements(desktopLinkStyles));
-
+const Navbar: React.FC<NavbarProps> = ({
+  mobileNavbarContent,
+  desktopNavbarContent,
+}) => {
   const { scrollY } = useScroll();
 
   const [hidden, setHidden] = useState(false);
@@ -50,7 +46,7 @@ const Navbar: React.FC = () => {
         animate={hidden ? "hidden" : "visible"}
         className=" mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden"
       >
-        {mobileNavbar}
+        {mobileNavbarContent}
       </motion.div>
 
       <div
@@ -59,7 +55,7 @@ const Navbar: React.FC = () => {
           "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32 "
         )}
       >
-        {desktopNavbar}
+        {desktopNavbarContent}
       </div>
     </nav>
   );
@@ -112,7 +108,7 @@ const RenderNavbarLinkElement = (
   link: LinkType,
   textStyle: HeadingProps
 ): React.ReactNode => {
-  return link.href === Links.apps.root.href ? (
+  const mixNowButtonLink = (
     <Button
       variant="outline"
       size="default"
@@ -128,12 +124,16 @@ const RenderNavbarLinkElement = (
         Mix now
       </Heading>
     </Button>
+  );
+
+  return link.href === Links.apps.root.href ? (
+    mixNowButtonLink
   ) : (
     <LinkText link={link} textProps={textStyle} isHeading />
   );
 };
 
-function MobileNavbar(navbarLinkElements: React.ReactNode) {
+const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
   return (
     <Accordion.Root
       type="single"
@@ -149,31 +149,27 @@ function MobileNavbar(navbarLinkElements: React.ReactNode) {
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
         <AccordionTrigger />
         <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-          <div className="flex flex-col items-end gap-40 px-32 py-64">
-            <div className="flex flex-col items-end gap-20">
-              {navbarLinkElements}
-            </div>
-          </div>
+          {navbarContent}
         </Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
   );
-}
+};
 
-export default Navbar;
-
-function DesktopNavbar(navbarLinkElements: React.ReactNode) {
+const DesktopNavbarWrapper = (navbarContent: React.ReactNode) => {
   return (
-    <div className="u-container mx-auto  flex h-fit flex-1 flex-row items-center justify-between px-64 py-16">
+    <div className="u-container mx-auto flex h-fit flex-1 flex-row items-center justify-between px-64 py-16">
       <MixitLogo
         fill="#fff"
         height="auto"
         width="auto"
         className="w-fit max-w-[125px]"
       />
-      <div className="flex flex-row items-center gap-64 ">
-        {navbarLinkElements}
-      </div>
+      {navbarContent}
     </div>
   );
-}
+};
+
+export default Navbar;
+
+export { MobileNavbarWrapper, DesktopNavbarWrapper, NavbarLinkElements };
