@@ -80,7 +80,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
     return (
       <Accordion.Content
         className={cn(
-          "overflow-hidden text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown",
+          "overflow-hidden text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown",
           className
         )}
         ref={forwardedRef}

@@ -210,7 +210,7 @@ const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
       />
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
         <AccordionTrigger />
-        <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+        <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown">
           {navbarContent}
         </Accordion.Content>
       </Accordion.Item>

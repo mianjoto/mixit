@@ -66,11 +66,11 @@ module.exports = {
         "2xl": "clamp(3.38rem, 2.53vw + 2.74rem, 4.77rem)", // Title - H1
       },
       keyframes: {
-        slideDown: {
+        accordionSlideDown: {
           from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
         },
-        slideUp: {
+        accordionSlideUp: {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
@@ -82,8 +82,10 @@ module.exports = {
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
       },
       animation: {
-        slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
-        slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        accordionSlideDown:
+          "accordionSlideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        accordionSlideUp:
+          "accordionSlideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
         spinFadeOut:
           "rotate180 300ms cubic-bezier(.8,0,.2,1), fadeOut 300ms ease-in-out",
         spinFadeIn:
