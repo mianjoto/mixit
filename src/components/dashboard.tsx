@@ -2,11 +2,8 @@ import { HeadingLevels } from "@/types/text";
 import { Heading } from "./ui/heading";
 import { HTMLAttributes } from "react";
 import { Section } from "./ui/section";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "@/utils/helpers";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 
 interface DashboardRootLayoutProps {
   children: React.ReactNode;
@@ -94,27 +91,6 @@ export const DashboardContentShelf = ({
     <section className="flex w-full flex-col gap-20 lg:gap-12">
       <DashboardHeading>{headingText}</DashboardHeading>
       <DashboardShelf mobileBehavior={shelfBehavior}>{children}</DashboardShelf>
-    </section>
-  );
-};
-
-export const DashboardUserMenu = () => {
-  return (
-    // TODO: Add API request for username information
-    <section className="flex flex-row items-center gap-8">
-      <Link
-        href="/user"
-        className="flex flex-row items-center gap-4 p-8 lg:gap-[10px]"
-      >
-        <Avatar className="h-24 w-24">
-          <AvatarImage src="https://github.com/mianjoto.png" />
-          <AvatarFallback>US</AvatarFallback>
-        </Avatar>
-        <p className="hidden gap-[6px] text-sm font-bold uppercase tracking-widest text-body lg:flex">
-          Profile
-        </p>
-        <ChevronDownIcon className="inline text-body" />
-      </Link>
     </section>
   );
 };

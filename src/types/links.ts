@@ -76,4 +76,18 @@ export const Links = {
       href: "/privacy",
     },
   },
+  user: {
+    root: {
+      text: "Profile",
+      href: "/user",
+    },
+    login: {
+      text: "Log In",
+      href: "/user/login",
+    },
+    logout: {
+      text: "Log Out",
+      href: "/user/logout",
+    },
+  },
 };
