@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { Text, TextProps } from "./Text";
+import { Text, TextProps } from "./text";
 import Link, { LinkProps } from "next/link";
 import { Link as LinkType } from "@/types/links";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { cn } from "@/utils/helpers";
-import { Heading, HeadingProps } from "./Heading";
+import { Heading, HeadingProps } from "./heading";
 
 interface LinkTextProps {
   link: LinkType;

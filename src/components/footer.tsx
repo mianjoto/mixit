@@ -1,23 +1,23 @@
 "use client";
 import React, { forwardRef } from "react";
 import { cn } from "@/utils/helpers";
-import { Section } from "../base/Section";
-import { Heading } from "../base/Heading";
+import { Section } from "./ui/section";
+import { Heading } from "./ui/heading";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { UserIcon } from "@/assets/svg";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { InfoIcon, AppsIcon } from "@/assets/svg";
-import ContactForm from "../ContactForm";
-import { Text } from "@/components/base/Text";
-import Separator from "../Separator";
-import { AppIcon, AppIconShapes } from "../AppIcon";
+import ContactForm from "./contact-form";
+import { Text } from "@/components/ui/text";
+import Separator from "./ui/separator";
+import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
 import { AppData } from "@/data/records/apps";
-import { LinkText } from "../base/LinkText";
+import { LinkText } from "./ui/link-text";
 import Link from "next/link";
 import { FooterLinks } from "@/data/objects/footer-links";
-import MixitHomeLogo from "../MixitHomeLogo";
+import MixitHomeLogo from "./ui/mixit-home-logo";
 
 interface AccordionItemProps extends Accordion.AccordionItemProps {
   className?: string;
@@ -58,7 +58,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
         >
           {children}
           <ChevronDownIcon
-            className="text-body transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180"
+            className="ease-[cubic-bezier(0.87,_0,_0.13,_1)] text-body transition-transform duration-300 group-data-[state=open]:rotate-180"
             aria-hidden
           />
         </Accordion.Trigger>
@@ -80,7 +80,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
     return (
       <Accordion.Content
         className={cn(
-          "overflow-hidden text-body data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown",
+          "overflow-hidden text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown",
           className
         )}
         ref={forwardedRef}

@@ -1,5 +1,9 @@
-import { Text } from "@/components/base/Text";
+import { DashboardHome } from "@/components/dashboard-home";
 
-export default function Dashboard() {
-  return <Text>Dashboard</Text>;
+export default function Index() {
+  return (
+    <>
+      <DashboardHome />
+    </>
+  );
 }

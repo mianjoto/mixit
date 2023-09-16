@@ -25,7 +25,7 @@ const appIconVariants = cva(
       shape: {
         [AppIconShapes.Circle]: "rounded-full",
         [AppIconShapes.SquareCircle]: "rounded-[30px]",
-        [AppIconShapes.SoftSquare]: "rounded-[18px]",
+        [AppIconShapes.SoftSquare]: "rounded-[8px]",
         [AppIconShapes.Square]: "rounded-none",
       },
     },

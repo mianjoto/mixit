@@ -18,6 +18,7 @@ type AppFeatureDataRecord = Record<
     icon: any;
     iconBgColorClass: string;
     href: string;
+    appType: Apps | Features;
   }
 >;
 
@@ -29,6 +30,7 @@ export const AppData: AppFeatureDataRecord = {
     icon: ShufflerIcon,
     iconBgColorClass: ColorData["Accent-1"].bgClass,
     href: "/shuffler",
+    appType: Apps.Shuffler,
   },
   [Apps.Blender]: {
     name: "Blender",
@@ -37,6 +39,7 @@ export const AppData: AppFeatureDataRecord = {
     icon: BlenderIcon,
     iconBgColorClass: ColorData["Accent-2"].bgClass,
     href: "/blender",
+    appType: Apps.Blender,
   },
   [Apps.PickAndMix]: {
     name: "Pick And Mix",
@@ -45,6 +48,7 @@ export const AppData: AppFeatureDataRecord = {
     icon: PickAndMixIcon,
     iconBgColorClass: ColorData["Accent-3"].bgClass,
     href: "/pick-and-mix",
+    appType: Apps.PickAndMix,
   },
   [Apps.TimeMachine]: {
     name: "Time Machine",
@@ -53,6 +57,7 @@ export const AppData: AppFeatureDataRecord = {
     icon: TimeMachineIcon,
     iconBgColorClass: ColorData["Accent-4"].bgClass,
     href: "/time-machine",
+    appType: Apps.TimeMachine,
   },
 } as AppFeatureDataRecord;
 
@@ -64,5 +69,6 @@ export const FeatureData: AppFeatureDataRecord = {
     icon: QueueIcon,
     iconBgColorClass: ColorData["Primary"].bgClass,
     href: "/queue",
+    appType: Features.Queue,
   },
 } as AppFeatureDataRecord;
