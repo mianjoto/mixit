@@ -60,7 +60,7 @@ const navbarVariants = cva("z-40", {
     mobileAnchor: "top",
     desktopAnchor: "top",
     desktopPosition: "absolute",
-    mobilePosition: "absolute",
+    mobilePosition: "sticky",
   },
 });
 
