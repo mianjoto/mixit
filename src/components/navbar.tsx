@@ -109,28 +109,30 @@ const Navbar: React.FC<NavbarProps> = ({
 
   const mobileClasses =
     "mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden";
-  const desktopClasses = cn(
-    `h-${NavbarHeight.mobile}`,
-    "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32 "
-  );
+  const desktopClasses =
+    `h-${NavbarHeight.mobile}` +
+    "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32";
 
   return (
     <nav
       className={cn(
+        "lg:w-fit",
         navbarVariants({
           position,
           mobileAnchor,
           desktopAnchor,
           desktopPosition,
           mobilePosition,
-          className,
         })
       )}
     >
       {mobileNavbar.asChild ? (
         mobileNavbar.content
       ) : (
-        <motion.div {...motionDivProps} className={mobileClasses}>
+        <motion.div
+          {...motionDivProps}
+          className={cn(mobileClasses, className)}
+        >
           {mobileNavbar.content}
         </motion.div>
       )}
@@ -138,7 +140,9 @@ const Navbar: React.FC<NavbarProps> = ({
       {desktopNavbar.asChild ? (
         desktopNavbar.content
       ) : (
-        <div className={desktopClasses}>{desktopNavbar.content}</div>
+        <div className={cn(desktopClasses, className)}>
+          {desktopNavbar.content}
+        </div>
       )}
     </nav>
   );

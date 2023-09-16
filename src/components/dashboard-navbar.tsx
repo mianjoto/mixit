@@ -22,9 +22,8 @@ export const DashboardNavbar = () => {
     <Navbar
       mobileNavbar={{ content: mobileNavbarContent, asChild: false }}
       desktopNavbar={{ content: desktopNavbarContent(), asChild: true }}
-      desktopAnchor={"left"}
       desktopPosition="static"
-      className="lg:w-fit"
+      className="px-12"
     />
   );
 };
@@ -86,7 +85,7 @@ const mobileNavbarContent = MobileNavbarWrapper(
 
 const desktopNavbarContent = (): React.ReactElement => {
   return (
-    <div className="hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 lg:flex">
+    <div className="sticky left-0 top-0 hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 lg:flex">
       <NavigationMenu.Root className="flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary px-16 py-64">
         <MixitHomeLogo
           fill="#fff"
