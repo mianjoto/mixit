@@ -23,6 +23,8 @@ export const DashboardNavbar = () => {
       mobileNavbar={{ content: mobileNavbarContent, asChild: false }}
       desktopNavbar={{ content: desktopNavbarContent(), asChild: true }}
       desktopAnchor={"left"}
+      desktopPosition="static"
+      className="lg:w-fit"
     />
   );
 };
@@ -42,7 +44,7 @@ const mobileNavbarContent = MobileNavbarWrapper(
       <div className="flex flex-col gap-16">
         {Object.values(AppData).map((app) => {
           return (
-            <NavigationMenu.Item value={app.name}>
+            <NavigationMenu.Item key={app.name} value={app.name}>
               <NavigationMenu.Link
                 href={app.href}
                 className="flex flex-row items-center gap-16 lg:gap-16"
@@ -84,7 +86,7 @@ const mobileNavbarContent = MobileNavbarWrapper(
 
 const desktopNavbarContent = (): React.ReactElement => {
   return (
-    <div className="hidden h-screen items-center justify-center bg-background px-16 py-16 lg:flex">
+    <div className="hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 lg:flex">
       <NavigationMenu.Root className="flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary px-16 py-64">
         <MixitHomeLogo
           fill="#fff"
@@ -107,7 +109,7 @@ const desktopNavbarContent = (): React.ReactElement => {
           <NavigationMenu.List className="flex flex-col items-center gap-16">
             {Object.values(AppData).map((app) => {
               return (
-                <NavigationMenu.Item value={app.name}>
+                <NavigationMenu.Item key={app.name} value={app.name}>
                   <HoverCard openDelay={300} closeDelay={50}>
                     <HoverCardTrigger asChild>
                       <NavigationMenu.Link

@@ -40,11 +40,27 @@ const navbarVariants = cva("z-40", {
       left: "lg:left-0",
       bottom: "lg:bottom-0",
     },
+    desktopPosition: {
+      static: "lg:static",
+      relative: "lg:relative",
+      fixed: "lg:fixed",
+      absolute: "lg:absolute",
+      sticky: "lg:sticky",
+    },
+    mobilePosition: {
+      static: "static",
+      relative: "relative",
+      fixed: "fixed",
+      absolute: "absolute",
+      sticky: "sticky",
+    },
   },
   defaultVariants: {
     position: "default",
     mobileAnchor: "top",
     desktopAnchor: "top",
+    desktopPosition: "absolute",
+    mobilePosition: "absolute",
   },
 });
 
@@ -65,6 +81,8 @@ const Navbar: React.FC<NavbarProps> = ({
   position,
   mobileAnchor,
   desktopAnchor,
+  desktopPosition,
+  mobilePosition,
   className,
   mobileNavbar = { content: "", asChild: false },
   desktopNavbar = { content: "", asChild: false },
@@ -103,6 +121,8 @@ const Navbar: React.FC<NavbarProps> = ({
           position,
           mobileAnchor,
           desktopAnchor,
+          desktopPosition,
+          mobilePosition,
           className,
         })
       )}
@@ -176,6 +196,7 @@ const RenderNavbarLinkElement = (
       variant="outline"
       size="default"
       href={Links.apps.root.href}
+      key={Links.apps.root.text}
       className="w-fit"
     >
       <Heading
@@ -192,7 +213,7 @@ const RenderNavbarLinkElement = (
   return link.href === Links.apps.root.href ? (
     mixNowButtonLink
   ) : (
-    <LinkText link={link} textProps={textStyle} isHeading />
+    <LinkText link={link} textProps={textStyle} key={link.text} isHeading />
   );
 };
 
