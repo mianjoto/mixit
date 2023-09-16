@@ -1,5 +1,4 @@
-import { DashboardHome } from "@/components/dashboard";
-import { Heading } from "@/components/ui/heading";
+import { DashboardHome } from "@/components/dashboard-home";
 
 export default function Index() {
   return (
