@@ -8,6 +8,23 @@ import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
 import Link from "next/link";
 
+interface DashboardRootLayoutProps {
+  children: React.ReactNode;
+}
+
+export const DashboardRootLayout: React.FC<DashboardRootLayoutProps> = ({
+  children,
+}: DashboardRootLayoutProps) => {
+  return (
+    <Section
+      fitScreenHeight
+      className="overflow-x-hidden px-12 py-80 lg:px-24 lg:py-32"
+    >
+      <DashboardRoot>{children}</DashboardRoot>
+    </Section>
+  );
+};
+
 interface DashboardRootProps {
   children: React.ReactNode;
 }
@@ -93,20 +110,13 @@ export const DashboardHome = () => {
 
   return (
     <>
-      <Section
-        fitScreenHeight
-        className="overflow-x-hidden px-12 py-80 lg:px-24 lg:py-32"
-      >
-        <DashboardRoot>
-          <DashboardTitle>Ready to mix?</DashboardTitle>
-          <DashboardContentShelf headingText="Start mixing">
-            {appCards}
-          </DashboardContentShelf>
-          <DashboardContentShelf headingText="Mix your playlists">
-            {dummyCards}
-          </DashboardContentShelf>
-        </DashboardRoot>
-      </Section>
+      <DashboardTitle>Ready to mix?</DashboardTitle>
+      <DashboardContentShelf headingText="Start mixing">
+        {appCards}
+      </DashboardContentShelf>
+      <DashboardContentShelf headingText="Mix your playlists">
+        {dummyCards}
+      </DashboardContentShelf>
     </>
   );
 };
