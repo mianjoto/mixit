@@ -7,6 +7,8 @@ import { DashboardCard } from "./dashboard-card";
 import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
 import Link from "next/link";
+import { VariantProps, cva } from "class-variance-authority";
+import { cn } from "@/utils/helpers";
 
 interface DashboardRootLayoutProps {
   children: React.ReactNode;
@@ -51,11 +53,29 @@ const DashboardHeading = ({ children }: DashboardHeadingProps) => {
   return <Heading level={HeadingLevels.h3}>{children}</Heading>;
 };
 
-interface DashboardShelfProps extends HTMLAttributes<HTMLElement> {}
+const dashboardShelfVariants = cva(
+  "lg:inline-flex lg:w-full lg:flex-row lg:gap-12 lg:gap-8 lg:overflow-x-auto lg:pb-8",
+  {
+    variants: {
+      mobileBehavior: {
+        default:
+          "inline-flex w-full flex-row gap-8 overflow-x-auto pb-8 lg:gap-12",
+        "one-col": "grid grid-cols-1 gap-12 lg:gap-16",
+        "two-col": "grid grid-cols-2 gap-x-12 gap-y-8",
+        "three-col": "grid grid-cols-3 gap-x-12 gap-y-8",
+      },
+    },
+    defaultVariants: { mobileBehavior: "default" },
+  }
+);
 
-const DashboardShelf = ({ children }: DashboardShelfProps) => {
+interface DashboardShelfProps
+  extends HTMLAttributes<HTMLElement>,
+    VariantProps<typeof dashboardShelfVariants> {}
+
+const DashboardShelf = ({ mobileBehavior, children }: DashboardShelfProps) => {
   return (
-    <section className="inline-flex w-full flex-row gap-8 overflow-x-auto pb-8 lg:gap-12">
+    <section className={cn(dashboardShelfVariants({ mobileBehavior }))}>
       {children}
     </section>
   );
@@ -63,17 +83,19 @@ const DashboardShelf = ({ children }: DashboardShelfProps) => {
 
 interface DashboardContentShelfProps {
   headingText: string;
+  shelfBehavior?: "default" | "one-col" | "two-col" | "three-col";
   children: React.ReactNode;
 }
 
 const DashboardContentShelf = ({
   headingText,
+  shelfBehavior,
   children,
 }: DashboardContentShelfProps) => {
   return (
     <section className="flex w-full flex-col gap-20 lg:gap-12">
       <DashboardHeading>{headingText}</DashboardHeading>
-      <DashboardShelf>{children}</DashboardShelf>
+      <DashboardShelf mobileBehavior={shelfBehavior}>{children}</DashboardShelf>
     </section>
   );
 };
@@ -88,6 +110,7 @@ export const DashboardHome = () => {
           }
           title={app.name}
           description={app.description}
+          small
         />
       </Link>
     );
@@ -111,7 +134,7 @@ export const DashboardHome = () => {
   return (
     <>
       <DashboardTitle>Ready to mix?</DashboardTitle>
-      <DashboardContentShelf headingText="Start mixing">
+      <DashboardContentShelf headingText="Start mixing" shelfBehavior="two-col">
         {appCards}
       </DashboardContentShelf>
       <DashboardContentShelf headingText="Mix your playlists">
