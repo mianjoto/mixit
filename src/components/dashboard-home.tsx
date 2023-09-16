@@ -3,7 +3,11 @@ import { DashboardCard } from "./dashboard-card";
 import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
 import Link from "next/link";
-import { DashboardTitle, DashboardContentShelf } from "./dashboard";
+import {
+  DashboardTitle,
+  DashboardContentShelf,
+  DashboardUserMenu,
+} from "./dashboard";
 
 export const DashboardHome = () => {
   const appCards = Object.values(AppData).map((app) => {
@@ -38,7 +42,10 @@ export const DashboardHome = () => {
 
   return (
     <>
-      <DashboardTitle>Ready to mix?</DashboardTitle>
+      <div className="flex flex-row justify-between">
+        <DashboardTitle>Ready to mix?</DashboardTitle>
+        <DashboardUserMenu />
+      </div>
       <DashboardContentShelf headingText="Start mixing" shelfBehavior="two-col">
         {appCards}
       </DashboardContentShelf>
