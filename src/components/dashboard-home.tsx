@@ -12,7 +12,7 @@ export const DashboardHome = () => {
       <DashboardCard
         img={<AppIcon app={app.appType as Apps} shape={AppIconShapes.Square} />}
         title={app.name}
-        link={app.href}
+        href={app.href}
         description={app.description}
         small
       />
@@ -23,7 +23,7 @@ export const DashboardHome = () => {
     <DashboardCard
       img={<div className="h-full w-full bg-gray"></div>}
       title={"Playlist"}
-      link={"/404"}
+      href={"/404"}
       description={
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit excepturi earum voluptatibus quos laboriosam obcaecati recusandae quo unde modi quam nobis provident perspiciatis, a natus debitis omnis! Incidunt, quae cum."
       }

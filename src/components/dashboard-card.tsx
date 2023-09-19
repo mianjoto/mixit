@@ -1,13 +1,14 @@
 import { Link as LinkType } from "@/types/links";
 import Link from "next/link";
 import React from "react";
+import LinkWrapper from "./ui/link-wrapper";
 
 interface DashboardCardProps {
-  small?: boolean;
-  img?: React.JSX.Element;
   title: string;
   description: string;
-  link: LinkType | string;
+  href: LinkType | string;
+  small?: boolean;
+  img?: React.JSX.Element;
 }
 
 const MAX_TITLE_CHARS = 20;
@@ -17,6 +18,7 @@ const CARD_PLACEHOLDER = {
   title: "Title",
   description:
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis consequuntur aspernatur beatae expedita ut. Doloremque odit, esse quaerat accusamus dicta rem dolor quo animi harum, numquam optio veritatis quae corrupti?",
+  href: "/404",
 };
 
 const defaultCardLayout = (
@@ -60,10 +62,11 @@ const smallCardLayout = (
 };
 
 const DashboardCard = ({
-  small = false,
-  img = CARD_PLACEHOLDER.image,
   title = CARD_PLACEHOLDER.title,
   description = CARD_PLACEHOLDER.description,
+  href = CARD_PLACEHOLDER.href,
+  small = false,
+  img = CARD_PLACEHOLDER.image,
 }: DashboardCardProps) => {
   const displayTitle =
     title.length > MAX_TITLE_CHARS
@@ -75,9 +78,13 @@ const DashboardCard = ({
       ? `${description.substring(0, MAX_DESCRIPTION_CHARS)}...`
       : description;
 
-  return small
-    ? smallCardLayout(img, displayTitle, displayDescription)
-    : defaultCardLayout(img, displayTitle, displayDescription);
+  return (
+    <LinkWrapper href={href} fitToWidth={false}>
+      {small
+        ? smallCardLayout(img, displayTitle, displayDescription)
+        : defaultCardLayout(img, displayTitle, displayDescription)}
+    </LinkWrapper>
+  );
 };
 DashboardCard.displayName = "Card";
 
