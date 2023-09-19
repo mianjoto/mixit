@@ -3,10 +3,10 @@ import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Button } from "./ui/button";
-import Link from "next/link";
 import { Disc } from "./disc";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { NavbarHeight } from "@/data/objects/navbar-data";
+import LinkWrapper from "./ui/link-wrapper";
 
 export function Hero({}) {
   return (
@@ -31,9 +31,9 @@ export function Hero({}) {
           <Text level={TextLevels.p} className="mb-32 md:mb-64">
             Rediscover old favorites and reignite your playlists with Mixit.
           </Text>
-          <Link href="/dashboard">
+          <LinkWrapper href="/dashboard">
             <Button size="cta">GET STARTED</Button>
-          </Link>
+          </LinkWrapper>
         </div>
         {/* Disc */}
         <div className="col-span-full row-span-full row-start-1 flex flex-col items-end lg:col-span-6 lg:block lg:h-3/4">

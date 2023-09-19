@@ -18,6 +18,7 @@ import { LinkText } from "./ui/link-text";
 import Link from "next/link";
 import { FooterLinks } from "@/data/objects/footer-links";
 import MixitHomeLogo from "./ui/mixit-home-logo";
+import LinkWrapper from "./ui/link-wrapper";
 
 interface AccordionItemProps extends Accordion.AccordionItemProps {
   className?: string;
@@ -96,7 +97,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
 const appsLinks = Object.keys(AppData).map((appKey) => {
   const app = AppData[appKey as Apps];
   return (
-    <Link
+    <LinkWrapper
       href={app.href}
       className="inline-flex w-fit flex-row items-center gap-8"
       key={appKey}
@@ -107,7 +108,7 @@ const appsLinks = Object.keys(AppData).map((appKey) => {
         className="h-[20px] w-[20px] rounded-[3px] text-background"
       />
       <Text level={TextLevels.span}>{app.name}</Text>
-    </Link>
+    </LinkWrapper>
   );
 });
 

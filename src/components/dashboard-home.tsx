@@ -2,23 +2,20 @@ import { AppData } from "@/data/records/apps";
 import { DashboardCard } from "./dashboard-card";
 import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
-import Link from "next/link";
 import { DashboardTitle, DashboardContentShelf } from "./dashboard";
 import { UserProfileMenu } from "./user-profile-menu";
+import LinkWrapper from "./ui/link-wrapper";
 
 export const DashboardHome = () => {
   const appCards = Object.values(AppData).map((app) => {
     return (
-      <Link href={app.href}>
-        <DashboardCard
-          img={
-            <AppIcon app={app.appType as Apps} shape={AppIconShapes.Square} />
-          }
-          title={app.name}
-          description={app.description}
-          small
-        />
-      </Link>
+      <DashboardCard
+        img={<AppIcon app={app.appType as Apps} shape={AppIconShapes.Square} />}
+        title={app.name}
+        link={app.href}
+        description={app.description}
+        small
+      />
     );
   });
 
@@ -26,6 +23,7 @@ export const DashboardHome = () => {
     <DashboardCard
       img={<div className="h-full w-full bg-gray"></div>}
       title={"Playlist"}
+      link={"/404"}
       description={
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit excepturi earum voluptatibus quos laboriosam obcaecati recusandae quo unde modi quam nobis provident perspiciatis, a natus debitis omnis! Incidunt, quae cum."
       }

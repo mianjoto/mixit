@@ -1,3 +1,5 @@
+import { Link as LinkType } from "@/types/links";
+import Link from "next/link";
 import React from "react";
 
 interface DashboardCardProps {
@@ -5,6 +7,7 @@ interface DashboardCardProps {
   img?: React.JSX.Element;
   title: string;
   description: string;
+  link: LinkType | string;
 }
 
 const MAX_TITLE_CHARS = 20;
