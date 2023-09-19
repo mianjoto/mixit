@@ -5,7 +5,7 @@ import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Accordion from "@radix-ui/react-accordion";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../lib/utils";
 import { LinkText } from "./ui/link-text";
 import { Links, Link as LinkType } from "@/types/links";
 import { NavbarHeight, NavbarLinks } from "@/data/objects/navbar-data";

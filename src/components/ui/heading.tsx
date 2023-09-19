@@ -1,5 +1,5 @@
 import { HeadingLevels } from "@/types/text";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { FC } from "react";
 

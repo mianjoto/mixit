@@ -1,5 +1,5 @@
 import { DiscSVG } from "@/assets/svg";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { FC } from "react";
 

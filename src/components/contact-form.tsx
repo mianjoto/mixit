@@ -1,7 +1,7 @@
 import React from "react";
 import * as Form from "@radix-ui/react-form";
 import { Button } from "./ui/button";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../lib/utils";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
 interface ContactFormProps
