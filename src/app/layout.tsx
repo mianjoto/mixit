@@ -1,5 +1,6 @@
 import "../assets/css/index.css";
 import { Noto_Sans } from "next/font/google";
+import ModalProvider from "../providers/modal-provider";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -14,6 +15,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
+      <ModalProvider />
       <body
         className={`${notoSans.className}
         w-screen overflow-x-hidden bg-background`}
