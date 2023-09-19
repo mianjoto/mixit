@@ -8,7 +8,7 @@ import { Pretitle } from "./ui/pretitle";
 import { Heading } from "./ui/heading";
 import { Text } from "./ui/text";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import LinkWrapper from "./ui/link-wrapper";
 
 function Features() {
   const appCards: React.JSX.Element[] = [];
@@ -61,13 +61,17 @@ function Features() {
           Whether you have hundreds of Liked Songs or only three playlists,
           Mixit is your new home for shaking up your library.
         </Text>
-        <Link href="/dashboard" className="hidden w-fit lg:block">
-          <Button size="cta">Explore all</Button>
-        </Link>
+        <Button href="/dashboard" size="cta" className="hidden w-fit lg:block">
+          Explore all
+        </Button>
       </Section>
-      <Link href="/dashboard" className="col-span-full block w-full lg:hidden">
-        <Button size="cta">Explore all</Button>
-      </Link>
+      <Button
+        href="/dashboard"
+        size="cta"
+        className="col-span-full block w-full lg:hidden"
+      >
+        Explore all
+      </Button>
     </Section>
   );
 }
