@@ -15,8 +15,6 @@ const LinkWrapper: React.FC<LinkWrapperProps> = (props: LinkWrapperProps) => {
 
   const href = hrefFromLink || props.href;
 
-  console.log("...props=", { ...props });
-
   return (
     <Link
       {...props}
