@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Text, TextProps } from "./text";
-import Link, { LinkProps } from "next/link";
+import LinkWrapper from "./link-wrapper";
 import { Link as LinkType } from "@/types/links";
 import { HeadingLevels, TextLevels } from "@/types/text";
 import { cn } from "@/utils/helpers";
@@ -18,16 +18,17 @@ const LinkText: FC<LinkTextProps> = ({
   textProps = { level: TextLevels.span },
   isHeading = false,
   className,
-  ...props
 }: LinkTextProps) => {
+  const textComponent = isHeading ? (
+    <Heading {...(textProps as HeadingProps)}>{link.text}</Heading>
+  ) : (
+    <Text {...(textProps as TextProps)}>{link.text}</Text>
+  );
+
   return (
-    <Link {...props} className={cn("w-fit", className)} href={link.href}>
-      {isHeading ? (
-        <Heading {...(textProps as HeadingProps)}>{link.text}</Heading>
-      ) : (
-        <Text {...(textProps as TextProps)}>{link.text}</Text>
-      )}
-    </Link>
+    <LinkWrapper href={link} className={className}>
+      {textComponent}
+    </LinkWrapper>
   );
 };
 LinkText.displayName = "Link";
