@@ -7,6 +7,8 @@ export interface Link {
   href: string;
 }
 
+export type LinkOrHref = Link | string;
+
 export const Links = {
   about: {
     root: {

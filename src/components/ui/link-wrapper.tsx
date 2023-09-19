@@ -1,27 +1,32 @@
-import { cn } from "@/utils/helpers";
-import Link, { LinkProps } from "next/link";
+import { cn, getHref } from "@/utils/helpers";
+import Link from "next/link";
 import { Link as LinkType } from "@/types/links";
 
-interface LinkWrapperProps extends LinkProps {
+interface LinkWrapperProps {
+  href: LinkType | string;
   children: React.ReactNode;
   className?: string;
+  isInteractive?: boolean;
 }
 
-const LinkWrapper: React.FC<LinkWrapperProps> = (props: LinkWrapperProps) => {
-  const linkWrapperStyles =
-    "w-fit opacity-[85%] hover:opacity-95 focus:opacity-95 active:opacity-100";
+const LinkWrapper: React.FC<LinkWrapperProps> = ({
+  href,
+  children,
+  className,
+  isInteractive = true,
+}: LinkWrapperProps) => {
+  const linkWrapperStyles = isInteractive
+    ? "opacity-[85%] hover:opacity-95 focus:opacity-95 active:opacity-100"
+    : "";
 
-  const hrefFromLink = (props.href as LinkType)?.href;
-
-  const href = hrefFromLink || props.href;
+  const hrefFromLink = getHref(href);
 
   return (
     <Link
-      {...props}
-      className={cn(linkWrapperStyles, props.className)}
-      href={href}
+      className={cn("w-fit", linkWrapperStyles, className)}
+      href={hrefFromLink}
     >
-      {props.children}
+      {children}
     </Link>
   );
 };
