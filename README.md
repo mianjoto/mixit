@@ -1,6 +1,6 @@
 <p align="center"/>
     <a href="https://github.com/mianjoto/mixit">
-        <img src="./src/assets/readme/Mixit_Logo_Brand.png" alt="Mixit logo" width="200"/>
+        <img src="./src/assets/mixit/Mixit_Logo_Brand.png" alt="Mixit logo" width="200"/>
     </a>
     <p align="center">Expand your Spotify experience.</p>
     <p align="center">
@@ -26,7 +26,7 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
   <tr>
     <td style="padding: 1rem;">
         <div style="display: flex; gap: 1rem; align-items: center; align-content: center;">
-            <img src="./src/assets/readme/Shuffler.png"/>
+            <img src="src/assets/images/Shuffler.png"/>
         <section>
         <h3>Shuffler</h3>Never repeat songs with a truly shuffled queue
         </section>
@@ -34,7 +34,7 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
     </td>
     <td style="padding: 1rem;">
         <div style="display: flex; gap: 1rem; align-items: center; align-content: center;">
-            <img src="./src/assets/readme/Blender.png"/>
+            <img src="src/assets/images/Blender.png"/>
         <section>
         <h3>Blender</h3>Randomly shuffle from all of your playlists
         </section>
@@ -46,7 +46,7 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
 
   <td style="padding: 1rem;">
         <div style="display: flex; gap: 1rem; align-items: center; align-content: center;">
-            <img src="./src/assets/readme/Pick And Mix.png"/>
+            <img src="src/assets/images/Pick and Mix.png"/>
         <section>
         <h3>Pick And Mix</h3>Choose genres to blend into a new playlist
         </section>
@@ -54,7 +54,7 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
     </td>
     <td style="padding: 1rem;">
         <div style="display: flex; gap: 1rem; align-items: center; align-content: center;">
-            <img src="./src/assets/readme/Time Machine.png"/>
+            <img src="src/assets/images/Time Machine.png"/>
         <section>
         <h3>Time Machine</h3>Go back in time to rediscover your old favorites
         </section>
@@ -65,10 +65,10 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
 
 ## Screenshots
 
-![Home page hero section](/src/assets/screenshots/hero.png)
-![Dashboard](/src/assets/screenshots/dashboard.png)
-![Features](/src/assets/screenshots/features.png)
-![Reasons to use](/src/assets/screenshots/reasons-to-use.png)
+![Home page hero section](src/assets/screenshots/desktop/hero.png)
+![Dashboard](src/assets/screenshots/desktop/dashboard.png)
+![Features](src/assets/screenshots/desktop/features.png)
+![Reasons to use](src/assets/screenshots/desktop/reasons-to-use.png)
 
 <details>
   <summary>
@@ -77,10 +77,10 @@ Tired of the same songs playing when shuffling in Spotify? Try out Mixit's appsâ
 
   </summary>
 
-![Mobile version of home page hero section](/src/assets/screenshots/mobile/hero.png)
-![Mobile version of dashboard](/src/assets/screenshots/mobile/dashboard.png)
-![Mobile version of features](/src/assets/screenshots/mobile/features.png)
-![Mobile version of footer](/src/assets/screenshots/mobile/footer.png)
+![Mobile version of home page hero section](src/assets/screenshots/mobile/hero.png)
+![Mobile version of dashboard](src/assets/screenshots/mobile/dashboard.png)
+![Mobile version of features](src/assets/screenshots/mobile/features.png)
+![Mobile version of footer](src/assets/screenshots/mobile/footer.png)
 
 </details>
 
