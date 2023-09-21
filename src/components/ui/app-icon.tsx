@@ -1,4 +1,4 @@
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { Apps, Features } from "@/types/apps";
 import { AppData } from "@/data/records/apps";

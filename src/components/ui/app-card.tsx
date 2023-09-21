@@ -1,5 +1,5 @@
 import { Card, CardProps, cardVariants } from "./card";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 import { Heading, HeadingProps } from "./heading";
 import { Text, TextProps } from "./text";
 import { Apps } from "@/types/apps";

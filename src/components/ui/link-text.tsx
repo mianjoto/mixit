@@ -3,7 +3,7 @@ import { Text, TextProps } from "./text";
 import LinkWrapper from "./link-wrapper";
 import { Link as LinkType } from "@/types/links";
 import { HeadingLevels, TextLevels } from "@/types/text";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 import { Heading, HeadingProps } from "./heading";
 
 interface LinkTextProps {

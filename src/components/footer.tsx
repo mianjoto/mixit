@@ -1,6 +1,6 @@
 "use client";
 import React, { forwardRef } from "react";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../lib/utils";
 import { Section } from "./ui/section";
 import { Heading } from "./ui/heading";
 import { HeadingLevels, TextLevels } from "@/types/text";

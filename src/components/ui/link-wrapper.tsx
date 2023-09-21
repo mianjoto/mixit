@@ -1,4 +1,4 @@
-import { cn, getHref } from "@/utils/helpers";
+import { cn, getHref } from "../../../lib/utils";
 import Link from "next/link";
 import { Link as LinkType } from "@/types/links";
 import { cva } from "class-variance-authority";

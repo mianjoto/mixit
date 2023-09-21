@@ -1,4 +1,4 @@
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 
 const cardVariants = cva("rounded-[16px]", {

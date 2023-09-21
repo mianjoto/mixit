@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { MixitLogo } from "@/assets/mixit";
 import Link from "next/link";
-import { cn } from "@/utils/helpers";
+import { cn } from "../../../lib/utils";
 
 interface MixitIconProps extends React.SVGProps<SVGSVGElement> {}
 
