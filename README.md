@@ -122,6 +122,9 @@ Backend:
 
 - Next.js v13, NextAuth
 
+## Disclaimer
+This application uses the Spotify API but is not endorsed, certified or otherwise approved in any way by Spotify. Please forward any legal concerns to [mianjoto@gmail.com](mailto:mianjoto@gmail.com).
+
 ## Contact
 
 <p align="center">
