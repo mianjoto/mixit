@@ -11,8 +11,6 @@ const scopes = [
   "user-top-read",
   "user-read-recently-played",
   "user-library-read",
-  // Can be destructive if not used carefully
-  // "user-library-modify"
   "user-read-playback-state",
   "user-read-email",
   "user-read-private",
@@ -27,8 +25,8 @@ const queryParamString = new URLSearchParams(params);
 const LOGIN_URL = `https://accounts.spotify.com/authorize?${queryParamString.toString()}`;
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-  clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
 
 export default spotifyApi;
