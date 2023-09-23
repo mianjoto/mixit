@@ -66,5 +66,13 @@ export const authConfig: NextAuthOptions = {
       console.log("Spotify API access token has expired, refreshing...");
       return await refreshAccessToken(token as Token);
     },
+
+    async session({ session, token }) {
+      session.accessToken = (token as Token).accessToken;
+      session.refreshToken = (token as Token).refreshToken;
+      session.user.name = (token as Token).username;
+
+      return session;
+    },
   },
 };
