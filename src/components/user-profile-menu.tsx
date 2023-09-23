@@ -40,7 +40,6 @@ export const UserProfileMenu = () => {
   const userProfilePictureSrc = data?.user.image as string;
 
   return (
-    // TODO: Add API request for username information
     <section className="flex flex-row items-center gap-8">
       <Accordion.Root
         type="single"
