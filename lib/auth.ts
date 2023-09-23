@@ -70,7 +70,7 @@ export const authConfig: NextAuthOptions = {
     async session({ session, token }) {
       session.accessToken = (token as Token).accessToken;
       session.refreshToken = (token as Token).refreshToken;
-      session.user.name = (token as Token).username;
+      session.user.name = (token as Token).name;
 
       return session;
     },
