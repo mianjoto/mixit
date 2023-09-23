@@ -8,7 +8,7 @@ const AuthModal = () => {
       title="Welcome back!"
       description="Log in to your Spotify Premium account"
       onChange={() => {}}
-      isOpen
+      isOpen={false}
     >
       <SpotifyLoginButton />
     </Modal>

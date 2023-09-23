@@ -11,7 +11,7 @@ interface LinkWrapperProps {
   fitToWidth?: boolean;
 }
 
-const linkWrapperVariants = cva("", {
+export const linkWrapperVariants = cva("", {
   variants: {
     isInteractive: {
       true: "opacity-[85%] hover:opacity-95 focus:opacity-95 active:opacity-100",
