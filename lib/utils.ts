@@ -15,3 +15,37 @@ export function getHref(linkOrHref: LinkOrHref): string {
     return linkOrHref as string;
   }
 }
+
+export function cleanPlaylistAttributes(
+  playlist: SpotifyApi.PlaylistObjectSimplified
+) {
+  removeAnchorTagFromDescription();
+  handleEmptyPlaylistAttributes();
+
+  function removeAnchorTagFromDescription() {
+    if (!playlist.description) {
+      return;
+    }
+
+    // Skip if the playlist is not owned by Spotify (since only Spotify playlists have anchor tags)
+    if (playlist.owner.uri !== "spotify:user:spotify") {
+      return;
+    }
+
+    const removeAnchorTagRegex = /<a\b[^>]*>(.*?)<\/a>/gi;
+    playlist.description = playlist.description.replace(
+      removeAnchorTagRegex,
+      "$1"
+    );
+  }
+
+  function handleEmptyPlaylistAttributes() {
+    if (playlist.description == null || playlist.description === "") {
+      playlist.description = `By ${playlist.owner.display_name}`;
+    }
+
+    if (playlist.name == null || playlist.name === "") {
+      playlist.name = "-";
+    }
+  }
+}

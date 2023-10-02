@@ -163,6 +163,7 @@ const AccordionTrigger = React.forwardRef<
         {...props}
         ref={forwardedRef}
         title="Expand Navigation Bar"
+        suppressHydrationWarning
       >
         <div className="flex h-[40px] w-[40px] place-items-center justify-center">
           <HamburgerMenuIcon
@@ -230,7 +231,7 @@ const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
     >
       <MixitHomeLogo className="w-fit max-w-[70px]" />
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
-        <AccordionTrigger />
+        <AccordionTrigger suppressHydrationWarning />
         <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown">
           {navbarContent}
         </Accordion.Content>

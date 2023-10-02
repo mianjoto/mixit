@@ -10,5 +10,6 @@ declare module "next-auth" {
     user: {
       // Additional user props go in here
     } & DefaultSession["user"];
+    error?: string;
   }
 }

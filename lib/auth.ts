@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
-import spotifyApi, { LOGIN_URL } from "./spotify";
+import spotifyApi, { LOGIN_URL } from "./spotify-auth";
 import { JWT } from "next-auth/jwt";
 
 interface Token extends JWT {
@@ -11,18 +11,23 @@ interface Token extends JWT {
 }
 
 async function refreshAccessToken(token: Token) {
+  console.log("Spotify token=", token);
   try {
     spotifyApi.setAccessToken(token.accessToken);
     spotifyApi.setRefreshToken(token.refreshToken);
 
     const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
-    console.log("Spotify refresh token after being refreshed=", refreshedToken);
+    console.log("Successfully refreshed spotify access token");
+    console.log(
+      "Spotify refresh token after being refreshed=",
+      refreshedToken.refresh_token
+    );
 
     return {
       ...token,
       accessToken: refreshedToken.access_token,
       accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
-      refreshToken: refreshedToken ?? token.refreshToken,
+      refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
     console.error(error);

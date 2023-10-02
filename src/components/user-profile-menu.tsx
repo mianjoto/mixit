@@ -39,6 +39,10 @@ export const UserProfileMenu = () => {
 
   const userProfilePictureSrc = data?.user.image as string;
 
+  const menuContent = data?.user
+    ? loggedInContent(data?.user.name as string)
+    : notLoggedInContent();
+
   return (
     <section className="flex flex-row items-center gap-8">
       <Accordion.Root
@@ -61,9 +65,7 @@ export const UserProfileMenu = () => {
           </Accordion.Header>
           <Accordion.Content className="absolute right-0 z-30 flex flex-col gap-64 overflow-hidden rounded-md bg-secondary text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown">
             <div className="flex w-fit flex-col gap-12 px-12 py-16 ">
-              {data?.user
-                ? loggedInContent(data?.user.name as string)
-                : notLoggedInContent()}
+              {menuContent}
             </div>
           </Accordion.Content>
         </Accordion.Item>
