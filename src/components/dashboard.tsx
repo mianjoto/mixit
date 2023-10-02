@@ -15,7 +15,7 @@ export const DashboardRootLayout: React.FC<DashboardRootLayoutProps> = ({
   return (
     <Section
       fitScreenHeight
-      className="overflow-x-hidden px-12 py-32 lg:px-24 lg:py-32"
+      className="flex-1 overflow-x-hidden px-12 py-32 lg:px-24 lg:py-32"
     >
       <DashboardRoot>{children}</DashboardRoot>
     </Section>
