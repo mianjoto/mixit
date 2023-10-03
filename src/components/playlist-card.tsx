@@ -1,3 +1,5 @@
+import Image from "next/image";
+import playlistPlaceholderImage from "../../src/assets/images/playlist-card-image-placeholder.jpg";
 import useAuthModal from "@/hooks/useAuthModal";
 import { DashboardCard } from "./dashboard-card";
 import { cleanPlaylistAttributes } from "../../lib/utils";
@@ -29,17 +31,21 @@ const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
 };
 
 const renderPlaceholderCard = (onClickFn: () => void): React.JSX.Element => {
-  const placeholderData = {
-    title: "Playlist title",
-    description: "Playlist description",
+  const placeholderProps = {
+    title: null,
+    description: null,
     image: (
-      <div className="h-full w-full place-content-center bg-secondary text-center text-sm text-body">
-        No playlist found
-      </div>
+      <Image
+        src={playlistPlaceholderImage}
+        alt=""
+        width="200"
+        height="200"
+        placeholder="blur"
+        className="h-full w-full"
+      />
     ),
     onClick: onClickFn,
   };
-
-  return <DashboardCard {...placeholderData} />;
+  return <DashboardCard {...placeholderProps} />;
 };
 export default PlaylistCard;
