@@ -7,22 +7,20 @@ import { DashboardTitle } from "./dashboard";
 import { DashboardContentShelf } from "./dashboard-content-shelf";
 import { UserProfileMenu } from "./user-profile-menu";
 
-export const DashboardHome = () => {
-  const appCards = Object.values(AppData).map((app) => {
-    return (
-      <DashboardCard
-        image={
-          <AppIcon app={app.appType as Apps} shape={AppIconShapes.Square} />
-        }
-        title={app.name}
-        href={app.href}
-        key={app.name}
-        description={app.description}
-        small
-      />
-    );
-  });
+const APP_CARDS = Object.values(AppData).map((app) => {
+  return (
+    <DashboardCard
+      image={<AppIcon app={app.appType as Apps} shape={AppIconShapes.Square} />}
+      title={app.name}
+      href={app.href}
+      key={app.name}
+      description={app.description}
+      small
+    />
+  );
+});
 
+export const DashboardHome = () => {
   return (
     <>
       <div className="flex flex-row justify-between">
@@ -30,7 +28,7 @@ export const DashboardHome = () => {
         <UserProfileMenu />
       </div>
       <DashboardContentShelf headingText="Start mixing" shelfBehavior="two-col">
-        {appCards}
+        {APP_CARDS}
       </DashboardContentShelf>
       <UserPlaylistShelf />
     </>
