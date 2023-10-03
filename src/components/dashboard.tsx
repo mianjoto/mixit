@@ -43,27 +43,8 @@ export const DashboardTitle = ({ children }: DashboardTitleProps) => {
 
 interface DashboardHeadingProps extends HTMLAttributes<HTMLHeadingElement> {}
 
-const DashboardHeading = ({ children }: DashboardHeadingProps) => {
+export const DashboardHeading = ({ children }: DashboardHeadingProps) => {
   return <Heading level={HeadingLevels.h3}>{children}</Heading>;
-};
-
-interface DashboardContentShelfProps {
-  headingText: string;
-  shelfBehavior?: "default" | "one-col" | "two-col" | "three-col";
-  children: React.ReactNode;
-}
-
-export const DashboardContentShelf = ({
-  headingText,
-  shelfBehavior,
-  children,
-}: DashboardContentShelfProps) => {
-  return (
-    <section className="flex w-full flex-col gap-20 lg:gap-12">
-      <DashboardHeading>{headingText}</DashboardHeading>
-      <DashboardShelf mobileBehavior={shelfBehavior}>{children}</DashboardShelf>
-    </section>
-  );
 };
 
 export const Dashboard = DashboardRoot as typeof DashboardRoot & {

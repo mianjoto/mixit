@@ -3,7 +3,8 @@ import { AppData } from "@/data/records/apps";
 import { DashboardCard } from "./dashboard-card";
 import { AppIcon, AppIconShapes } from "./ui/app-icon";
 import { Apps } from "@/types/apps";
-import { DashboardTitle, DashboardContentShelf } from "./dashboard";
+import { DashboardTitle } from "./dashboard";
+import { DashboardContentShelf } from "./dashboard-content-shelf";
 import { UserProfileMenu } from "./user-profile-menu";
 
 export const DashboardHome = () => {
