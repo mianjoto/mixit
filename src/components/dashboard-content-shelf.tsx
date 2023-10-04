@@ -2,9 +2,9 @@ import { DashboardShelf } from "./dashboard-shelf";
 import { DashboardHeading } from "./dashboard";
 
 interface DashboardContentShelfProps {
-  headingText: string;
+  headingText: string | undefined;
   shelfBehavior?: "default" | "one-col" | "two-col" | "three-col";
-  children: React.ReactNode;
+  children: React.ReactNode | undefined;
 }
 
 export const DashboardContentShelf = ({
@@ -14,7 +14,7 @@ export const DashboardContentShelf = ({
 }: DashboardContentShelfProps) => {
   return (
     <section className="flex w-full flex-col gap-20 lg:gap-12">
-      <DashboardHeading>{headingText}</DashboardHeading>
+      <DashboardHeading text={headingText} />
       <DashboardShelf mobileBehavior={shelfBehavior}>{children}</DashboardShelf>
     </section>
   );

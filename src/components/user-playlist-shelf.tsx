@@ -1,40 +1,58 @@
 "use client";
-
-import { DashboardContentShelf } from "./dashboard";
 import { useQuery } from "@tanstack/react-query";
-import { getTopPlaylists } from "../../lib/spotify-query";
-import useSpotify from "@/hooks/useSpotify";
-import PlaylistCard from "./playlist-card";
+import { Playlist, getTopPlaylists } from "../../lib/spotify-query";
+import { DashboardContentShelf } from "./dashboard-content-shelf";
+import PlaylistCard, {
+  generatePlaceholderPlaylistCards,
+} from "./playlist-card";
+
+import { useSession } from "next-auth/react";
 
 export function UserPlaylistShelf() {
-  const spotifyApi = useSpotify();
+  const { data: session } = useSession();
 
-  const { data: playlists } = useQuery({
+  const { data: playlists, isLoading } = useQuery({
     queryKey: ["topPlaylists"],
-    queryFn: () => getTopPlaylists({ spotifyApi }),
-    enabled: !!spotifyApi,
+    queryFn: () => getTopPlaylists({ session }),
+    enabled: !!session,
     staleTime: 5 * 60 * 1000,
   });
 
-  const headingText = playlists !== undefined ? "Mix your playlists" : "";
+  if (isLoading) {
+    return (
+      <DashboardContentShelf headingText={undefined}>
+        {undefined}
+      </DashboardContentShelf>
+    );
+  }
+
+  if (playlists === undefined) {
+    const placeholderCards = generatePlaceholderPlaylistCards(3);
+
+    return (
+      <DashboardContentShelf headingText="Sign in to mix your playlists">
+        {placeholderCards}
+      </DashboardContentShelf>
+    );
+  }
 
   const playlistCards = generatePlaylistCards(playlists);
 
   return (
-    <DashboardContentShelf headingText={headingText}>
+    <DashboardContentShelf headingText={"Mix your playlists"}>
       {playlistCards}
     </DashboardContentShelf>
   );
 }
 
 const generatePlaylistCards = (
-  playlists: SpotifyApi.PlaylistObjectSimplified[] | undefined
-): React.JSX.Element[] | null => {
-  if (playlists !== undefined) {
+  playlists: Playlist[] | undefined
+): React.JSX.Element[] | React.JSX.Element => {
+  if (playlists !== undefined && playlists !== null) {
     return playlists.map((playlist) => (
       <PlaylistCard playlist={playlist} key={playlist.id} />
     ));
   }
 
-  return null;
+  return <PlaylistCardPlaceholder />;
 };

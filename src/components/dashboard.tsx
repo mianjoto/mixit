@@ -3,6 +3,7 @@ import { Heading } from "./ui/heading";
 import { HTMLAttributes } from "react";
 import { Section } from "./ui/section";
 import { DashboardShelf } from "./dashboard-shelf";
+import WithSkeleton from "./ui/with-skeleton";
 
 interface DashboardRootLayoutProps {
   children: React.ReactNode;
@@ -28,23 +29,27 @@ const DashboardRoot = ({ children }: DashboardRootProps) => {
   return <div className="flex flex-col gap-24 lg:gap-32">{children}</div>;
 };
 
-interface DashboardTitleProps extends HTMLAttributes<HTMLHeadingElement> {}
+interface DashboardTextProps extends HTMLAttributes<HTMLHeadingElement> {
+  text: string | undefined;
+}
 
-export const DashboardTitle = ({ children }: DashboardTitleProps) => {
+export const DashboardTitle = ({ text }: DashboardTextProps) => {
   return (
     <Heading
       level={HeadingLevels.h1}
-      className="truncate text-xl text-primary lg:text-2xl "
+      className="text-xl text-primary lg:text-2xl "
     >
-      {children}
+      <WithSkeleton content={text} />
     </Heading>
   );
 };
 
-interface DashboardHeadingProps extends HTMLAttributes<HTMLHeadingElement> {}
-
-export const DashboardHeading = ({ children }: DashboardHeadingProps) => {
-  return <Heading level={HeadingLevels.h3}>{children}</Heading>;
+export const DashboardHeading = ({ text }: DashboardTextProps) => {
+  return (
+    <Heading level={HeadingLevels.h3}>
+      <WithSkeleton content={text} skeletonProps={{ width: "40%" }} />
+    </Heading>
+  );
 };
 
 export const Dashboard = DashboardRoot as typeof DashboardRoot & {

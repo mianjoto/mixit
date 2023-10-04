@@ -62,7 +62,7 @@ const smallCardLayout = ({ image, title, description }: DashboardCardProps) => {
   );
 };
 
-const DashboardCard = ({
+const DashboardCardComponent = ({
   title,
   description,
   href = "/404",
@@ -99,6 +99,26 @@ const DashboardCard = ({
     </LinkWrapper>
   );
 };
-DashboardCard.displayName = "Card";
+DashboardCardComponent.displayName = "Card";
 
-export { DashboardCard };
+type DashboardCardLoadingProps = { small?: boolean };
+
+const DashboardCardLoading = ({ small = false }: DashboardCardLoadingProps) => {
+  const undefinedCardProps = {
+    title: undefined,
+    description: undefined,
+    image: undefined,
+  };
+
+  const card = small
+    ? smallCardLayout({ ...undefinedCardProps })
+    : defaultCardLayout({ ...undefinedCardProps });
+
+  return card;
+};
+
+export const DashboardCard =
+  DashboardCardComponent as typeof DashboardCardComponent & {
+    Loading: typeof DashboardCardLoading;
+  };
+DashboardCardComponent.Loading = DashboardCardLoading;

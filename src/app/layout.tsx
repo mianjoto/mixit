@@ -16,18 +16,18 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ReactQueryProvider>
-      <html lang="en">
-        <ReactQueryDevtools initialIsOpen={false} />
+    <html lang="en">
+      <ReactQueryProvider>
         <ModalProvider />
         <body
           className={`${notoSans.className}
-        w-screen overflow-x-hidden overscroll-none bg-background`}
+          w-screen overflow-x-hidden overscroll-none bg-background`}
         >
           {children}
+          <ReactQueryDevtools initialIsOpen={false} />
         </body>
-      </html>
-    </ReactQueryProvider>
+      </ReactQueryProvider>
+    </html>
   );
 };
 

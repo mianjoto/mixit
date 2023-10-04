@@ -24,7 +24,7 @@ export const DashboardHome = () => {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <DashboardTitle className="flex-1">Ready to mix?</DashboardTitle>
+        <DashboardTitle text={"Ready to mix?"} className="flex-1" />
         <UserProfileMenu />
       </div>
       <DashboardContentShelf headingText="Start mixing" shelfBehavior="two-col">

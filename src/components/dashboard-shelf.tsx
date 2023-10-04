@@ -1,6 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { HTMLAttributes } from "react";
 import { cn } from "../../lib/utils";
+import { DashboardCard } from "./dashboard-card";
 
 const dashboardShelfVariants = cva(
   "lg:inline-flex lg:w-full lg:flex-row lg:gap-12 lg:gap-8 lg:overflow-x-auto lg:pb-8",
@@ -20,13 +21,24 @@ const dashboardShelfVariants = cva(
 interface DashboardShelfProps
   extends HTMLAttributes<HTMLElement>,
     VariantProps<typeof dashboardShelfVariants> {}
+
+const generateLoadingCards = (numberOfCards: number = 3) => {
+  const cards = [];
+  for (let index = 0; index < numberOfCards; index++) {
+    cards.push(<DashboardCard.Loading key={`loading-card-${index}`} />);
+  }
+  return cards;
+};
+
+const LOADING_CARDS = generateLoadingCards();
+
 export const DashboardShelf = ({
   mobileBehavior,
   children,
 }: DashboardShelfProps) => {
   return (
     <section className={cn(dashboardShelfVariants({ mobileBehavior }))}>
-      {children}
+      {children || LOADING_CARDS}
     </section>
   );
 };
