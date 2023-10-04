@@ -51,7 +51,7 @@ const smallCardLayout = ({ image, title, description }: DashboardCardProps) => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <p className="truncate text-base font-bold uppercase text-body">
+        <p className="text-base font-bold uppercase text-body lg:truncate">
           <WithSkeleton content={title} />
         </p>
         <p className="line-clamp-1 hidden text-sm font-medium text-gray lg:block">
