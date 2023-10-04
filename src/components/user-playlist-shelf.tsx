@@ -2,23 +2,30 @@
 import { useQuery } from "@tanstack/react-query";
 import { Playlist, getTopPlaylists } from "../../lib/spotify-query";
 import { DashboardContentShelf } from "./dashboard-content-shelf";
-import PlaylistCard, {
-  generatePlaceholderPlaylistCards,
-} from "./playlist-card";
+import PlaylistCard from "./playlist-card";
 
 import { useSession } from "next-auth/react";
+import SpotifyLoginButton from "./spotify-login-button";
 
 export function UserPlaylistShelf() {
   const { data: session } = useSession();
 
-  const { data: playlists, isLoading } = useQuery({
+  const { data: playlists, isSuccess } = useQuery({
     queryKey: ["topPlaylists"],
     queryFn: () => getTopPlaylists({ session }),
     enabled: !!session,
     staleTime: 5 * 60 * 1000,
   });
 
-  if (isLoading) {
+  if (session === null) {
+    return (
+      <DashboardContentShelf headingText="Sign in to mix your playlists">
+        <SpotifyLoginButton />
+      </DashboardContentShelf>
+    );
+  }
+
+  if (!isSuccess || playlists === undefined) {
     return (
       <DashboardContentShelf headingText={undefined}>
         {undefined}
@@ -26,17 +33,9 @@ export function UserPlaylistShelf() {
     );
   }
 
-  if (playlists === undefined) {
-    const placeholderCards = generatePlaceholderPlaylistCards(3);
-
-    return (
-      <DashboardContentShelf headingText="Sign in to mix your playlists">
-        {placeholderCards}
-      </DashboardContentShelf>
-    );
-  }
-
-  const playlistCards = generatePlaylistCards(playlists);
+  const playlistCards = playlists.map((playlist) => (
+    <PlaylistCard playlist={playlist} key={playlist.id} />
+  ));
 
   return (
     <DashboardContentShelf headingText={"Mix your playlists"}>
@@ -44,15 +43,3 @@ export function UserPlaylistShelf() {
     </DashboardContentShelf>
   );
 }
-
-const generatePlaylistCards = (
-  playlists: Playlist[] | undefined
-): React.JSX.Element[] | React.JSX.Element => {
-  if (playlists !== undefined && playlists !== null) {
-    return playlists.map((playlist) => (
-      <PlaylistCard playlist={playlist} key={playlist.id} />
-    ));
-  }
-
-  return <PlaylistCardPlaceholder />;
-};
