@@ -16,6 +16,7 @@ export function UserPlaylistShelf() {
     enabled: !!session,
     staleTime: 5 * 60 * 1000,
   });
+  console.log("playlists=", playlists);
 
   if (session === null) {
     return (
