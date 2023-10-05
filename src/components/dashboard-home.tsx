@@ -27,7 +27,11 @@ export const DashboardHome = () => {
         <DashboardTitle text={"Ready to mix?"} className="flex-1" />
         <UserProfileMenu />
       </div>
-      <DashboardContentShelf headingText="Start mixing" shelfBehavior="two-col">
+      <DashboardContentShelf
+        headingText="Start mixing"
+        mobileBehavior="two-col"
+        desktopBehavior="shelf"
+      >
         {APP_CARDS}
       </DashboardContentShelf>
       <UserPlaylistShelf />

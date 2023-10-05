@@ -49,3 +49,21 @@ export function cleanPlaylistAttributes(
     }
   }
 }
+
+export function getSmallestImageFromArray(images: SpotifyApi.ImageObject[]) {
+  if (images.length === 1) {
+    return images[0]!;
+  }
+
+  return images.reduce((smallestImage, currentImage) => {
+    if (currentImage.width == null || smallestImage.width == null) {
+      return currentImage;
+    }
+
+    if (currentImage.width! < smallestImage.width!) {
+      return currentImage;
+    } else {
+      return smallestImage;
+    }
+  });
+}

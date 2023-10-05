@@ -22,7 +22,7 @@ const defaultCardLayout = ({
   description,
 }: DashboardCardProps) => {
   return (
-    <section className="flex w-[200px] min-w-[200px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left lg:w-[240px] lg:min-w-[240px] lg:gap-16 lg:p-16 lg:pb-24">
+    <section className="flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left lg:w-full lg:gap-16 lg:p-16 lg:pb-24">
       <div className="aspect-square h-auto w-full">
         <WithSkeleton
           content={image}
@@ -71,7 +71,7 @@ const DashboardCardComponent = ({
   image,
 }: DashboardCardProps) => {
   if (typeof image === "string") {
-    image = <img src={image} />;
+    image = <img src={image} className="h-full w-full" />;
   }
 
   const card = small
@@ -83,8 +83,8 @@ const DashboardCardComponent = ({
       <button
         type="button"
         className={cn(
-          "h-fit w-fit",
-          linkWrapperVariants({ isInteractive: true })
+          linkWrapperVariants({ isInteractive: true }),
+          "h-fit w-full"
         )}
         onClick={onClick}
       >
@@ -94,7 +94,7 @@ const DashboardCardComponent = ({
   }
 
   return (
-    <LinkWrapper href={href} fitToWidth={false}>
+    <LinkWrapper href={href} className="w-full">
       {card}
     </LinkWrapper>
   );

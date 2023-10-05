@@ -1,17 +1,17 @@
-import useAuthModal from "@/hooks/useAuthModal";
 import { DashboardCard } from "./dashboard-card";
-import { cleanPlaylistAttributes } from "../../lib/utils";
+import {
+  cleanPlaylistAttributes,
+  getSmallestImageFromArray,
+} from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
-import { MusicIcon } from "@/assets/svg";
 import { Playlist } from "../../lib/spotify-query";
+import { MusicIcon } from "@/assets/svg";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
 }
 
 const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
-  const authModal = useAuthModal();
-
   if (playlist === null) {
     return <PlaylistCardPlaceholder />;
   }
@@ -37,16 +37,18 @@ const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
   );
 };
 
+const IMAGE_PLACEHOLDER = (
+  <div className="flex min-h-full min-w-full content-center items-center justify-center bg-secondary text-body/50">
+    <MusicIcon className="h-full w-full" />
+  </div>
+);
+
 function getImageFromPlaylist(playlist: Playlist) {
   if (playlist.images.length > 0) {
-    return playlist.images[0]?.url;
+    return getSmallestImageFromArray(playlist.images).url;
   }
 
-  return (
-    <div className="flex h-full w-full content-center items-center justify-center bg-secondary text-body/50">
-      <MusicIcon className="h-80 w-80" />
-    </div>
-  );
+  return IMAGE_PLACEHOLDER;
 }
 
 export default PlaylistCard;
