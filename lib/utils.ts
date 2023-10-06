@@ -50,6 +50,32 @@ export function cleanPlaylistAttributes(
   }
 }
 
+export function getPlaylistCoverImage(
+  playlist: SpotifyApi.PlaylistObjectSimplified
+) {
+  // If the playlist has no images, return null
+  if (playlist.images.length === 0) {
+    return null;
+  }
+
+  // If the playlist has only one image, return it
+  if (playlist.images.length === 1) {
+    return playlist.images[0]!;
+  }
+
+  // If the playlist has multiple images, return the 300x300 image if it exists
+  const image300x300 = playlist.images.find((image) => {
+    return image.width === 300 && image.height === 300;
+  });
+
+  if (image300x300) {
+    return image300x300;
+  }
+
+  // If no 300x300 image, return the smallest
+  return getSmallestImageFromArray(playlist.images);
+}
+
 export function getSmallestImageFromArray(images: SpotifyApi.ImageObject[]) {
   if (images.length === 1) {
     return images[0]!;

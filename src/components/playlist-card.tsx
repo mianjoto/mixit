@@ -1,7 +1,7 @@
 import { DashboardCard } from "./dashboard-card";
 import {
   cleanPlaylistAttributes,
-  getSmallestImageFromArray,
+  getPlaylistCoverImage,
 } from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
 import { Playlist } from "../../lib/spotify-query";
@@ -45,7 +45,7 @@ const IMAGE_PLACEHOLDER = (
 
 function getImageFromPlaylist(playlist: Playlist) {
   if (playlist.images.length > 0) {
-    return getSmallestImageFromArray(playlist.images).url;
+    return getPlaylistCoverImage(playlist)?.url;
   }
 
   return IMAGE_PLACEHOLDER;

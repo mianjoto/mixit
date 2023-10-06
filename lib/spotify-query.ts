@@ -22,13 +22,35 @@ export async function getTopPlaylists({
 
   const spotify = getSpotifyApi(session);
 
-  const response = await spotify.getUserPlaylists(paginationOptions);
+  const user = await getCurrentUser(session);
 
-  if (response.statusCode !== 200) {
+  const playlistResponse = await spotify.getUserPlaylists(
+    user.id,
+    paginationOptions
+  );
+
+  if (playlistResponse.statusCode !== 200) {
     Promise.reject("Error getting user playlists");
   }
 
-  return response.body.items;
+  return playlistResponse.body.items;
+}
+
+export async function getCurrentUser(session: Session) {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  const userResponse = await spotify.getMe();
+
+  if (userResponse.statusCode !== 200) {
+    Promise.reject("Error getting user");
+  }
+
+  return userResponse.body;
 }
 
 function getSpotifyApi(session: Session): SpotifyWebApi {

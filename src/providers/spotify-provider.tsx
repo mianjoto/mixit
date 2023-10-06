@@ -18,7 +18,8 @@ export default function SpotifyProvider({ children }: SpotifyProviderProps) {
     isSuccess: isPlaylistQuerySuccess,
   } = useQuery({
     queryKey: ["topPlaylists"],
-    queryFn: () => getTopPlaylists({ session }),
+    queryFn: () =>
+      getTopPlaylists({ session, paginationOptions: { limit: 50 } }),
     enabled: !!session,
     staleTime: 5 * 60 * 1000,
   });
