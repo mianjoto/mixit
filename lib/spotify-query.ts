@@ -1,6 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import spotifyApi from "./spotify-auth";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { Session } from "next-auth";
 
 // Type aliases for Spotify API objects
@@ -22,7 +22,7 @@ export async function getTopPlaylists({
 
   const spotify = getSpotifyApi(session);
 
-  const user = await getCurrentUser(session);
+  const user = await getCurrentUser({ session });
 
   const playlistResponse = await spotify.getUserPlaylists(
     user.id,
@@ -36,7 +36,13 @@ export async function getTopPlaylists({
   return playlistResponse.body.items;
 }
 
-export async function getCurrentUser(session: Session) {
+type getCurrentUserOptions = {
+  session: Session | null;
+};
+
+export async function getCurrentUser({
+  session,
+}: getCurrentUserOptions): Promise<SpotifyApi.CurrentUsersProfileResponse> {
   if (!session) {
     signIn("spotify");
     return Promise.reject("No session");

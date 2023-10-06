@@ -1,4 +1,3 @@
-import { UserPlaylistShelf } from "./user-playlist-shelf";
 import { AppData } from "@/data/records/apps";
 import { DashboardCard } from "./dashboard-card";
 import { AppIcon, AppIconShapes } from "./ui/app-icon";
@@ -6,6 +5,20 @@ import { Apps } from "@/types/apps";
 import { DashboardTitle } from "./dashboard";
 import { DashboardContentShelf } from "./dashboard-content-shelf";
 import { UserProfileMenu } from "./user-profile-menu";
+import DashboardHomePlaylistShelves from "./dashboard-home-playlist-shelves";
+
+export const DashboardHome = () => {
+  return (
+    <>
+      <div className="flex flex-row justify-between">
+        <DashboardTitle text={"Ready to mix?"} className="flex-1" />
+        <UserProfileMenu />
+      </div>
+      {APP_SHELF}
+      <DashboardHomePlaylistShelves />
+    </>
+  );
+};
 
 const APP_CARDS = Object.values(AppData).map((app) => {
   return (
@@ -20,21 +33,8 @@ const APP_CARDS = Object.values(AppData).map((app) => {
   );
 });
 
-export const DashboardHome = () => {
-  return (
-    <>
-      <div className="flex flex-row justify-between">
-        <DashboardTitle text={"Ready to mix?"} className="flex-1" />
-        <UserProfileMenu />
-      </div>
-      <DashboardContentShelf
-        headingText="Start mixing"
-        mobileBehavior="two-col"
-        desktopBehavior="shelf"
-      >
-        {APP_CARDS}
-      </DashboardContentShelf>
-      <UserPlaylistShelf />
-    </>
-  );
-};
+const APP_SHELF = (
+  <DashboardContentShelf headingText="Start mixing" mobileBehavior="two-col">
+    {APP_CARDS}
+  </DashboardContentShelf>
+);

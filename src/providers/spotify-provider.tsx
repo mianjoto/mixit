@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import SpotifyContext from "../contexts/spotify-context";
-import { getTopPlaylists } from "../../lib/spotify-query";
+import { getCurrentUser, getTopPlaylists } from "../../lib/spotify-query";
 import { useSession } from "next-auth/react";
 
 interface SpotifyProviderProps {
@@ -30,10 +30,17 @@ export default function SpotifyProvider({ children }: SpotifyProviderProps) {
     isPlaylistQuerySuccess,
   };
 
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getCurrentUser({ session }),
+    enabled: !!session,
+    staleTime: 5 * 60 * 1000,
+  });
+
   // TODO: Add additional queries here...
 
   return (
-    <SpotifyContext.Provider value={{ playlistQueryResult }}>
+    <SpotifyContext.Provider value={{ user, playlistQueryResult }}>
       {children}
     </SpotifyContext.Provider>
   );
