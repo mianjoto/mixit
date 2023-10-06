@@ -22,7 +22,7 @@ const defaultCardLayout = ({
   description,
 }: DashboardCardProps) => {
   return (
-    <section className="flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left lg:w-full lg:gap-16 lg:p-16 lg:pb-24">
+    <section className="flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left md:w-full md:gap-16 md:p-16 md:pb-24">
       <div className="aspect-square h-auto w-full">
         <WithSkeleton
           content={image}
@@ -43,18 +43,18 @@ const defaultCardLayout = ({
 
 const smallCardLayout = ({ image, title, description }: DashboardCardProps) => {
   return (
-    <section className="flex w-full flex-row items-center gap-12 overflow-hidden rounded-md bg-tertiary text-left lg:w-[240px] lg:min-w-[240px] lg:flex-col lg:gap-16 lg:rounded-[18px] lg:p-16 lg:pb-24">
-      <div className="aspect-square h-[60px] w-[60px] lg:h-auto lg:w-full">
+    <section className="flex w-full flex-row items-center gap-12 overflow-hidden rounded-md bg-tertiary text-left md:w-[240px] md:min-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:p-16 md:pb-24">
+      <div className="aspect-square h-[60px] w-[60px] md:h-auto md:w-full">
         <WithSkeleton
           content={image}
           skeletonProps={{ className: "w-full h-full" }}
         />
       </div>
       <div className="flex flex-col gap-4">
-        <p className="text-base font-bold uppercase text-body lg:truncate">
+        <p className="text-base font-bold uppercase text-body md:truncate">
           <WithSkeleton content={title} />
         </p>
-        <p className="line-clamp-1 hidden text-sm font-medium text-gray lg:block">
+        <p className="line-clamp-1 hidden text-sm font-medium text-gray md:block">
           <WithSkeleton content={description} />
         </p>
       </div>

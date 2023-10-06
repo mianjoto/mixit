@@ -20,16 +20,20 @@ import MixitHomeLogo from "./ui/mixit-home-logo";
 export const DashboardNavbar = () => {
   return (
     <Navbar
-      mobileNavbar={{ content: mobileNavbarContent, asChild: false }}
+      mobileNavbar={{
+        content: mobileNavbarContent,
+        asChild: false,
+      }}
       desktopNavbar={{ content: desktopNavbarContent(), asChild: true }}
       desktopPosition="static"
+      switchToDesktopAt="md"
       className="px-12"
     />
   );
 };
 
 const mobileNavbarContent = MobileNavbarWrapper(
-  <NavigationMenu.Root className="flex h-full w-screen flex-col gap-24 rounded-b-[16px] bg-secondary px-16 py-24 lg:px-12 lg:py-16">
+  <NavigationMenu.Root className="flex h-full w-screen flex-col gap-24 rounded-b-[16px] bg-secondary px-16 py-24 md:px-12 md:py-16">
     <NavigationMenu.List className="flex flex-col gap-24">
       <div className="flex flex-row items-center gap-8">
         <AppsIcon className="h-[24px] w-[24px] text-body" />
@@ -46,12 +50,12 @@ const mobileNavbarContent = MobileNavbarWrapper(
             <NavigationMenu.Item key={app.name} value={app.name}>
               <NavigationMenu.Link
                 href={app.href}
-                className="flex flex-row items-center gap-16 lg:gap-16"
+                className="flex flex-row items-center gap-16 md:gap-16"
               >
                 <AppIcon
                   app={app.appType as Apps}
                   shape={AppIconShapes.SoftSquare}
-                  className="h-[76px] w-[76px] text-background lg:h-[60px] lg:w-[60px]"
+                  className="h-[76px] w-[76px] text-background md:h-[60px] md:w-[60px]"
                 />
                 <div className="flex flex-col gap-[6px]">
                   <Heading
@@ -85,7 +89,7 @@ const mobileNavbarContent = MobileNavbarWrapper(
 
 const desktopNavbarContent = (): React.ReactElement => {
   return (
-    <div className="sticky left-0 top-0 hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 lg:flex">
+    <div className="sticky left-0 top-0 hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 md:flex">
       <NavigationMenu.Root className="flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary px-16 py-64">
         <MixitHomeLogo
           fill="#fff"
@@ -113,7 +117,7 @@ const desktopNavbarContent = (): React.ReactElement => {
                     <HoverCardTrigger asChild>
                       <NavigationMenu.Link
                         href={app.href}
-                        className="flex flex-row items-center gap-16 lg:gap-16"
+                        className="flex flex-row items-center gap-16 md:gap-16"
                       >
                         <AppIcon
                           app={app.appType as Apps}

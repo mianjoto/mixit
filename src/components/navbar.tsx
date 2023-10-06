@@ -21,7 +21,7 @@ const VISIBILITY_THRESHOLD = 150;
 const navbarVariants = cva("z-40", {
   variants: {
     position: {
-      default: "sticky lg:absolute",
+      default: "sticky md:absolute",
       sticky: "sticky",
       absolute: "absolute",
       static: "static",
@@ -35,17 +35,17 @@ const navbarVariants = cva("z-40", {
     },
     desktopAnchor: {
       none: "",
-      top: "lg:top-0",
-      right: "lg:right-0",
-      left: "lg:left-0",
-      bottom: "lg:bottom-0",
+      top: "md:top-0",
+      right: "md:right-0",
+      left: "md:left-0",
+      bottom: "md:bottom-0",
     },
     desktopPosition: {
-      static: "lg:static",
-      relative: "lg:relative",
-      fixed: "lg:fixed",
-      absolute: "lg:absolute",
-      sticky: "lg:sticky",
+      static: "md:static",
+      relative: "md:relative",
+      fixed: "md:fixed",
+      absolute: "md:absolute",
+      sticky: "md:sticky",
     },
     mobilePosition: {
       static: "static",
@@ -75,6 +75,7 @@ interface NavbarProps
     content: React.ReactElement;
     asChild?: boolean;
   };
+  switchToDesktopAt?: "md" | "lg";
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -83,6 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({
   desktopAnchor,
   desktopPosition,
   mobilePosition,
+  switchToDesktopAt = "lg",
   className,
   mobileNavbar = { content: "", asChild: false },
   desktopNavbar = { content: "", asChild: false },
@@ -106,17 +108,27 @@ const Navbar: React.FC<NavbarProps> = ({
     transition: { duration: 0.35, ease: "easeInOut" },
     animate: hidden ? "hidden" : "visible",
   };
+  const desktopIsVisibleAtClass =
+    switchToDesktopAt === "md" ? "md:flex" : "lg:flex";
+  const mobileIsHiddenAtClass =
+    switchToDesktopAt === "md" ? "md:hidden" : "lg:hidden";
 
-  const mobileClasses =
-    "mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16 lg:hidden";
+  const mobileClasses = cn(
+    "mx-auto flex h-[60px] w-screen flex-row bg-background px-32 py-16",
+    mobileIsHiddenAtClass
+  );
+
   const desktopClasses =
     `h-${NavbarHeight.mobile}` +
-    "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 lg:flex lg:h-fit lg:py-32";
+    cn(
+      "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 md:h-fit md:py-32",
+      desktopIsVisibleAtClass
+    );
 
   return (
     <nav
       className={cn(
-        "lg:w-fit",
+        "md:w-fit",
         navbarVariants({
           position,
           mobileAnchor,
@@ -222,12 +234,20 @@ const RenderNavbarLinkElement = (
   );
 };
 
-const MobileNavbarWrapper = (navbarContent: React.ReactNode) => {
+const MobileNavbarWrapper = (
+  navbarContent: React.ReactNode,
+  hiddenAt: "md" | "lg" = "lg"
+) => {
+  const hiddenAtClass = hiddenAt === "md" ? "md:hidden" : "lg:hidden";
+
   return (
     <Accordion.Root
       type="single"
       collapsible
-      className="flex flex-1 flex-row items-center justify-between lg:hidden"
+      className={cn(
+        "flex flex-1 flex-row items-center justify-between",
+        hiddenAtClass
+      )}
     >
       <MixitHomeLogo className="w-fit max-w-[70px]" />
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">

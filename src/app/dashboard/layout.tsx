@@ -22,7 +22,7 @@ const DashboardLayout = ({
     <NextAuthSessionProvider session={session}>
       <SpotifyProvider>
         <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor}>
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col md:flex-row">
             <DashboardNavbarContent />
             <DashboardRootLayout>{children}</DashboardRootLayout>
           </div>
