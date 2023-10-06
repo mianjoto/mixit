@@ -71,7 +71,7 @@ const DashboardCardComponent = ({
   image,
 }: DashboardCardProps) => {
   if (typeof image === "string") {
-    image = <img src={image} className="h-full w-full" />;
+    image = <img src={image} className="aspect-square h-full w-full" />;
   }
 
   const card = small
