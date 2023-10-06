@@ -9,9 +9,10 @@ import { MusicIcon } from "@/assets/svg";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
+  small?: boolean;
 }
 
-const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
+const PlaylistCard = ({ playlist, small = false }: PlaylistCardProps) => {
   if (playlist === null) {
     return <PlaylistCardPlaceholder />;
   }
@@ -32,6 +33,7 @@ const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
       description={playlist?.description as string}
       image={image}
       onClick={() => "/404-not-implemented"}
+      small={small}
       key={playlist?.id}
     />
   );

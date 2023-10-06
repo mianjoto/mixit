@@ -1,10 +1,8 @@
-import { DashboardShelf } from "./dashboard-shelf";
+import { DashboardShelf, DashboardShelfProps } from "./dashboard-shelf";
 import { DashboardHeading } from "./dashboard";
 
-interface DashboardContentShelfProps {
+export interface DashboardContentShelfProps extends DashboardShelfProps {
   headingText: string | undefined;
-  mobileBehavior?: "default" | "one-col" | "two-col" | "three-col";
-  desktopBehavior?: "shelf" | "grid";
   children: React.ReactNode | undefined;
 }
 

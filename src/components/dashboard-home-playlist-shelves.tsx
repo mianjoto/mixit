@@ -119,6 +119,8 @@ const BlendsPlaylistShelf = ({ playlists, user }: DashboardHomeShelfProps) => {
       headingText={headingText}
       playlists={playlists}
       filterFn={playlistsMadeWithYourFriendsFilter}
+      mobileBehavior="two-col"
+      smallCards
     />
   );
 };

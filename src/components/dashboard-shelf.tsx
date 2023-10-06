@@ -20,7 +20,8 @@ const dashboardShelfVariants = cva("", {
   },
   defaultVariants: { desktopBehavior: "grid", mobileBehavior: "default" },
 });
-interface DashboardShelfProps
+
+export interface DashboardShelfProps
   extends HTMLAttributes<HTMLElement>,
     VariantProps<typeof dashboardShelfVariants> {}
 
