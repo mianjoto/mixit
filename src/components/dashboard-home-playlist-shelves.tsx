@@ -32,12 +32,12 @@ const DashboardHomePlaylistShelves = () => {
   const shelfProps = { playlists, user } as DashboardHomeShelfProps;
 
   return (
-    <main>
+    <>
       <PlaylistsMadeByUserShelf {...shelfProps} />
       <AddedPlaylistsShelf {...shelfProps} />
       <BlendsPlaylistShelf {...shelfProps} />
       <MadeBySpotifyShelf {...shelfProps} />
-    </main>
+    </>
   );
 };
 

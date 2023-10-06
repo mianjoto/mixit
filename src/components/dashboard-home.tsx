@@ -10,10 +10,10 @@ import DashboardHomePlaylistShelves from "./dashboard-home-playlist-shelves";
 export const DashboardHome = () => {
   return (
     <>
-      <div className="flex flex-row justify-between">
+      <header className="flex flex-row justify-between">
         <DashboardTitle text={"Ready to mix?"} className="flex-1" />
         <UserProfileMenu />
-      </div>
+      </header>
       {APP_SHELF}
       <DashboardHomePlaylistShelves />
     </>

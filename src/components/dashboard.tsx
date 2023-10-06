@@ -1,7 +1,6 @@
 import { HeadingLevels } from "@/types/text";
 import { Heading } from "./ui/heading";
 import { HTMLAttributes } from "react";
-import { Section } from "./ui/section";
 import { DashboardShelf } from "./dashboard-shelf";
 import WithSkeleton from "./ui/with-skeleton";
 
@@ -13,12 +12,9 @@ export const DashboardRootLayout: React.FC<DashboardRootLayoutProps> = ({
   children,
 }: DashboardRootLayoutProps) => {
   return (
-    <Section
-      fitScreenHeight
-      className="flex-1 overflow-x-hidden overscroll-contain px-12 py-32 lg:px-24 lg:py-32"
-    >
+    <main className="min-h-screen flex-1 overflow-x-hidden overscroll-contain px-12 py-32 lg:px-24 lg:py-32">
       <DashboardRoot>{children}</DashboardRoot>
-    </Section>
+    </main>
   );
 };
 
