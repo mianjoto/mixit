@@ -1,6 +1,8 @@
 import "../assets/css/index.css";
 import { Noto_Sans } from "next/font/google";
 import ModalProvider from "../providers/modal-provider";
+import ReactQueryProvider from "@/providers/react-query-provider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -15,13 +17,16 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <ModalProvider />
-      <body
-        className={`${notoSans.className}
-        w-screen overflow-x-hidden bg-background`}
-      >
-        {children}
-      </body>
+      <ReactQueryProvider>
+        <ModalProvider />
+        <body
+          className={`${notoSans.className}
+          w-screen overflow-x-hidden overscroll-none bg-background`}
+        >
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </body>
+      </ReactQueryProvider>
     </html>
   );
 };

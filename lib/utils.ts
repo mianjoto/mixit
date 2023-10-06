@@ -15,3 +15,81 @@ export function getHref(linkOrHref: LinkOrHref): string {
     return linkOrHref as string;
   }
 }
+
+export function cleanPlaylistAttributes(
+  playlist: SpotifyApi.PlaylistObjectSimplified
+) {
+  removeAnchorTagFromDescription();
+  handleEmptyPlaylistAttributes();
+
+  function removeAnchorTagFromDescription() {
+    if (!playlist.description) {
+      return;
+    }
+
+    // Skip if the playlist is not owned by Spotify (since only Spotify playlists have anchor tags)
+    if (playlist.owner.uri !== "spotify:user:spotify") {
+      return;
+    }
+
+    const removeAnchorTagRegex = /<a\b[^>]*>(.*?)<\/a>/gi;
+    playlist.description = playlist.description.replace(
+      removeAnchorTagRegex,
+      "$1"
+    );
+  }
+
+  function handleEmptyPlaylistAttributes() {
+    if (playlist.description == null || playlist.description === "") {
+      playlist.description = `By ${playlist.owner.display_name}`;
+    }
+
+    if (playlist.name == null || playlist.name === "") {
+      playlist.name = "-";
+    }
+  }
+}
+
+export function getPlaylistCoverImage(
+  playlist: SpotifyApi.PlaylistObjectSimplified
+) {
+  // If the playlist has no images, return null
+  if (playlist.images.length === 0) {
+    return null;
+  }
+
+  // If the playlist has only one image, return it
+  if (playlist.images.length === 1) {
+    return playlist.images[0]!;
+  }
+
+  // If the playlist has multiple images, return the 300x300 image if it exists
+  const image300x300 = playlist.images.find((image) => {
+    return image.width === 300 && image.height === 300;
+  });
+
+  if (image300x300) {
+    return image300x300;
+  }
+
+  // If no 300x300 image, return the smallest
+  return getSmallestImageFromArray(playlist.images);
+}
+
+export function getSmallestImageFromArray(images: SpotifyApi.ImageObject[]) {
+  if (images.length === 1) {
+    return images[0]!;
+  }
+
+  return images.reduce((smallestImage, currentImage) => {
+    if (currentImage.width == null || smallestImage.width == null) {
+      return currentImage;
+    }
+
+    if (currentImage.width! < smallestImage.width!) {
+      return currentImage;
+    } else {
+      return smallestImage;
+    }
+  });
+}

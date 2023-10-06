@@ -234,14 +234,13 @@ export const DesktopFooter: React.FC = () => {
         </div>
       </div>
       {Object.entries(FooterLinks.columnLinks).map(([key, value]) => (
-        <div className="flex h-full flex-col gap-32">
+        <div className="flex h-full flex-col gap-32" key={key}>
           <LinkText
             link={value.header.link}
             textProps={{
               level: HeadingLevels.h6,
               className: "uppercase tracking-[3px] text-body font-bold",
             }}
-            key={key}
           />
 
           <div className="flex h-full flex-col gap-24">

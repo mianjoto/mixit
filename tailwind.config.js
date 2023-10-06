@@ -116,6 +116,9 @@ module.exports = {
       width: {
         screen: ["100vh /* fallback for Opera, IE and etc. */", "100svw"],
       },
+      gridTemplateColumns: {
+        "dashboard-shelf": "repeat(auto-fit, minmax(220px, max-content))",
+      },
     },
   },
   plugins: [

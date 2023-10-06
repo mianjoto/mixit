@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import AuthModal from "@/components/auth-modal";
-import Modal from "@/components/modal";
 
 interface ModalProviderProps {}
 
