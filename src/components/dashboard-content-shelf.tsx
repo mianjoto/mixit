@@ -13,7 +13,7 @@ export const DashboardContentShelf = ({
   children,
 }: DashboardContentShelfProps) => {
   return (
-    <section className="flex w-full flex-col gap-20 lg:gap-12">
+    <section className="flex w-full flex-col gap-12 lg:gap-16">
       <DashboardHeading text={headingText} />
       <DashboardShelf
         mobileBehavior={mobileBehavior}

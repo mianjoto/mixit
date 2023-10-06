@@ -22,7 +22,7 @@ interface DashboardRootProps {
   children: React.ReactNode;
 }
 const DashboardRoot = ({ children }: DashboardRootProps) => {
-  return <div className="flex flex-col gap-24 lg:gap-32">{children}</div>;
+  return <div className="flex flex-col gap-32 lg:gap-[40px]">{children}</div>;
 };
 
 interface DashboardTextProps extends HTMLAttributes<HTMLHeadingElement> {

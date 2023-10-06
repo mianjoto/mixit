@@ -119,6 +119,7 @@ const BlendsPlaylistShelf = ({ playlists, user }: DashboardHomeShelfProps) => {
       headingText={headingText}
       playlists={playlists}
       filterFn={playlistsMadeWithYourFriendsFilter}
+      desktopBehavior="grid"
       mobileBehavior="two-col"
       smallCards
     />
