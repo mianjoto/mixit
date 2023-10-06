@@ -19,7 +19,7 @@ const AppDashboardHeading = ({ app }: AppDashboardHeadingProps) => {
 
   return (
     <section className="flex flex-row justify-between">
-      <section className="flex flex-row gap-16">
+      <section className="flex flex-row items-center gap-16">
         <AppIcon
           app={app}
           shape={AppIconShapes.SoftSquare}
