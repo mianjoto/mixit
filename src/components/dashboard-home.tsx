@@ -29,6 +29,7 @@ const APP_CARDS = Object.values(AppData).map((app) => {
       key={app.name}
       description={app.description}
       small
+      showFullDescription
     />
   );
 });
