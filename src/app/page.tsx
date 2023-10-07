@@ -18,7 +18,7 @@ export default function Index() {
       <div className="relative w-full">
         <Separator
           color="gradient"
-          height="15px"
+          horizontalHeight="15px"
           className="absolute bottom-0 w-screen"
         />
       </div>

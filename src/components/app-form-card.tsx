@@ -2,7 +2,7 @@ import React from "react";
 import { DashboardCard } from "./dashboard-card";
 import { Apps } from "@/types/apps";
 import { cn, getTextColorFromApp } from "../../lib/utils";
-import { LikedSongsIcon } from "@/assets/svg";
+import { LikedSongsIcon, PlaylistIcon } from "@/assets/svg";
 
 type AppFormCardRootProps = {
   title: string;
@@ -45,12 +45,12 @@ const LikedSongs = ({ app }: AppFormCardProps) => {
   );
 };
 
-const YourPlaylists = ({ app }: AppFormCardProps) => {
+const Playlists = ({ app }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
-      title="Liked Songs"
-      description="Your collection of your liked songs"
-      image={<LikedSongsIcon className="h-[40%] w-[40%]" />}
+      title="Playlist"
+      description="Can be yours or any playlist on Spotify"
+      image={<PlaylistIcon className="h-[70%] w-[70%]" />}
       app={app}
     />
   );
@@ -82,5 +82,7 @@ function getImageWithAccentColor(
 
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
   LikedSongsCard: typeof LikedSongs;
+  PlaylistCard: typeof Playlists;
 };
 AppFormCardRoot.LikedSongs = LikedSongs;
+AppFormCardRoot.Playlists = Playlists;

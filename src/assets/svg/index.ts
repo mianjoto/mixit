@@ -10,3 +10,4 @@ export { default as AppsIcon } from "./apps.svg";
 export { default as UserIcon } from "./user.svg";
 export { default as MusicIcon } from "./music.svg";
 export { default as LikedSongsIcon } from "./liked-songs-icon.svg";
+export { default as PlaylistIcon } from "./playlist-icon.svg";

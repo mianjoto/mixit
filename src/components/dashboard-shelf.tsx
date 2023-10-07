@@ -17,7 +17,10 @@ const dashboardShelfVariants = cva("", {
       "three-col": "grid grid-cols-3 gap-x-12 gap-y-8",
     },
   },
-  defaultVariants: { desktopBehavior: "grid", mobileBehavior: "default" },
+  defaultVariants: {
+    desktopBehavior: "grid",
+    mobileBehavior: "default",
+  },
 });
 
 export interface DashboardShelfProps
@@ -42,7 +45,10 @@ export const DashboardShelf = ({
   return (
     <section
       className={cn(
-        dashboardShelfVariants({ desktopBehavior, mobileBehavior })
+        dashboardShelfVariants({
+          desktopBehavior,
+          mobileBehavior,
+        })
       )}
     >
       {children || LOADING_CARDS}
