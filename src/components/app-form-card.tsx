@@ -3,12 +3,24 @@ import { DashboardCard } from "./dashboard-card";
 import { Apps } from "@/types/apps";
 import { cn, getTextColorFromApp } from "../../lib/utils";
 import { LikedSongsIcon, PlaylistIcon, QueueIcon } from "@/assets/svg";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 type AppFormCardRootProps = {
   title: string;
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
+};
+
+/** Since these ring-color classes aren't explicitly used in other
+ * parts of the project, we need to manually map explicit classes
+ * so that Tailwind can compile these styles
+ */
+const COLOR_VARIANTS = {
+  [Apps.Shuffler]: "ring-accent-1",
+  [Apps.Blender]: "ring-accent-2",
+  [Apps.PickAndMix]: "ring-accent-3",
+  [Apps.TimeMachine]: "ring-accent-4",
 };
 
 const AppFormCardRoot = ({
@@ -18,15 +30,28 @@ const AppFormCardRoot = ({
   app,
 }: AppFormCardRootProps) => {
   const imageWithColor = getImageWithAccentColor(image, app);
+  const ringColor = COLOR_VARIANTS[app];
 
-  return (
+  const card = (
     <DashboardCard
       title={title}
       description={description}
       image={imageWithColor}
+      className="m-4 min-h-[96%] md:min-w-[240px]"
       noClickBehavior
-      showFullDescription
     />
+  );
+
+  return (
+    <ToggleGroup.Item
+      value={title}
+      className={cn(
+        ringColor,
+        `rounded-[18px] ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4`
+      )}
+    >
+      {card}
+    </ToggleGroup.Item>
   );
 };
 

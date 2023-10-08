@@ -10,7 +10,7 @@ import WithSkeleton from "./ui/with-skeleton";
 interface DashboardCardProps {
   title: string | undefined | null;
   description: string | undefined | null;
-  showFullDescription?: boolean;
+  className?: string;
   noClickBehavior?: boolean;
   href?: LinkType | string;
   onClick?: () => void;
@@ -22,15 +22,15 @@ const defaultCardLayout = ({
   image,
   title,
   description,
-  showFullDescription,
+  className,
 }: DashboardCardProps) => {
-  let showFullDescriptionClass = "";
-  if (!showFullDescription) {
-    showFullDescriptionClass += " line-clamp-1";
-  }
-
   return (
-    <section className="flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24">
+    <section
+      className={cn(
+        className,
+        "flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24"
+      )}
+    >
       <div className="aspect-square h-auto w-full">
         <WithSkeleton
           content={image}
@@ -41,12 +41,7 @@ const defaultCardLayout = ({
         <p className="truncate text-base font-bold uppercase text-body">
           <WithSkeleton content={title} />
         </p>
-        <p
-          className={cn(
-            "text-sm font-medium text-gray",
-            showFullDescriptionClass
-          )}
-        >
+        <p className={cn("text-sm font-medium text-gray")}>
           <WithSkeleton content={description} />
         </p>
       </div>
@@ -58,17 +53,15 @@ const smallCardLayout = ({
   image,
   title,
   description,
-  showFullDescription,
+  className,
 }: DashboardCardProps) => {
-  let showFullDescriptionClass = "";
-  if (showFullDescription) {
-    showFullDescriptionClass += " md:block";
-  } else {
-    showFullDescriptionClass += " md:line-clamp-1";
-  }
-
   return (
-    <section className="flex w-full flex-row items-center gap-12 overflow-hidden rounded-md bg-tertiary text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24">
+    <section
+      className={cn(
+        className,
+        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md bg-tertiary text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24"
+      )}
+    >
       <div className="aspect-square h-[60px] w-[60px] md:h-auto md:w-full">
         <WithSkeleton
           content={image}
@@ -79,12 +72,7 @@ const smallCardLayout = ({
         <p className="text-base font-bold uppercase text-body md:truncate">
           <WithSkeleton content={title} />
         </p>
-        <p
-          className={cn(
-            "hidden text-sm font-medium text-gray",
-            showFullDescriptionClass
-          )}
-        >
+        <p className={cn("hidden text-sm font-medium text-gray md:block")}>
           <WithSkeleton content={description} />
         </p>
       </div>
@@ -96,11 +84,11 @@ const DashboardCardComponent = ({
   title,
   description,
   noClickBehavior = false,
-  showFullDescription = false,
   href = "/404",
   onClick,
   small = false,
   image,
+  className,
 }: DashboardCardProps) => {
   if (typeof image === "string") {
     image = <img src={image} className="aspect-square h-full w-full" />;
@@ -111,13 +99,13 @@ const DashboardCardComponent = ({
         image,
         title,
         description,
-        showFullDescription,
+        className,
       })
     : defaultCardLayout({
         image,
         title,
         description,
-        showFullDescription,
+        className,
       });
 
   if (noClickBehavior) {
