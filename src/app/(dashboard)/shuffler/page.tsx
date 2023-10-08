@@ -15,6 +15,7 @@ export default function Shuffler() {
         <DashboardShelf desktopBehavior={"shelf"} withSeparators>
           <AppFormCard.LikedSongs app={app} />
           <AppFormCard.Playlists app={app} />
+          <AppFormCard.Queue app={app} />
         </DashboardShelf>
       </section>
     </>

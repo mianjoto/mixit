@@ -2,7 +2,7 @@ import React from "react";
 import { DashboardCard } from "./dashboard-card";
 import { Apps } from "@/types/apps";
 import { cn, getTextColorFromApp } from "../../lib/utils";
-import { LikedSongsIcon, PlaylistIcon } from "@/assets/svg";
+import { LikedSongsIcon, PlaylistIcon, QueueIcon } from "@/assets/svg";
 
 type AppFormCardRootProps = {
   title: string;
@@ -56,6 +56,17 @@ const Playlists = ({ app }: AppFormCardProps) => {
   );
 };
 
+const Queue = ({ app }: AppFormCardProps) => {
+  return (
+    <AppFormCardRoot
+      title="Queue"
+      description="Your upcoming songs"
+      image={<QueueIcon className="h-[50%] w-[50%]" />}
+      app={app}
+    />
+  );
+};
+
 function getImageWithAccentColor(
   image: string | React.JSX.Element,
   app: Apps
@@ -83,6 +94,8 @@ function getImageWithAccentColor(
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
   LikedSongsCard: typeof LikedSongs;
   PlaylistCard: typeof Playlists;
+  QueueCard: typeof Queue;
 };
 AppFormCardRoot.LikedSongs = LikedSongs;
 AppFormCardRoot.Playlists = Playlists;
+AppFormCardRoot.Queue = Queue;
