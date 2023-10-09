@@ -8,12 +8,17 @@ import { DashboardShelf } from "./dashboard-shelf";
 import PlaylistCard from "./playlist-card";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchInput } from "./ui/search-input";
+import { Apps } from "@/types/apps";
 
 type AppFormPlaylistSearchProps = {
   session: Session;
+  app: Apps;
 };
 
-export function AppFormPlaylistSearch({ session }: AppFormPlaylistSearchProps) {
+export function AppFormPlaylistSearch({
+  session,
+  app,
+}: AppFormPlaylistSearchProps) {
   const [query, setQuery] = useState<string | null>(null);
   const debouncedQuery = useDebounce(query, 250);
 
@@ -40,6 +45,7 @@ export function AppFormPlaylistSearch({ session }: AppFormPlaylistSearchProps) {
           key={playlist.id}
           bgColor="secondary"
           className="h-full"
+          app={app}
         />
       ));
     } else {

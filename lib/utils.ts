@@ -103,3 +103,7 @@ export function getTextColorFromApp(app: Apps) {
 export function getBgColorFromApp(app: Apps) {
   return AppData[app].bgColor;
 }
+
+export function getRingColorFromApp(app: Apps) {
+  return AppData[app].ringColor;
+}

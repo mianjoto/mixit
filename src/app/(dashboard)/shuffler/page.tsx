@@ -47,7 +47,7 @@ export default function Shuffler() {
       </section>
 
       {shuffleInput === ("all-playlists" as ShuffleInput) ? (
-        <AppFormPlaylistSearch session={session!} />
+        <AppFormPlaylistSearch session={session!} app={app} />
       ) : (
         ""
       )}

@@ -3,6 +3,7 @@ import {
   cleanPlaylistAttributes,
   cn,
   getPlaylistCoverImage,
+  getRingColorFromApp,
 } from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
 import { Playlist } from "../../lib/spotify-query";
@@ -11,9 +12,11 @@ import SelectedPlaylistContext, {
   SelectedPlaylistContextType,
 } from "@/contexts/selected-playlist-context";
 import { useContext } from "react";
+import { Apps } from "@/types/apps";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
+  app?: Apps | null;
   bgColor?: "secondary" | "tertiary";
   small?: boolean;
   className?: string;
@@ -21,6 +24,7 @@ interface PlaylistCardProps {
 
 const PlaylistCard = ({
   playlist,
+  app = null,
   bgColor,
   className,
   small = false,
@@ -48,7 +52,11 @@ const PlaylistCard = ({
   };
 
   if (selectedPlaylist === playlist) {
-    className = cn("ring-inset ring-4 ring-body", className);
+    let ringColor = "ring-body";
+    if (app !== null) {
+      ringColor = getRingColorFromApp(app);
+    }
+    className = cn("ring-inset ring-4", ringColor, className);
   }
 
   return (
