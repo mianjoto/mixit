@@ -42,7 +42,6 @@ export default function Shuffler() {
           >
             <AppFormCard.LikedSongs app={app} key={app} />
             <AppFormCard.Playlists app={app} key={app} />
-            <AppFormCard.Queue app={app} key={app} />
           </DashboardShelf>
         </ToggleGroup.Root>
       </section>

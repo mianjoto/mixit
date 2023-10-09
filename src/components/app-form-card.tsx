@@ -108,18 +108,6 @@ const Playlists = ({ app }: AppFormCardProps) => {
   );
 };
 
-const Queue = ({ app }: AppFormCardProps) => {
-  return (
-    <AppFormCardRoot
-      title="Queue"
-      description="Your upcoming songs"
-      image={<QueueIcon className="h-[50%] w-[50%]" />}
-      app={app}
-      value={"queue" as ShuffleInput}
-    />
-  );
-};
-
 function getImageWithAccentColor(
   image: string | React.JSX.Element,
   app: Apps
@@ -147,8 +135,6 @@ function getImageWithAccentColor(
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
   LikedSongsCard: typeof LikedSongs;
   PlaylistCard: typeof Playlists;
-  QueueCard: typeof Queue;
 };
 AppFormCardRoot.LikedSongs = LikedSongs;
 AppFormCardRoot.Playlists = Playlists;
-AppFormCardRoot.Queue = Queue;
