@@ -6,6 +6,10 @@ import {
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
 import { Playlist } from "../../lib/spotify-query";
 import { MusicIcon } from "@/assets/svg";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+} from "@/contexts/selected-playlist-context";
+import { useContext } from "react";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
@@ -34,6 +38,14 @@ const PlaylistCard = ({
 
   const image = getImageFromPlaylist(playlist);
 
+  const { setSelectedPlaylist } = useContext(
+    SelectedPlaylistContext
+  ) as SelectedPlaylistContextType;
+
+  const handlePlaylistClick = () => {
+    setSelectedPlaylist(playlist);
+  };
+
   return (
     <DashboardCard
       title={playlist?.name}
@@ -41,7 +53,7 @@ const PlaylistCard = ({
       image={image}
       descriptionClamp="one-line"
       bgColor={bgColor}
-      onClick={() => "/404-not-implemented"}
+      onClick={handlePlaylistClick}
       small={small}
       className={className}
       key={playlist?.id}
