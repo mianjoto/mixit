@@ -52,8 +52,6 @@ export async function getSearchResults({
     return Promise.reject("No session");
   }
 
-  console.log("query=", query);
-
   if (!query) {
     return Promise.reject("No query");
   }
@@ -64,8 +62,6 @@ export async function getSearchResults({
     query,
     paginationOptions
   );
-
-  console.log("playlistResponse=", playlistResponse);
 
   if (playlistResponse.statusCode !== 200) {
     Promise.reject("Error getting user playlists");
