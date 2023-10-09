@@ -10,6 +10,7 @@ type AppFormCardRootProps = {
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
+  value: string;
 };
 
 /** Since these ring-color classes aren't explicitly used in other
@@ -28,6 +29,7 @@ const AppFormCardRoot = ({
   description,
   image,
   app,
+  value,
 }: AppFormCardRootProps) => {
   const imageWithColor = getImageWithAccentColor(image, app);
   const ringColor = COLOR_VARIANTS[app];
@@ -44,7 +46,7 @@ const AppFormCardRoot = ({
 
   return (
     <ToggleGroup.Item
-      value={title}
+      value={value}
       className={cn(
         ringColor,
         `rounded-[18px] ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4`
@@ -59,6 +61,12 @@ type AppFormCardProps = {
   app: Apps;
 };
 
+export type ShuffleInput =
+  | "liked-songs"
+  | "all-playlists"
+  | "user-playlists"
+  | "queue";
+
 const LikedSongs = ({ app }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
@@ -66,6 +74,7 @@ const LikedSongs = ({ app }: AppFormCardProps) => {
       description="Your collection of your liked songs"
       image={<LikedSongsIcon className="h-[40%] w-[40%]" />}
       app={app}
+      value={"liked-songs" as ShuffleInput}
     />
   );
 };
@@ -77,6 +86,7 @@ const Playlists = ({ app }: AppFormCardProps) => {
       description="Can be yours or any playlist on Spotify"
       image={<PlaylistIcon className="h-[70%] w-[70%]" />}
       app={app}
+      value={"all-playlists" as ShuffleInput}
     />
   );
 };
@@ -88,6 +98,7 @@ const Queue = ({ app }: AppFormCardProps) => {
       description="Your upcoming songs"
       image={<QueueIcon className="h-[50%] w-[50%]" />}
       app={app}
+      value={"queue" as ShuffleInput}
     />
   );
 };

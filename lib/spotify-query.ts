@@ -36,6 +36,44 @@ export async function getTopPlaylists({
   return playlistResponse.body.items;
 }
 
+type searchPlaylistOptions = {
+  session: Session | null;
+  query: string | null;
+  paginationOptions?: { limit?: number; offset?: number };
+};
+
+export async function getSearchResults({
+  session,
+  query,
+  paginationOptions,
+}: searchPlaylistOptions) {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  console.log("query=", query);
+
+  if (!query) {
+    return Promise.reject("No query");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  const playlistResponse = await spotify.searchPlaylists(
+    query,
+    paginationOptions
+  );
+
+  console.log("playlistResponse=", playlistResponse);
+
+  if (playlistResponse.statusCode !== 200) {
+    Promise.reject("Error getting user playlists");
+  }
+
+  return playlistResponse.body.playlists;
+}
+
 type getCurrentUserOptions = {
   session: Session | null;
 };

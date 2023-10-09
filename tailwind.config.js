@@ -26,7 +26,7 @@ module.exports = {
           950: "#1F1300",
         },
         secondary: "#19191A",
-        tertiary: "#141415",
+        tertiary: "#0D0D0D",
         background: "#050505",
         accent: "#B26EF7",
         body: "#FAFAFA",

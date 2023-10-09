@@ -2,7 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import SpotifyContext from "../contexts/spotify-context";
-import { getCurrentUser, getTopPlaylists } from "../../lib/spotify-query";
+import {
+  getCurrentUser,
+  getTopPlaylists,
+  getSearchResults,
+} from "../../lib/spotify-query";
 import { useSession } from "next-auth/react";
 
 interface SpotifyProviderProps {

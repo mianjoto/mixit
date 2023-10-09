@@ -11,6 +11,8 @@ interface DashboardCardProps {
   title: string | undefined | null;
   description: string | undefined | null;
   className?: string;
+  bgColor?: "secondary" | "tertiary";
+  descriptionClamp?: "one-line" | "two-line" | "none";
   noClickBehavior?: boolean;
   href?: LinkType | string;
   onClick?: () => void;
@@ -21,14 +23,26 @@ interface DashboardCardProps {
 const defaultCardLayout = ({
   image,
   title,
+  bgColor,
   description,
+  descriptionClamp,
   className,
 }: DashboardCardProps) => {
+  let descriptionClampClass = "";
+  if (descriptionClamp === "one-line") {
+    descriptionClampClass = "line-clamp-1";
+  } else if (descriptionClamp === "two-line") {
+    descriptionClampClass = "line-clamp-2";
+  }
+
+  const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+
   return (
     <section
       className={cn(
         className,
-        "flex w-[160px] flex-col gap-12 rounded-[18px] bg-tertiary p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24"
+        bgColorClass,
+        "flex w-[160px] flex-col gap-12 rounded-[18px] p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24"
       )}
     >
       <div className="aspect-square h-auto w-full">
@@ -41,7 +55,9 @@ const defaultCardLayout = ({
         <p className="truncate text-base font-bold uppercase text-body">
           <WithSkeleton content={title} />
         </p>
-        <p className={cn("text-sm font-medium text-gray")}>
+        <p
+          className={cn(descriptionClampClass, "text-sm font-medium text-gray")}
+        >
           <WithSkeleton content={description} />
         </p>
       </div>
@@ -52,14 +68,26 @@ const defaultCardLayout = ({
 const smallCardLayout = ({
   image,
   title,
+  bgColor,
   description,
+  descriptionClamp,
   className,
 }: DashboardCardProps) => {
+  let descriptionClampClass = "";
+  if (descriptionClamp === "one-line") {
+    descriptionClampClass = "md:line-clamp-1";
+  } else if (descriptionClamp === "two-line") {
+    descriptionClampClass = "md:line-clamp-2";
+  }
+
+  const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+
   return (
     <section
       className={cn(
         className,
-        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md bg-tertiary text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24"
+        bgColorClass,
+        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24"
       )}
     >
       <div className="aspect-square h-[60px] w-[60px] md:h-auto md:w-full">
@@ -72,7 +100,12 @@ const smallCardLayout = ({
         <p className="text-base font-bold uppercase text-body md:truncate">
           <WithSkeleton content={title} />
         </p>
-        <p className={cn("hidden text-sm font-medium text-gray md:block")}>
+        <p
+          className={cn(
+            descriptionClampClass,
+            "hidden text-sm font-medium text-gray md:block"
+          )}
+        >
           <WithSkeleton content={description} />
         </p>
       </div>
@@ -83,7 +116,9 @@ const smallCardLayout = ({
 const DashboardCardComponent = ({
   title,
   description,
+  bgColor = "tertiary",
   noClickBehavior = false,
+  descriptionClamp = "two-line",
   href = "/404",
   onClick,
   small = false,
@@ -98,13 +133,17 @@ const DashboardCardComponent = ({
     ? smallCardLayout({
         image,
         title,
+        bgColor,
         description,
+        descriptionClamp,
         className,
       })
     : defaultCardLayout({
         image,
         title,
+        bgColor,
         description,
+        descriptionClamp,
         className,
       });
 
