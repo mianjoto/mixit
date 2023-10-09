@@ -9,6 +9,7 @@ export type SpotifyContextType = {
     isPlaylistQueryError: boolean;
     isPlaylistQuerySuccess: boolean;
   };
+  likedSongs: SpotifyApi.PlaylistObjectSimplified | undefined;
 };
 
 const SpotifyContext = createContext<SpotifyContextType | null>(null);

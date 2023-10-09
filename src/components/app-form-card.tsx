@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { DashboardCard } from "./dashboard-card";
 import { Apps } from "@/types/apps";
 import { cn, getTextColorFromApp } from "../../lib/utils";
 import { LikedSongsIcon, PlaylistIcon, QueueIcon } from "@/assets/svg";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+} from "@/contexts/selected-playlist-context";
+import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
+import { Playlist } from "../../lib/spotify-query";
 
 type AppFormCardRootProps = {
   title: string;
@@ -11,6 +16,7 @@ type AppFormCardRootProps = {
   image: string | React.JSX.Element;
   app: Apps;
   value: string;
+  onClick?: () => void;
 };
 
 /** Since these ring-color classes aren't explicitly used in other
@@ -68,6 +74,16 @@ export type ShuffleInput =
   | "queue";
 
 const LikedSongs = ({ app }: AppFormCardProps) => {
+  const { setSelectedPlaylist } = useContext(
+    SelectedPlaylistContext
+  ) as SelectedPlaylistContextType;
+
+  const { likedSongs } = useContext(SpotifyContext) as SpotifyContextType;
+
+  const handleOnClick = () => {
+    if (likedSongs) setSelectedPlaylist(likedSongs);
+  };
+
   return (
     <AppFormCardRoot
       title="Liked Songs"
@@ -75,6 +91,7 @@ const LikedSongs = ({ app }: AppFormCardProps) => {
       image={<LikedSongsIcon className="h-[40%] w-[40%]" />}
       app={app}
       value={"liked-songs" as ShuffleInput}
+      onClick={handleOnClick}
     />
   );
 };
