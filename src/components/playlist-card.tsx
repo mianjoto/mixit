@@ -1,6 +1,7 @@
 import { DashboardCard } from "./dashboard-card";
 import {
   cleanPlaylistAttributes,
+  cn,
   getPlaylistCoverImage,
 } from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
@@ -38,13 +39,17 @@ const PlaylistCard = ({
 
   const image = getImageFromPlaylist(playlist);
 
-  const { setSelectedPlaylist } = useContext(
+  const { selectedPlaylist, setSelectedPlaylist } = useContext(
     SelectedPlaylistContext
   ) as SelectedPlaylistContextType;
 
   const handlePlaylistClick = () => {
     setSelectedPlaylist(playlist);
   };
+
+  if (selectedPlaylist === playlist) {
+    className = cn("ring-inset ring-4 ring-body", className);
+  }
 
   return (
     <DashboardCard
