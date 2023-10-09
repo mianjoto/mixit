@@ -48,15 +48,30 @@ const PlaylistCard = ({
   ) as SelectedPlaylistContextType;
 
   const handlePlaylistClick = () => {
-    setSelectedPlaylist(playlist);
+    // Enable toggling on and off
+    if (selectedPlaylist !== playlist) {
+      setSelectedPlaylist(playlist);
+    } else {
+      setSelectedPlaylist(null);
+    }
   };
 
+  // Highlight selected playlist with a ring
   if (selectedPlaylist === playlist) {
     let ringColor = "ring-body";
     if (app !== null) {
       ringColor = getRingColorFromApp(app);
     }
-    className = cn("ring-inset ring-4", ringColor, className);
+    className = cn(
+      "ring-inset ring-4 transition duration-200",
+      ringColor,
+      className
+    );
+  }
+
+  // Dim non-selected playlists
+  if (selectedPlaylist !== playlist && selectedPlaylist !== null) {
+    className = cn("opacity-50 transition duration-400", className);
   }
 
   return (

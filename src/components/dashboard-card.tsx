@@ -40,9 +40,9 @@ const defaultCardLayout = ({
   return (
     <section
       className={cn(
-        className,
         bgColorClass,
-        "flex w-[160px] flex-col gap-12 rounded-[18px] p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24"
+        "flex w-[160px] flex-col gap-12 rounded-[18px] p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24",
+        className
       )}
     >
       <div className="aspect-square h-auto w-full">
@@ -85,9 +85,9 @@ const smallCardLayout = ({
   return (
     <section
       className={cn(
-        className,
         bgColorClass,
-        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24"
+        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24",
+        className
       )}
     >
       <div className="aspect-square h-[60px] w-[60px] md:h-auto md:w-full">
