@@ -2,7 +2,7 @@ import { Apps } from "@/types/apps";
 import { AppFormCard } from "./app-form-card";
 import { DashboardHeading } from "./dashboard";
 import { DashboardShelf } from "./dashboard-shelf";
-import { ShuffleInput } from "@/types/spotify";
+import { ShuffleInput } from "@/types/mixit";
 
 type AppFormShuffleOutputProps = {
   app: Apps;

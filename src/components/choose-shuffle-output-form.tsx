@@ -2,7 +2,7 @@
 import { Apps } from "@/types/apps";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { AppFormShuffleOutput } from "@/components/app-form-shuffle-output";
-import { ShuffleInput, ShuffleOutputType } from "@/types/spotify";
+import { ShuffleInput, ShuffleOutputType } from "@/types/mixit";
 
 type ChooseShuffleOutputFormProps = {
   handleShuffleOutput: (value: ShuffleOutputType) => void;

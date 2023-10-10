@@ -9,7 +9,8 @@ import PlaylistCard from "./playlist-card";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchInput } from "./ui/search-input";
 import { Apps } from "@/types/apps";
-import { Playlist, ShuffleInput } from "@/types/spotify";
+import { Playlist } from "@/types/spotify";
+import { ShuffleInput } from "@/types/mixit";
 
 type AppFormPlaylistSearchProps = {
   session: Session;

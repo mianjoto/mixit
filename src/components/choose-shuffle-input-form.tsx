@@ -4,7 +4,7 @@ import { DashboardShelf } from "@/components/dashboard-shelf";
 import { Apps } from "@/types/apps";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { DashboardHeading } from "./dashboard";
-import { ShuffleInputType } from "@/types/spotify";
+import { ShuffleInputType } from "@/types/mixit";
 
 type ChooseShuffleInputFormProps = {
   handleShuffleInputFn: (value: ShuffleInputType) => void;

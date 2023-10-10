@@ -29,7 +29,7 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  href: LinkType | string;
+  href?: LinkType | string;
   willRedirect?: boolean;
 }
 
@@ -38,10 +38,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     { href, willRedirect = true, variant, size, className, children, ...props },
     ref
   ) => {
-    if (willRedirect) {
+    if (href) {
       return (
         <LinkWrapper
-          href={href}
+          href={href!}
           className={cn(buttonVariants({ variant, size, className }))}
           isInteractive={false}
         >

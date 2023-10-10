@@ -8,7 +8,8 @@ import {
   ShufflePlaylistIcon,
 } from "@/assets/svg";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { Playlist, ShuffleInput, ShuffleOutput } from "@/types/spotify";
+import { Playlist } from "@/types/spotify";
+import { ShuffleInput, ShuffleOutput } from "@/types/mixit";
 
 type AppFormCardRootProps = {
   title: string;

@@ -2,7 +2,12 @@ import SpotifyWebApi from "spotify-web-api-node";
 import spotifyApi from "./spotify-auth";
 import { signIn } from "next-auth/react";
 import { Session } from "next-auth";
-import { LikedSongsId, LikedSongsPlaylist, Playlist } from "@/types/spotify";
+import {
+  LikedSongsId,
+  LikedSongsPlaylist,
+  Playlist,
+  PlaylistOrLikedSongs,
+} from "@/types/spotify";
 
 interface getTopPlaylistOptions {
   session: Session | null;
@@ -12,7 +17,7 @@ interface getTopPlaylistOptions {
 export async function getTopPlaylists({
   session,
   paginationOptions,
-}: getTopPlaylistOptions): Promise<SpotifyApi.PlaylistObjectSimplified[]> {
+}: getTopPlaylistOptions): Promise<Playlist[]> {
   if (!session) {
     signIn("spotify");
     return Promise.reject("No session");
@@ -31,7 +36,7 @@ export async function getTopPlaylists({
     Promise.reject("Error getting user playlists");
   }
 
-  return playlistResponse.body.items;
+  return playlistResponse.body.items as unknown as Playlist[];
 }
 
 type searchPlaylistOptions = {
@@ -92,7 +97,7 @@ export async function getCurrentUser({
 }
 
 type getUserLikedSongsOptions = {
-  session: Session | null;
+  session: Session;
 };
 
 export const MAX_REQUESTS_FOR_LIKED_SONGS = 10;
@@ -144,6 +149,128 @@ export async function getUserLikedSongs({
   } as LikedSongsPlaylist;
 
   return likedSongsPlaylist;
+}
+
+export async function getSongsFromPlaylist(
+  playlist: PlaylistOrLikedSongs,
+  session: Session
+): Promise<SpotifyApi.TrackObjectFull["uri"][]> {
+  if (playlist.id === LikedSongsId) {
+    return await getUserLikedSongs({ session }).then((likedSongs) =>
+      likedSongs.tracks.items.map((track) => track.track.uri)
+    );
+  }
+
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  const tracksResponse = await spotify.getPlaylistTracks(playlist.id);
+
+  if (tracksResponse.statusCode !== 200) {
+    Promise.reject("Failed to get tracks from playlist");
+  }
+
+  return tracksResponse.body.items.map(
+    (track) => track?.track?.uri as string
+  ) as unknown as string[];
+}
+
+type AddTracksToPlaylistOptions = {
+  playlistId: string;
+  trackUris: SpotifyApi.TrackObjectFull["uri"][];
+  session: Session;
+};
+
+async function addTracksToPlaylist({
+  playlistId,
+  session,
+  trackUris,
+}: AddTracksToPlaylistOptions) {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+  const spotify = getSpotifyApi(session);
+
+  const tracksResponse = await spotify.addTracksToPlaylist(
+    playlistId,
+    trackUris
+  );
+
+  if (tracksResponse.statusCode !== 200) {
+    Promise.reject("Failed to get tracks from playlist");
+  }
+
+  return tracksResponse.body.snapshot_id;
+}
+
+export async function createPlaylistAndPopulateWithTracks(
+  playlistName: string,
+  trackUris: SpotifyApi.TrackObjectFull["uri"][],
+  session: Session
+): Promise<SpotifyApi.CreatePlaylistResponse | undefined> {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  const playlistResponse = await spotify.createPlaylist(playlistName, {
+    description: "Created with Mixit",
+  });
+
+  if (playlistResponse.statusCode !== 200) {
+    Promise.reject("Failed to create playlist");
+  }
+
+  const playlist = playlistResponse.body;
+
+  for (let index = 0; index < trackUris.length; index += 100) {
+    if (index + 100 > trackUris.length) {
+      await addTracksToPlaylist({
+        session,
+        playlistId: playlist.id,
+        trackUris: trackUris.slice(index, trackUris.length),
+      });
+    } else {
+      await addTracksToPlaylist({
+        session,
+        playlistId: playlist.id,
+        trackUris: trackUris.slice(index, index + 100),
+      });
+    }
+  }
+
+  return playlist;
+}
+
+export async function replaceTracksInPlaylist(
+  playlistId: string,
+  trackUris: SpotifyApi.TrackObjectFull["uri"][],
+  session: Session
+): Promise<SpotifyApi.PlaylistSnapshotResponse["snapshot_id"]> {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  const replaceTracksResponse = await spotify.replaceTracksInPlaylist(
+    playlistId,
+    trackUris
+  );
+
+  if (replaceTracksResponse.statusCode !== 200) {
+    Promise.reject("Failed to replace tracks in playlist");
+  }
+
+  return replaceTracksResponse.body.snapshot_id;
 }
 
 function getSpotifyApi(session: Session): SpotifyWebApi {

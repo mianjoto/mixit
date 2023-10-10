@@ -15,9 +15,12 @@ import {
   ShuffleInputType,
   ShuffleOutput,
   ShuffleOutputType,
-} from "@/types/spotify";
+} from "@/types/mixit";
 import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
 import { ChooseShuffleOutputForm } from "../../../components/choose-shuffle-output-form";
+import { useShufflerApp } from "../../../../lib/mixit";
+import spotifyApi from "../../../../lib/spotify-auth";
+import { Button } from "@/components/ui/button";
 
 export default function Shuffler() {
   const [shuffleInput, setShuffleInput] = useState<ShuffleInput | null>(null);
@@ -63,6 +66,20 @@ export default function Shuffler() {
   let showSearchInput =
     shuffleInput?.type === ("all-playlists" as PlaylistShuffleType);
 
+  let isReadyToMix = false;
+  if (shuffleInput?.type === "liked-songs") {
+    if (shuffleOutput?.type !== undefined) {
+      isReadyToMix = true;
+    }
+  } else if (
+    shuffleInput?.playlist !== undefined &&
+    shuffleOutput?.type !== undefined
+  ) {
+    isReadyToMix = true;
+  }
+
+  shuffleInput?.playlist !== undefined && shuffleOutput?.type !== undefined;
+
   return (
     <>
       <AppDashboardHeading app={app} />
@@ -86,6 +103,21 @@ export default function Shuffler() {
           user={user}
           shuffleInput={shuffleInput}
         />
+      )}
+
+      {isReadyToMix && (
+        <Button
+          size="cta"
+          willRedirect={false}
+          onClick={() =>
+            useShufflerApp(
+              { input: shuffleInput!, output: shuffleOutput! },
+              session!
+            )
+          }
+        >
+          Mix now
+        </Button>
       )}
     </>
   );
