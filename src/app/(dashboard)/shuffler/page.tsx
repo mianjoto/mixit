@@ -31,7 +31,7 @@ export default function Shuffler() {
   const { user } = useContext(SpotifyContext) as SpotifyContextType;
 
   const { data: session } = useSession();
-  const { selectedPlaylist } = useContext(
+  const { selectedPlaylist, setSelectedPlaylist } = useContext(
     SelectedPlaylistContext
   ) as SelectedPlaylistContextType;
 
@@ -39,9 +39,10 @@ export default function Shuffler() {
 
   function handleShuffleInput(value: ShuffleInputType): void {
     if (value === "liked-songs") {
-      setShuffleInput({ type: "liked-songs" });
+      setShuffleInput({ type: "liked-songs", playlist: undefined });
+      setSelectedPlaylist(null);
     } else {
-      setShuffleInput({ type: value });
+      setShuffleInput({ type: value, playlist: undefined });
     }
   }
 
