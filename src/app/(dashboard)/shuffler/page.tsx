@@ -5,12 +5,10 @@ import SelectedPlaylistContext, {
 } from "@/contexts/selected-playlist-context";
 import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
 import { Apps } from "@/types/apps";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import AppDashboardHeading from "@/components/app-dashboard-heading";
 import { AppFormPlaylistSearch } from "@/components/app-form-playlist-search";
-import { AppFormShuffleOutput } from "@/components/app-form-shuffle-output";
 import {
   PlaylistShuffleType,
   ShuffleInput,
@@ -19,6 +17,7 @@ import {
   ShuffleOutputType,
 } from "@/types/spotify";
 import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
+import { ChooseShuffleOutputForm } from "../../../components/choose-shuffle-output-form";
 
 export default function Shuffler() {
   const [shuffleInput, setShuffleInput] = useState<ShuffleInput | null>(null);
@@ -59,28 +58,6 @@ export default function Shuffler() {
     }
   }, [selectedPlaylist]);
 
-  const searchInput = (
-    <AppFormPlaylistSearch
-      session={session!}
-      app={app}
-      shuffleInput={shuffleInput!}
-    />
-  );
-  const chooseOutput = (
-    <ToggleGroup.Root
-      orientation="horizontal"
-      asChild
-      type="single"
-      onValueChange={handleShuffleOutput}
-    >
-      <AppFormShuffleOutput
-        app={app}
-        user={user!}
-        shuffleInput={shuffleInput!}
-      />
-    </ToggleGroup.Root>
-  );
-
   let showChooseOutput =
     shuffleInput?.type === "liked-songs" || selectedPlaylist !== null;
   let showSearchInput =
@@ -94,9 +71,22 @@ export default function Shuffler() {
         app={app}
       />
 
-      {showSearchInput && searchInput}
+      {showSearchInput && (
+        <AppFormPlaylistSearch
+          session={session!}
+          app={app}
+          shuffleInput={shuffleInput!}
+        />
+      )}
 
-      {showChooseOutput && chooseOutput}
+      {showChooseOutput && (
+        <ChooseShuffleOutputForm
+          handleShuffleOutput={handleShuffleOutput}
+          app={app}
+          user={user}
+          shuffleInput={shuffleInput}
+        />
+      )}
     </>
   );
 }
