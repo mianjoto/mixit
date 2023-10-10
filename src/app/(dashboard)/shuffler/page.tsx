@@ -103,7 +103,8 @@ export default function Shuffler() {
     </ToggleGroup.Root>
   );
 
-  let showChooseOutput = selectedPlaylist !== null;
+  let showChooseOutput =
+    shuffleInput?.type === "liked-songs" || selectedPlaylist !== null;
   let showSearchInput =
     shuffleInput?.type === ("all-playlists" as PlaylistShuffleType);
 

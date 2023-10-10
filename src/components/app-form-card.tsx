@@ -108,31 +108,10 @@ type ChangeSongOrderProps = {
 } & AppFormCardProps;
 
 const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
-  let disabled = false;
-  let reasonForDisabling = undefined;
-
-  console.log("shuffleInput.type=" + shuffleInput.type);
-  console.log(
-    "shuffleInput.playlist owner=" +
-      (shuffleInput?.playlist as Playlist)?.owner.id
+  let { disabled, reasonForDisabling } = determineWhetherButtonIsDisabled(
+    shuffleInput,
+    user
   );
-
-  // Disable button if user is shuffling liked songs
-  if (shuffleInput.type === "liked-songs") {
-    disabled = true;
-    reasonForDisabling =
-      "You cannot change the song order of your Liked Songs.";
-  }
-
-  // Disable button if the user does not have permission to change the song order
-  const userOwnsPlaylist =
-    (shuffleInput?.playlist as Playlist)?.owner.id === user.id;
-
-  if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
-    disabled = true;
-    reasonForDisabling =
-      "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
-  }
 
   const radioValue: ShuffleOutput = {
     type: "song-order",
@@ -177,6 +156,32 @@ function getImageWithAccentColor(
       {image}
     </div>
   );
+}
+
+function determineWhetherButtonIsDisabled(
+  shuffleInput: ShuffleInput,
+  user: SpotifyApi.CurrentUsersProfileResponse
+) {
+  let disabled = false;
+  let reasonForDisabling = undefined;
+
+  // Disable button if user is shuffling liked songs
+  if (shuffleInput.type === "liked-songs") {
+    disabled = true;
+    reasonForDisabling =
+      "You cannot change the song order of your Liked Songs.";
+  }
+
+  // Disable button if the user does not have permission to change the song order
+  const userOwnsPlaylist =
+    (shuffleInput?.playlist as Playlist)?.owner.id === user.id;
+
+  if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
+    disabled = true;
+    reasonForDisabling =
+      "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
+  }
+  return { disabled, reasonForDisabling };
 }
 
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
