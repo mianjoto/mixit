@@ -2,8 +2,8 @@
 
 import { DashboardContentShelf } from "./dashboard-content-shelf";
 import PlaylistCard from "./playlist-card";
-import { Playlist } from "../../lib/spotify-query";
 import { DashboardShelfProps } from "./dashboard-shelf";
+import { Playlist } from "@/types/spotify";
 
 type UserPlaylistShelfProps = {
   headingText: string;

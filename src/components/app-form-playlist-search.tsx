@@ -46,8 +46,8 @@ export function AppFormPlaylistSearch({
     }
   } else {
     if (searchResults.total > 0) {
-      renderedResults = searchResults?.items.map((playlist: Playlist) =>
-        renderPlaylist(playlist, app)
+      renderedResults = searchResults?.items.map((playlist) =>
+        renderPlaylist(playlist as Playlist, app)
       );
     } else {
       renderedResults = (

@@ -5,9 +5,7 @@ import { Dispatch, SetStateAction, createContext } from "react";
 
 export type SelectedPlaylistContextType = {
   selectedPlaylist: Playlist | LikedSongsPlaylist | null;
-  setSelectedPlaylist: Dispatch<
-    SetStateAction<SpotifyApi.PlaylistObjectSimplified | null>
-  >;
+  setSelectedPlaylist: Dispatch<SetStateAction<Playlist | null>>;
 };
 
 const SelectedPlaylistContext =

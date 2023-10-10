@@ -1,6 +1,6 @@
 "use client";
 
-import { Playlist } from "../../lib/spotify-query";
+import { Playlist } from "@/types/spotify";
 import { useState } from "react";
 import SelectedPlaylistContext from "@/contexts/selected-playlist-context";
 

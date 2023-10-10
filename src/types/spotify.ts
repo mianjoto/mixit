@@ -1,7 +1,7 @@
 /**
  * Type aliases for the various Spotify API objects
  */
-export type Playlist = SpotifyApi.PlaylistObjectSimplified;
+export type Playlist = SpotifyApi.PlaylistObjectFull;
 
 /**
  * The ID for the user's liked songs playlist.
