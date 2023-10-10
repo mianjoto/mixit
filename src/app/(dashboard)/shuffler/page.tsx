@@ -1,7 +1,5 @@
 "use client";
 
-import { AppFormCard } from "@/components/app-form-card";
-import { DashboardShelf } from "@/components/dashboard-shelf";
 import SelectedPlaylistContext, {
   SelectedPlaylistContextType,
 } from "@/contexts/selected-playlist-context";
@@ -10,7 +8,6 @@ import { Apps } from "@/types/apps";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
-import { DashboardHeading } from "../../../components/dashboard";
 import AppDashboardHeading from "@/components/app-dashboard-heading";
 import { AppFormPlaylistSearch } from "@/components/app-form-playlist-search";
 import { AppFormShuffleOutput } from "@/components/app-form-shuffle-output";
@@ -21,6 +18,7 @@ import {
   ShuffleOutput,
   ShuffleOutputType,
 } from "@/types/spotify";
+import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
 
 export default function Shuffler() {
   const [shuffleInput, setShuffleInput] = useState<ShuffleInput | null>(null);
@@ -61,27 +59,6 @@ export default function Shuffler() {
     }
   }, [selectedPlaylist]);
 
-  const renderShuffleInput = (
-    <section className="flex flex-col gap-16">
-      <DashboardHeading text={"What would you like to shuffle?"} />
-      <ToggleGroup.Root
-        orientation="horizontal"
-        asChild
-        type="single"
-        onValueChange={handleShuffleInput}
-      >
-        <DashboardShelf
-          desktopBehavior={"shelf"}
-          withSeparators
-          className="py-2"
-        >
-          <AppFormCard.LikedSongs app={app} key={app} />
-          <AppFormCard.Playlists app={app} key={app} />
-        </DashboardShelf>
-      </ToggleGroup.Root>
-    </section>
-  );
-
   const searchInput = (
     <AppFormPlaylistSearch
       session={session!}
@@ -112,7 +89,10 @@ export default function Shuffler() {
   return (
     <>
       <AppDashboardHeading app={app} />
-      {renderShuffleInput}
+      <ChooseShuffleInputForm
+        handleShuffleInputFn={handleShuffleInput}
+        app={app}
+      />
 
       {showSearchInput && searchInput}
 
