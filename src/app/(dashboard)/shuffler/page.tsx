@@ -81,7 +81,13 @@ export default function Shuffler() {
     </section>
   );
 
-  const searchInput = <AppFormPlaylistSearch session={session!} app={app} />;
+  const searchInput = (
+    <AppFormPlaylistSearch
+      session={session!}
+      app={app}
+      shuffleInput={shuffleInput!}
+    />
+  );
   const chooseOutput = (
     <ToggleGroup.Root
       orientation="horizontal"

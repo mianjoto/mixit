@@ -9,16 +9,18 @@ import PlaylistCard from "./playlist-card";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchInput } from "./ui/search-input";
 import { Apps } from "@/types/apps";
-import { Playlist } from "@/types/spotify";
+import { Playlist, ShuffleInput } from "@/types/spotify";
 
 type AppFormPlaylistSearchProps = {
   session: Session;
   app: Apps;
+  shuffleInput: ShuffleInput;
 };
 
 export function AppFormPlaylistSearch({
   session,
   app,
+  shuffleInput,
 }: AppFormPlaylistSearchProps) {
   const [query, setQuery] = useState<string | null>(null);
   const debouncedQuery = useDebounce(query, 250);
@@ -37,18 +39,16 @@ export function AppFormPlaylistSearch({
   let renderedResults;
 
   if (!searchResults || !searchResults.items) {
-    renderedResults = null;
+    if (shuffleInput.playlist) {
+      renderedResults = renderPlaylist(shuffleInput.playlist as Playlist, app);
+    } else {
+      renderedResults = null;
+    }
   } else {
     if (searchResults.total > 0) {
-      renderedResults = searchResults?.items.map((playlist: Playlist) => (
-        <PlaylistCard
-          playlist={playlist}
-          key={playlist.id}
-          bgColor="secondary"
-          className="h-full"
-          app={app}
-        />
-      ));
+      renderedResults = searchResults?.items.map((playlist: Playlist) =>
+        renderPlaylist(playlist, app)
+      );
     } else {
       renderedResults = (
         <p className="text-body">No results found for "{query}"</p>
@@ -70,5 +70,17 @@ export function AppFormPlaylistSearch({
         </DashboardShelf>
       </div>
     </section>
+  );
+}
+
+function renderPlaylist(playlist: Playlist, app: Apps) {
+  return (
+    <PlaylistCard
+      playlist={playlist}
+      key={playlist.id}
+      bgColor="secondary"
+      className="h-full"
+      app={app}
+    />
   );
 }
