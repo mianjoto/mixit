@@ -1,7 +1,7 @@
 "use client";
 
+import { Playlist } from "@/types/spotify";
 import { Dispatch, SetStateAction, createContext } from "react";
-import { Playlist } from "../../lib/spotify-query";
 
 export type SelectedPlaylistContextType = {
   selectedPlaylist: Playlist | null;

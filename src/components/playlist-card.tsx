@@ -6,13 +6,13 @@ import {
   getRingColorFromApp,
 } from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
-import { Playlist } from "../../lib/spotify-query";
 import { MusicIcon } from "@/assets/svg";
 import SelectedPlaylistContext, {
   SelectedPlaylistContextType,
 } from "@/contexts/selected-playlist-context";
 import { useContext } from "react";
 import { Apps } from "@/types/apps";
+import { Playlist } from "@/types/spotify";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;

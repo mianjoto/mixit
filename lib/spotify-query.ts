@@ -2,9 +2,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 import spotifyApi from "./spotify-auth";
 import { signIn } from "next-auth/react";
 import { Session } from "next-auth";
-
-// Type aliases for Spotify API objects
-export type Playlist = SpotifyApi.PlaylistObjectSimplified;
+import { LikedSongsId, LikedSongsPlaylist, Playlist } from "@/types/spotify";
 
 interface getTopPlaylistOptions {
   session: Session | null;
@@ -101,7 +99,7 @@ export const MAX_REQUESTS_FOR_LIKED_SONGS = 10;
 
 export async function getUserLikedSongs({
   session,
-}: getUserLikedSongsOptions): Promise<Playlist> {
+}: getUserLikedSongsOptions): Promise<LikedSongsPlaylist> {
   if (!session) {
     signIn("spotify");
     return Promise.reject("No session");
@@ -109,7 +107,7 @@ export async function getUserLikedSongs({
 
   const spotify = getSpotifyApi(session);
 
-  const likedSongs = [];
+  const likedSongs: SpotifyApi.SavedTrackObject[] = [];
   for (
     let offsetIndex = 0;
     offsetIndex < MAX_REQUESTS_FOR_LIKED_SONGS;
@@ -128,29 +126,22 @@ export async function getUserLikedSongs({
       Promise.reject("Error getting user");
     }
 
-    const songs = userResponse.body.items.map((item) => {
-      const track = item.track;
-
-      return {
-        name: track.name,
-        id: track.id,
-        artists: track.artists.map((a) => a.name),
-        uri: track.uri,
-      } as unknown as SpotifyApi.TrackObjectSimplified;
-    });
-
+    const songs = userResponse.body.items;
     likedSongs.push(...songs);
   }
 
+  const userId = (await spotifyApi.getMe()).body.id;
+
   const likedSongsPlaylist = {
     name: "Liked Songs",
-    id: "likedSongsId",
+    id: "liked-songs-id",
+    userId: userId,
     tracks: {
       href: "https://api.spotify.com/v1/me/tracks",
       total: likedSongs.length,
       items: likedSongs,
     },
-  } as unknown as SpotifyApi.PlaylistObjectSimplified;
+  } as LikedSongsPlaylist;
 
   return likedSongsPlaylist;
 }

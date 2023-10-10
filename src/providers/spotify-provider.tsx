@@ -9,15 +9,10 @@ import {
   getUserLikedSongs,
 } from "../../lib/spotify-query";
 import { useSession } from "next-auth/react";
-import { Playlist } from "../../lib/spotify-query";
 
 interface SpotifyProviderProps {
   children: React.ReactNode;
 }
-
-type LikedSongPlaylist = SpotifyApi.PlaylistObjectSimplified;
-
-const MAX_REQUESTS_FOR_LIKED_SONGS = 10;
 
 export default function SpotifyProvider({ children }: SpotifyProviderProps) {
   const { data: session } = useSession();
@@ -47,20 +42,10 @@ export default function SpotifyProvider({ children }: SpotifyProviderProps) {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: likedSongs } = useQuery({
-    queryKey: ["likedSongs"],
-    queryFn: () =>
-      getUserLikedSongs({
-        session,
-      }),
-    enabled: !!session,
-    staleTime: Infinity,
-  });
-
   // TODO: Add additional queries here...
 
   return (
-    <SpotifyContext.Provider value={{ user, playlistQueryResult, likedSongs }}>
+    <SpotifyContext.Provider value={{ user, playlistQueryResult }}>
       {children}
     </SpotifyContext.Provider>
   );

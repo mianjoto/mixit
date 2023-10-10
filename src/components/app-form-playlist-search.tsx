@@ -2,13 +2,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Session } from "next-auth";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Playlist, getSearchResults } from "../../lib/spotify-query";
+import { getSearchResults } from "../../lib/spotify-query";
 import { DashboardHeading } from "./dashboard";
 import { DashboardShelf } from "./dashboard-shelf";
 import PlaylistCard from "./playlist-card";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchInput } from "./ui/search-input";
 import { Apps } from "@/types/apps";
+import { Playlist } from "@/types/spotify";
 
 type AppFormPlaylistSearchProps = {
   session: Session;

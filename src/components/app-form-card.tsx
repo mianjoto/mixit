@@ -2,21 +2,22 @@ import React, { useContext } from "react";
 import { DashboardCard } from "./dashboard-card";
 import { Apps } from "@/types/apps";
 import { cn, getTextColorFromApp } from "../../lib/utils";
-import { LikedSongsIcon, PlaylistIcon, QueueIcon } from "@/assets/svg";
+import {
+  LikedSongsIcon,
+  PlaylistIcon,
+  ShufflePlaylistIcon,
+} from "@/assets/svg";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import SelectedPlaylistContext, {
-  SelectedPlaylistContextType,
-} from "@/contexts/selected-playlist-context";
-import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
-import { Playlist } from "../../lib/spotify-query";
+import { Playlist, ShuffleInput, ShuffleOutput } from "@/types/spotify";
 
 type AppFormCardRootProps = {
   title: string;
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
-  value: string;
-  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+  value: ShuffleInput | ShuffleOutput;
 };
 
 /** Since these ring-color classes aren't explicitly used in other
@@ -35,30 +36,28 @@ const AppFormCardRoot = ({
   description,
   image,
   app,
+  disabled = false,
+  className,
   value,
 }: AppFormCardRootProps) => {
   const imageWithColor = getImageWithAccentColor(image, app);
   const ringColor = COLOR_VARIANTS[app];
-
-  const card = (
-    <DashboardCard
-      title={title}
-      description={description}
-      image={imageWithColor}
-      className="m-4 min-h-[96%] md:min-w-[240px]"
-      noClickBehavior
-    />
-  );
+  const ringClass = !disabled
+    ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
+    : "";
 
   return (
     <ToggleGroup.Item
-      value={value}
-      className={cn(
-        ringColor,
-        `rounded-[18px] ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4`
-      )}
+      value={value.type}
+      className={cn(ringColor, ringClass, `rounded-[18px] `)}
     >
-      {card}
+      <DashboardCard
+        title={title}
+        description={description}
+        image={imageWithColor}
+        className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
+        noClickBehavior
+      />
     </ToggleGroup.Item>
   );
 };
@@ -67,31 +66,14 @@ type AppFormCardProps = {
   app: Apps;
 };
 
-export type ShuffleInput =
-  | "liked-songs"
-  | "all-playlists"
-  | "user-playlists"
-  | "queue";
-
 const LikedSongs = ({ app }: AppFormCardProps) => {
-  const { setSelectedPlaylist } = useContext(
-    SelectedPlaylistContext
-  ) as SelectedPlaylistContextType;
-
-  const { likedSongs } = useContext(SpotifyContext) as SpotifyContextType;
-
-  const handleOnClick = () => {
-    if (likedSongs) setSelectedPlaylist(likedSongs);
-  };
-
   return (
     <AppFormCardRoot
       title="Liked Songs"
       description="Your collection of your liked songs"
       image={<LikedSongsIcon className="h-[40%] w-[40%]" />}
       app={app}
-      value={"liked-songs" as ShuffleInput}
-      onClick={handleOnClick}
+      value={{ type: "liked-songs" } as ShuffleInput}
     />
   );
 };
@@ -103,8 +85,73 @@ const Playlists = ({ app }: AppFormCardProps) => {
       description="Can be yours or any playlist on Spotify"
       image={<PlaylistIcon className="h-[70%] w-[70%]" />}
       app={app}
-      value={"all-playlists" as ShuffleInput}
+      value={{ type: "all-playlists" } as ShuffleInput}
     />
+  );
+};
+
+const CreateNewPlaylist = ({ app }: AppFormCardProps) => {
+  return (
+    <AppFormCardRoot
+      title="Create new playlist"
+      description=""
+      image={<PlaylistIcon className="h-[70%] w-[70%]" />}
+      app={app}
+      value={{ type: "new-playlist" } as ShuffleOutput}
+    />
+  );
+};
+
+type ChangeSongOrderProps = {
+  user: SpotifyApi.CurrentUsersProfileResponse;
+  shuffleInput: ShuffleInput;
+} & AppFormCardProps;
+
+const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
+  let disabled = false;
+  let reasonForDisabling = undefined;
+
+  console.log("shuffleInput.type=" + shuffleInput.type);
+  console.log(
+    "shuffleInput.playlist owner=" +
+      (shuffleInput?.playlist as Playlist)?.owner.id
+  );
+
+  // Disable button if user is shuffling liked songs
+  if (shuffleInput.type === "liked-songs") {
+    disabled = true;
+    reasonForDisabling =
+      "You cannot change the song order of your Liked Songs.";
+  }
+
+  // Disable button if the user does not have permission to change the song order
+  const userOwnsPlaylist =
+    (shuffleInput?.playlist as Playlist)?.owner.id === user.id;
+
+  if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
+    disabled = true;
+    reasonForDisabling =
+      "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
+  }
+
+  const radioValue: ShuffleOutput = {
+    type: "song-order",
+    disabled,
+    reasonForDisabling,
+  };
+
+  return (
+    <>
+      <AppFormCardRoot
+        title={"Change song order"}
+        description={""}
+        image={<ShufflePlaylistIcon className="h-[70%] w-[70%]" />}
+        app={app}
+        value={radioValue}
+        disabled={disabled}
+        className={disabled ? "cursor-not-allowed opacity-50" : ""}
+      />
+    </>
   );
 };
 
@@ -133,8 +180,12 @@ function getImageWithAccentColor(
 }
 
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
-  LikedSongsCard: typeof LikedSongs;
-  PlaylistCard: typeof Playlists;
+  LikedSongs: typeof LikedSongs;
+  Playlist: typeof Playlists;
+  NewPlaylist: typeof CreateNewPlaylist;
+  ChangeSongOrder: typeof ChangeSongOrder;
 };
 AppFormCardRoot.LikedSongs = LikedSongs;
 AppFormCardRoot.Playlists = Playlists;
+AppFormCardRoot.CreateNewPlaylist = CreateNewPlaylist;
+AppFormCardRoot.ChangeSongOrder = ChangeSongOrder;
