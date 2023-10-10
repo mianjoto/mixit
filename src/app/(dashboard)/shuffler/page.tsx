@@ -52,9 +52,12 @@ export default function Shuffler() {
   // Whenever a new playlist is selected, store it in shuffleInput
   useEffect(() => {
     if (shuffleInput !== null) {
-      shuffleInput.playlist = selectedPlaylist;
+      const newShuffleInput = {
+        type: shuffleInput.type,
+        playlist: selectedPlaylist,
+      } as ShuffleInput;
+      setShuffleInput(newShuffleInput);
     }
-    setShuffleInput(shuffleInput);
   }, [selectedPlaylist]);
 
   const renderShuffleInput = (

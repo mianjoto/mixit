@@ -1,10 +1,10 @@
 "use client";
 
-import { Playlist } from "@/types/spotify";
+import { LikedSongsPlaylist, Playlist } from "@/types/spotify";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 export type SelectedPlaylistContextType = {
-  selectedPlaylist: Playlist | null;
+  selectedPlaylist: Playlist | LikedSongsPlaylist | null;
   setSelectedPlaylist: Dispatch<
     SetStateAction<SpotifyApi.PlaylistObjectSimplified | null>
   >;
