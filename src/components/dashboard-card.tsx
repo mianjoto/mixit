@@ -10,6 +10,7 @@ import WithSkeleton from "./ui/with-skeleton";
 interface DashboardCardProps {
   title: string | undefined | null;
   description: string | undefined | null;
+  showFullTitle?: boolean;
   className?: string;
   bgColor?: "secondary" | "tertiary";
   descriptionClamp?: "one-line" | "two-line" | "none";
@@ -23,6 +24,7 @@ interface DashboardCardProps {
 const defaultCardLayout = ({
   image,
   title,
+  showFullTitle = false,
   bgColor,
   description,
   descriptionClamp,
@@ -36,6 +38,7 @@ const defaultCardLayout = ({
   }
 
   const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+  const truncateTitle = showFullTitle ? "" : "truncate";
 
   return (
     <section
@@ -52,7 +55,12 @@ const defaultCardLayout = ({
         />{" "}
       </div>
       <div className="flex flex-col gap-4">
-        <p className="truncate text-base font-bold uppercase text-body">
+        <p
+          className={cn(
+            "text-base font-bold uppercase text-body",
+            truncateTitle
+          )}
+        >
           <WithSkeleton content={title} />
         </p>
         <p
@@ -68,6 +76,7 @@ const defaultCardLayout = ({
 const smallCardLayout = ({
   image,
   title,
+  showFullTitle = false,
   bgColor,
   description,
   descriptionClamp,
@@ -81,6 +90,7 @@ const smallCardLayout = ({
   }
 
   const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+  const truncateTitle = showFullTitle ? "" : "md:truncate";
 
   return (
     <section
@@ -97,7 +107,12 @@ const smallCardLayout = ({
         />
       </div>
       <div className="flex flex-col gap-4">
-        <p className="text-base font-bold uppercase text-body md:truncate">
+        <p
+          className={cn(
+            "text-base font-bold uppercase text-body",
+            truncateTitle
+          )}
+        >
           <WithSkeleton content={title} />
         </p>
         <p
@@ -116,6 +131,7 @@ const smallCardLayout = ({
 const DashboardCardComponent = ({
   title,
   description,
+  showFullTitle = false,
   bgColor = "tertiary",
   noClickBehavior = false,
   descriptionClamp = "two-line",
@@ -133,6 +149,7 @@ const DashboardCardComponent = ({
     ? smallCardLayout({
         image,
         title,
+        showFullTitle,
         bgColor,
         description,
         descriptionClamp,
@@ -141,6 +158,7 @@ const DashboardCardComponent = ({
     : defaultCardLayout({
         image,
         title,
+        showFullTitle,
         bgColor,
         description,
         descriptionClamp,

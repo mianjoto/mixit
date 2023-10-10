@@ -57,6 +57,7 @@ const AppFormCardRoot = ({
         image={imageWithColor}
         className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
         noClickBehavior
+        showFullTitle
       />
     </ToggleGroup.Item>
   );
