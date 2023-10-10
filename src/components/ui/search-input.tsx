@@ -22,7 +22,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           {...props}
         />
         <MagnifyingGlassIcon
-          className="h-fit w-fit px-12 py-8 text-gray"
+          className="h-[50px] w-[50px] px-12 py-8 text-gray"
           height={30}
           width={30}
         />
