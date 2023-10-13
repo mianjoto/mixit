@@ -21,7 +21,7 @@ const MixitHomeLogo: React.FC<MixitIconProps> = ({
       <MixitLogo
         {...props}
         width={width ? width : "70px"}
-        height={height ? height : "auto"}
+        height={height ? height : null}
         fill="#fff"
         className={cn("inline", className)}
       />

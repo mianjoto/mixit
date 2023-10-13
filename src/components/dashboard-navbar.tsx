@@ -94,7 +94,6 @@ const desktopNavbarContent = (): React.ReactElement => {
         <MixitHomeLogo
           linkToDashboard
           fill="#fff"
-          height="auto"
           width="80"
           className="h-fit w-fit max-w-[80px]"
         />
