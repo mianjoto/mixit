@@ -77,7 +77,7 @@ export const DashboardShelf = ({
   );
 };
 
-function separateContent(content: React.ReactNode) {
+function separateContent(content: React.ReactNode): React.ReactNode {
   const contentArray = React.Children.toArray(content);
   if (contentArray.length === 1) {
     return contentArray;
@@ -96,6 +96,7 @@ function separateContent(content: React.ReactNode) {
         <Separator.Root
           orientation="vertical"
           className="my-40 w-[3px] min-w-[3px] bg-[#D9D9D9]/20"
+          key={"separator-" + index}
         />
       </>
     );

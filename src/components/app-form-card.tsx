@@ -51,6 +51,7 @@ const AppFormCardRoot = ({
     <ToggleGroup.Item
       value={value.type}
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
+      key={`${title}-${description}-dashboard-card-toggle-group-item`}
     >
       <DashboardCard
         title={title}
@@ -59,6 +60,7 @@ const AppFormCardRoot = ({
         className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
         noClickBehavior
         showFullTitle
+        key={`${title}-${description}-dashboard-card-component`}
       />
     </ToggleGroup.Item>
   );
@@ -76,6 +78,7 @@ const LikedSongs = ({ app }: AppFormCardProps) => {
       image={<LikedSongsIcon className="h-[40%] w-[40%]" />}
       app={app}
       value={{ type: "liked-songs" } as ShuffleInput}
+      key={"liked-songs-input-for-" + app}
     />
   );
 };
@@ -88,6 +91,7 @@ const Playlists = ({ app }: AppFormCardProps) => {
       image={<PlaylistIcon className="h-[70%] w-[70%]" />}
       app={app}
       value={{ type: "all-playlists" } as ShuffleInput}
+      key={"playlists-input-for-" + app}
     />
   );
 };
@@ -131,6 +135,7 @@ const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
         value={radioValue}
         disabled={disabled}
         className={disabled ? "cursor-not-allowed opacity-50" : ""}
+        key={"change=song-order-output-for-" + app}
       />
     </>
   );

@@ -18,21 +18,25 @@ export function ChooseShuffleInputForm({
   return (
     <section className="flex flex-col gap-16">
       <DashboardHeading text={"What would you like to shuffle?"} />
-      <ToggleGroup.Root
-        orientation="horizontal"
-        asChild
-        type="single"
-        onValueChange={handleShuffleInputFn}
-      >
-        <DashboardShelf
-          desktopBehavior={"shelf"}
-          withSeparators
-          className="py-2"
+      <DashboardShelf desktopBehavior={"shelf"} withSeparators className="py-2">
+        <ToggleGroup.Root
+          orientation="horizontal"
+          type="single"
+          onValueChange={handleShuffleInputFn}
+          asChild
         >
-          <AppFormCard.LikedSongs app={app} key={app} />
-          <AppFormCard.Playlists app={app} key={app} />
-        </DashboardShelf>
-      </ToggleGroup.Root>
+          <>
+            <AppFormCard.LikedSongs
+              app={app}
+              key={`liked-songs-input-for-${app}`}
+            />
+            <AppFormCard.Playlists
+              app={app}
+              key={`playlists-input-for-${app}`}
+            />
+          </>
+        </ToggleGroup.Root>
+      </DashboardShelf>
     </section>
   );
 }
