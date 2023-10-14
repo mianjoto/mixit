@@ -48,10 +48,11 @@ const AppFormCardRoot = ({
     : "";
 
   const toggleIsDisabled = (value as ShuffleOutput)?.disabled;
+  const toggleValue = value.type === null ? "" : value.type;
 
   return (
     <ToggleGroup.Item
-      value={value.type}
+      value={toggleValue}
       disabled={toggleIsDisabled ?? toggleIsDisabled}
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
       key={`${title}-${description}-dashboard-card-toggle-group-item`}
