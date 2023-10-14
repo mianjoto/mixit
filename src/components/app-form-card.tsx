@@ -47,9 +47,12 @@ const AppFormCardRoot = ({
     ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
     : "";
 
+  const toggleIsDisabled = (value as ShuffleOutput)?.disabled;
+
   return (
     <ToggleGroup.Item
       value={value.type}
+      disabled={toggleIsDisabled ?? toggleIsDisabled}
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
       key={`${title}-${description}-dashboard-card-toggle-group-item`}
     >
@@ -167,7 +170,7 @@ function getImageWithAccentColor(
 
 function determineWhetherButtonIsDisabled(
   shuffleInput: ShuffleInput,
-  user: SpotifyApi.CurrentUsersProfileResponse
+  user: SpotifyApi.CurrentUsersProfileResponse | undefined
 ) {
   let disabled = false;
   let reasonForDisabling = undefined;
@@ -181,7 +184,7 @@ function determineWhetherButtonIsDisabled(
 
   // Disable button if the user does not have permission to change the song order
   const userOwnsPlaylist =
-    (shuffleInput?.playlist as Playlist)?.owner.id === user.id;
+    (shuffleInput?.playlist as Playlist)?.owner.id === user?.id;
 
   if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
     disabled = true;

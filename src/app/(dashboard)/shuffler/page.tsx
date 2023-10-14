@@ -59,7 +59,7 @@ export default function Shuffler() {
       } as ShuffleInput;
       setShuffleInput(newShuffleInput);
     }
-  }, [selectedPlaylist]);
+  }, [selectedPlaylist, shuffleOutput]);
 
   let showChooseOutput =
     shuffleInput?.type === "liked-songs" || selectedPlaylist !== null;
@@ -73,7 +73,8 @@ export default function Shuffler() {
     }
   } else if (
     shuffleInput?.playlist !== undefined &&
-    shuffleOutput?.type !== undefined
+    shuffleOutput?.type !== undefined &&
+    shuffleOutput?.disabled !== true
   ) {
     isReadyToMix = true;
   }
