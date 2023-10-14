@@ -16,7 +16,7 @@ export type ShuffleInputType = "liked-songs" | PlaylistShuffleType;
  */
 
 export type ShuffleInput = {
-  type: ShuffleInputType;
+  type: ShuffleInputType | null;
   playlist?: Playlist | LikedSongsPlaylist;
 };
 

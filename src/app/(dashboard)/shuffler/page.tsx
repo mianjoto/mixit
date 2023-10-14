@@ -38,6 +38,12 @@ export default function Shuffler() {
   const app = Apps.Shuffler;
 
   function handleShuffleInput(value: ShuffleInputType): void {
+    if (!value) {
+      setShuffleInput({ type: null, playlist: undefined });
+      setSelectedPlaylist(null);
+      return;
+    }
+
     if (value === "liked-songs") {
       setShuffleInput({ type: "liked-songs", playlist: undefined });
       setSelectedPlaylist(null);
@@ -55,11 +61,11 @@ export default function Shuffler() {
     if (shuffleInput !== null) {
       const newShuffleInput = {
         type: shuffleInput.type,
-        playlist: selectedPlaylist,
+        playlist: undefined,
       } as ShuffleInput;
       setShuffleInput(newShuffleInput);
     }
-  }, [selectedPlaylist, shuffleOutput]);
+  }, [selectedPlaylist]);
 
   let showChooseOutput =
     shuffleInput?.type === "liked-songs" || selectedPlaylist !== null;
