@@ -17,10 +17,10 @@ import {
   ShuffleOutputType,
 } from "@/types/mixit";
 import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
-import { ChooseShuffleOutputForm } from "../../../components/choose-shuffle-output-form";
 import { useShufflerApp } from "../../../../lib/mixit";
 import spotifyApi from "../../../../lib/spotify-auth";
 import { Button } from "@/components/ui/button";
+import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";
 
 export default function Shuffler() {
   const [shuffleInput, setShuffleInput] = useState<ShuffleInput | null>(null);
