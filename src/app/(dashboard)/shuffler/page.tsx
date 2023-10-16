@@ -22,11 +22,20 @@ import spotifyApi from "../../../../lib/spotify-auth";
 import { Button } from "@/components/ui/button";
 import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";
 
+const NULL_SHUFFLE_INPUT: ShuffleInput = { type: null, playlist: undefined };
+const NULL_SHUFFLE_OUTPUT: ShuffleOutput = {
+  type: null,
+  disabled: true,
+  reasonForDisabling: undefined,
+};
+
 export default function Shuffler() {
-  const [shuffleInput, setShuffleInput] = useState<ShuffleInput | null>(null);
-  const [shuffleOutput, setShuffleOutput] = useState<ShuffleOutput | null>(
-    null
-  );
+  const [shuffleInput, setShuffleInput] = useState<
+    ShuffleInput | typeof NULL_SHUFFLE_INPUT
+  >(NULL_SHUFFLE_INPUT);
+  const [shuffleOutput, setShuffleOutput] = useState<
+    ShuffleOutput | typeof NULL_SHUFFLE_OUTPUT
+  >(NULL_SHUFFLE_OUTPUT);
 
   const { user } = useContext(SpotifyContext) as SpotifyContextType;
 
@@ -39,7 +48,7 @@ export default function Shuffler() {
 
   function handleShuffleInput(value: ShuffleInputType): void {
     if (!value) {
-      setShuffleInput({ type: null, playlist: undefined });
+      setShuffleInput(NULL_SHUFFLE_INPUT);
       setSelectedPlaylist(null);
       return;
     }

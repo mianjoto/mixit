@@ -30,7 +30,7 @@ export type ShuffleOutputType = "song-order" | "new-playlist";
  * and disabled reason if the shuffle function is disabled.
  */
 export type ShuffleOutput = {
-  type: ShuffleOutputType;
+  type: ShuffleOutputType | null;
   disabled?: boolean;
   reasonForDisabling?: string;
 };
