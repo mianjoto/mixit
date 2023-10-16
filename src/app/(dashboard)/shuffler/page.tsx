@@ -84,9 +84,11 @@ export default function Shuffler() {
   let showSearchInput =
     shuffleInput?.type === ("all-playlists" as PlaylistShuffleType);
 
+  console.log("input=", shuffleInput);
+  console.log("Output=", shuffleOutput);
   let isReadyToMix = false;
   if (shuffleInput?.type === "liked-songs") {
-    if (shuffleOutput?.type !== undefined) {
+    if (shuffleOutput?.type) {
       isReadyToMix = true;
     }
   } else if (
