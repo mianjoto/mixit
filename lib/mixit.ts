@@ -1,4 +1,4 @@
-import { MixitInput } from "@/types/mixit";
+import { MixitInput, ShuffleOption } from "@/types/mixit";
 import { Playlist, PlaylistOrLikedSongs } from "@/types/spotify";
 import SpotifyWebApi from "spotify-web-api-node";
 import {
@@ -9,10 +9,20 @@ import {
 } from "./spotify-query";
 import { Session } from "next-auth";
 
-export async function useShufflerApp(
-  data: MixitInput,
-  session: Session
-): Promise<(SpotifyApi.CreatePlaylistResponse | undefined) | string> {
+type useShufflerAppParams = {
+  data: MixitInput;
+  options: ShuffleOption[];
+  session: Session;
+};
+
+export async function useShufflerApp({
+  data,
+  options,
+  session,
+}: useShufflerAppParams): Promise<
+  (SpotifyApi.CreatePlaylistResponse | undefined) | string
+> {
+  console.log("options=", options);
   let playlist;
   if (data.input.type === "liked-songs") {
     playlist = await getUserLikedSongs({ session });

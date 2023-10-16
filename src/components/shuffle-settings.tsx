@@ -1,29 +1,28 @@
-import * as Accordion from "@radix-ui/react-accordion";
-import {
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "./ui/accordion";
 import { SettingsIcon } from "@/assets/svg";
 import { Apps } from "@/types/apps";
+import { ShuffleOption } from "@/types/mixit";
+import * as Accordion from "@radix-ui/react-accordion";
 import {
-  ShuffleSettingOption,
-  ShuffleSettingOptionVariants,
-} from "./shuffle-setting-option";
-import * as ShuffleOptions from "@/data/objects/shuffle-options";
-import { AppData } from "@/data/records/apps";
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
+import { APP_OPTIONS } from "./choose-shuffle-settings-and-mix-form";
 
-const APP_OPTIONS = {
-  [Apps.Shuffler]: ShuffleOptions.Shuffler,
-  [Apps.Blender]: ShuffleOptions.Blender,
-  [Apps.PickAndMix]: ShuffleOptions.PickAndMix,
-  [Apps.TimeMachine]: ShuffleOptions.TimeMachine,
+export type ShuffleSettingsProps = {
+  app: Apps;
+  enabledOptions: ShuffleOption[];
+  toggleOption: (option: ShuffleOption) => void;
 };
 
-export type ShuffleSettingsProps = { app: Apps };
-
-const ShuffleSettings = ({ app }: ShuffleSettingsProps) => {
-  const options = renderOptions(app);
+const ShuffleSettings = ({
+  app,
+  enabledOptions,
+  toggleOption,
+}: ShuffleSettingsProps) => {
+  const { selectedAppOptions, selectedAppColorVariant } = getOptionsForApp(app);
 
   return (
     <Accordion.Root
@@ -38,33 +37,41 @@ const ShuffleSettings = ({ app }: ShuffleSettingsProps) => {
             Settings
           </div>
         </AccordionTrigger>
-        <AccordionContent>{options}</AccordionContent>
+        <AccordionContent>
+          {selectedAppOptions.map((option) => {
+            console.log("Rendering ", option.id, ":", option);
+            return (
+              <li
+                className="flex flex-row items-center justify-between"
+                key={option.id}
+              >
+                <Label htmlFor={option.id} className="text-gray">
+                  {option.description}
+                </Label>
+                <Switch
+                  id={option.id}
+                  checked={enabledOptions.includes(option)}
+                  defaultChecked={option?.defaultEnabled}
+                  checkedBgColor={selectedAppColorVariant}
+                  onCheckedChange={() => toggleOption(option)}
+                />
+              </li>
+            );
+          })}
+        </AccordionContent>
       </AccordionItem>
     </Accordion.Root>
   );
 };
 
-const renderOptions = (app: Apps) => {
+const getOptionsForApp = (app: Apps) => {
   const selectedAppOptions = APP_OPTIONS[app];
   const selectedAppColorVariant = {
     [Apps.Shuffler]: "accent-1",
     [Apps.Blender]: "accent-2",
     [Apps.PickAndMix]: "accent-3",
     [Apps.TimeMachine]: "accent-4",
-  }[app] as ShuffleSettingOptionVariants;
-
-  const optionComponents = selectedAppOptions.map((option) => {
-    return (
-      <ShuffleSettingOption
-        description={option.description}
-        id={option.id}
-        key={option.id}
-        checkedBgColorVariant={selectedAppColorVariant}
-        defaultEnabled={option.defaultEnabled}
-      />
-    );
-  });
-
-  return <ul>{optionComponents}</ul>;
+  }[app] as "accent-1" | "accent-2" | "accent-3" | "accent-4";
+  return { selectedAppOptions, selectedAppColorVariant };
 };
 export default ShuffleSettings;

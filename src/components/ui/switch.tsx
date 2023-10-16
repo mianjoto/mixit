@@ -24,26 +24,31 @@ const switchVariants = cva(
 );
 
 type SwitchProps = {
-  defaultChecked?: boolean;
+  onCheckedChange: (checked: boolean) => void;
 } & VariantProps<typeof switchVariants>;
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> & SwitchProps
->(({ checkedBgColor, defaultChecked, className, ...props }, ref) => (
-  <SwitchPrimitives.Root
-    className={cn(switchVariants({ checkedBgColor, className }))}
-    {...props}
-    ref={ref}
-    defaultChecked={defaultChecked}
-  >
-    <SwitchPrimitives.Thumb
-      className={cn(
-        "pointer-events-none block h-5 w-5 rounded-full bg-body shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
-      )}
-    />
-  </SwitchPrimitives.Root>
-));
+>(
+  (
+    { checkedBgColor, onCheckedChange, defaultChecked, className, ...props },
+    ref
+  ) => (
+    <SwitchPrimitives.Root
+      className={cn(switchVariants({ checkedBgColor, className }))}
+      {...props}
+      onCheckedChange={onCheckedChange}
+      ref={ref}
+    >
+      <SwitchPrimitives.Thumb
+        className={cn(
+          "pointer-events-none block h-5 w-5 rounded-full bg-body shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+        )}
+      />
+    </SwitchPrimitives.Root>
+  )
+);
 Switch.displayName = SwitchPrimitives.Root.displayName;
 
 export { Switch };

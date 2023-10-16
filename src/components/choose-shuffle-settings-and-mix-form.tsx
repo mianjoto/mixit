@@ -1,13 +1,13 @@
 import { ShuffleInput, ShuffleOutput } from "@/types/mixit";
-import { AppFormCard } from "./app-form-card";
+import * as ShuffleOptions from "@/data/objects/shuffle-options";
 import { DashboardHeading } from "./dashboard";
-import { DashboardShelf } from "./dashboard-shelf";
 import { Apps } from "@/types/apps";
 import ShuffleSettings from "./shuffle-settings";
 import { Text } from "@/components/ui/text";
 import { Button } from "./ui/button";
 import { useShufflerApp } from "../../lib/mixit";
 import { Session } from "next-auth";
+import { useOptions } from "@/hooks/useOptions";
 
 type ChooseShuffleSettingsAndMixProps = {
   app: Apps;
@@ -22,6 +22,10 @@ const ChooseShuffleSettingsAndMix = ({
   shuffleInput,
   shuffleOutput,
 }: ChooseShuffleSettingsAndMixProps) => {
+  const selectedAppOptions = APP_OPTIONS[app];
+
+  const { enabledOptions, toggleOption } = useOptions(selectedAppOptions);
+
   return (
     <section className="flex flex-col gap-20">
       <header className="flex flex-col gap-8">
@@ -32,22 +36,34 @@ const ChooseShuffleSettingsAndMix = ({
         </Text>
       </header>
 
-      <ShuffleSettings app={app} />
+      <ShuffleSettings
+        app={app}
+        enabledOptions={enabledOptions}
+        toggleOption={toggleOption}
+      />
 
       <Button
         size="cta"
         willRedirect={false}
         onClick={() =>
-          useShufflerApp(
-            { input: shuffleInput!, output: shuffleOutput! },
-            session!
-          )
+          useShufflerApp({
+            data: { input: shuffleInput!, output: shuffleOutput! },
+            options: enabledOptions,
+            session: session!,
+          })
         }
       >
         Mix now
       </Button>
     </section>
   );
+};
+
+export const APP_OPTIONS = {
+  [Apps.Shuffler]: ShuffleOptions.Shuffler,
+  [Apps.Blender]: ShuffleOptions.Blender,
+  [Apps.PickAndMix]: ShuffleOptions.PickAndMix,
+  [Apps.TimeMachine]: ShuffleOptions.TimeMachine,
 };
 
 export default ChooseShuffleSettingsAndMix;
