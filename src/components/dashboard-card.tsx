@@ -186,7 +186,7 @@ const DashboardCardComponent = ({
     ? smallCardLayout(cardProps)
     : defaultCardLayout(cardProps);
 
-  if (noClickBehavior) {
+  if (noClickBehavior || disabled) {
     return card;
   }
 

@@ -1,4 +1,8 @@
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import React from "react";
 import { Heading } from "./heading";
@@ -7,7 +11,7 @@ import { HeadingLevels } from "@/types/text";
 import { cn } from "../../../lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 
-const infoTooltipVariants = cva("absolute p-8 text-base", {
+const infoTooltipVariants = cva("absolute z-50 p-8 text-base", {
   variants: {
     color: {
       body: "text-body",
@@ -40,28 +44,23 @@ const InfoTooltip = ({ content, color, className }: InfoTooltipProps) => {
   ) : null;
 
   const description = (
-    <Text textColor="gray" className="text-sm font-medium">
-      {content.description}
-    </Text>
+    <Text className="text-sm font-medium">{content.description}</Text>
   );
 
   return (
     <span className={cn(infoTooltipVariants({ color, className }))}>
-      <HoverCard openDelay={300} closeDelay={50}>
-        <HoverCardTrigger asChild>
+      <Popover>
+        <PopoverTrigger className="p-8">
           <InfoCircledIcon width={20} height={20} />
-        </HoverCardTrigger>
-        <HoverCardContent
-          className="w-fit px-12 py-16"
-          side="right"
-          sideOffset={10}
+        </PopoverTrigger>
+        <PopoverContent
+          className="flex w-[200px] flex-col gap-[6px] px-8 py-4"
+          sticky="always"
         >
-          <div className="flex flex-col gap-[6px]">
-            {heading}
-            {description}
-          </div>
-        </HoverCardContent>
-      </HoverCard>
+          {heading}
+          {description}
+        </PopoverContent>
+      </Popover>
     </span>
   );
 };

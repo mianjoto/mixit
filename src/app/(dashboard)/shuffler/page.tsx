@@ -21,6 +21,7 @@ import { useShufflerApp } from "../../../../lib/mixit";
 import spotifyApi from "../../../../lib/spotify-auth";
 import { Button } from "@/components/ui/button";
 import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";
+import InfoTooltip from "@/components/ui/info-tooltip";
 
 const NULL_SHUFFLE_INPUT: ShuffleInput = { type: null, playlist: undefined };
 const NULL_SHUFFLE_OUTPUT: ShuffleOutput = {

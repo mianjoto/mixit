@@ -58,7 +58,23 @@ const AppFormCardRoot = ({
       ? ({ description: disabled.reasonForDisabling } as InfoTooltipContent)
       : null;
 
-  console.log("title=", title, "disabled=", tooltipContent);
+  const card = (
+    <DashboardCard
+      title={title}
+      description={description}
+      image={imageWithColor}
+      className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
+      noClickBehavior
+      showFullTitle
+      disabled={toggleIsDisabled}
+      tooltipContent={tooltipContent}
+      key={`${title}-${description}-dashboard-card-component`}
+    />
+  );
+
+  if (disabled) {
+    return card;
+  }
 
   return (
     <ToggleGroup.Item
@@ -67,17 +83,7 @@ const AppFormCardRoot = ({
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
       key={`${title}-${description}-dashboard-card-toggle-group-item`}
     >
-      <DashboardCard
-        title={title}
-        description={description}
-        image={imageWithColor}
-        className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
-        noClickBehavior
-        showFullTitle
-        disabled={toggleIsDisabled}
-        tooltipContent={tooltipContent}
-        key={`${title}-${description}-dashboard-card-component`}
-      />
+      {card}
     </ToggleGroup.Item>
   );
 };
