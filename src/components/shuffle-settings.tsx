@@ -60,6 +60,7 @@ const renderOptions = (app: Apps) => {
         id={option.id}
         key={option.id}
         checkedBgColorVariant={selectedAppColorVariant}
+        defaultEnabled={option.defaultEnabled}
       />
     );
   });
