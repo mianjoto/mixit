@@ -61,7 +61,7 @@ export default function Shuffler() {
     if (shuffleInput !== null) {
       const newShuffleInput = {
         type: shuffleInput.type,
-        playlist: undefined,
+        playlist: selectedPlaylist,
       } as ShuffleInput;
       setShuffleInput(newShuffleInput);
     }
