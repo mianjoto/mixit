@@ -55,13 +55,11 @@ const renderOptions = (app: Apps) => {
 
   const optionComponents = selectedAppOptions.map((option) => {
     return (
-      <li>
-        <ShuffleSettingOption
-          description={option.description}
-          id={option.id}
-          checkedBgColorVariant={selectedAppColorVariant}
-        />
-      </li>
+      <ShuffleSettingOption
+        description={option.description}
+        id={option.id}
+        checkedBgColorVariant={selectedAppColorVariant}
+      />
     );
   });
 
