@@ -6,6 +6,7 @@ import React from "react";
 import LinkWrapper, { linkWrapperVariants } from "./ui/link-wrapper";
 import { cn } from "../../lib/utils";
 import WithSkeleton from "./ui/with-skeleton";
+import InfoTooltip, { InfoTooltipContent } from "./ui/info-tooltip";
 
 interface DashboardCardProps {
   title: string | undefined | null;
@@ -18,6 +19,8 @@ interface DashboardCardProps {
   href?: LinkType | string;
   onClick?: () => void;
   small?: boolean;
+  tooltipContent?: InfoTooltipContent | null;
+  disabled?: boolean;
   image?: React.JSX.Element | string | undefined | null;
 }
 
@@ -28,6 +31,8 @@ const defaultCardLayout = ({
   bgColor,
   description,
   descriptionClamp,
+  tooltipContent,
+  disabled,
   className,
 }: DashboardCardProps) => {
   let descriptionClampClass = "";
@@ -38,13 +43,15 @@ const defaultCardLayout = ({
   }
 
   const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+  const disabledClass = disabled ? "cursor-not-allowed opacity-50" : "";
   const truncateTitle = showFullTitle ? "" : "truncate";
 
   return (
     <section
       className={cn(
         bgColorClass,
-        "flex w-[160px] flex-col gap-12 rounded-[18px] p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24",
+        "relative flex w-[160px] flex-col gap-12 rounded-[18px] p-12 pb-16 text-left md:w-full md:max-w-[240px] md:gap-16 md:p-16 md:pb-24",
+        disabledClass,
         className
       )}
     >
@@ -69,6 +76,12 @@ const defaultCardLayout = ({
           <WithSkeleton content={description} />
         </p>
       </div>
+      {tooltipContent ? (
+        <InfoTooltip
+          content={tooltipContent}
+          className="right-0 top-0 opacity-100"
+        />
+      ) : null}
     </section>
   );
 };
@@ -80,6 +93,8 @@ const smallCardLayout = ({
   bgColor,
   description,
   descriptionClamp,
+  tooltipContent,
+  disabled,
   className,
 }: DashboardCardProps) => {
   let descriptionClampClass = "";
@@ -90,13 +105,15 @@ const smallCardLayout = ({
   }
 
   const bgColorClass = bgColor === "secondary" ? "bg-secondary" : "bg-tertiary";
+  const disabledClass = disabled ? "cursor-not-allowed opacity-50" : "";
   const truncateTitle = showFullTitle ? "" : "md:truncate";
 
   return (
     <section
       className={cn(
         bgColorClass,
-        "flex w-full flex-row items-center gap-12 overflow-hidden rounded-md text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24",
+        "relative flex w-full flex-row items-center gap-12 overflow-hidden rounded-md text-left md:flex md:w-full md:max-w-[240px] md:flex-col md:gap-16 md:rounded-[18px] md:bg-tertiary md:p-16 md:pb-24",
+        disabledClass,
         className
       )}
     >
@@ -124,6 +141,12 @@ const smallCardLayout = ({
           <WithSkeleton content={description} />
         </p>
       </div>
+      {tooltipContent ? (
+        <InfoTooltip
+          content={tooltipContent}
+          className="invisible right-0 top-0 opacity-100 md:visible"
+        />
+      ) : null}
     </section>
   );
 };
@@ -139,31 +162,29 @@ const DashboardCardComponent = ({
   onClick,
   small = false,
   image,
+  tooltipContent = undefined,
+  disabled,
   className,
 }: DashboardCardProps) => {
   if (typeof image === "string") {
     image = <img src={image} className="aspect-square h-full w-full" />;
   }
 
+  const cardProps = {
+    image,
+    title,
+    showFullTitle,
+    bgColor,
+    description,
+    descriptionClamp,
+    tooltipContent,
+    disabled,
+    className,
+  };
+
   const card = small
-    ? smallCardLayout({
-        image,
-        title,
-        showFullTitle,
-        bgColor,
-        description,
-        descriptionClamp,
-        className,
-      })
-    : defaultCardLayout({
-        image,
-        title,
-        showFullTitle,
-        bgColor,
-        description,
-        descriptionClamp,
-        className,
-      });
+    ? smallCardLayout(cardProps)
+    : defaultCardLayout(cardProps);
 
   if (noClickBehavior) {
     return card;

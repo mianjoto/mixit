@@ -10,13 +10,17 @@ import {
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Playlist } from "@/types/spotify";
 import { ShuffleInput, ShuffleOutput } from "@/types/mixit";
+import InfoTooltip, {
+  InfoTooltipProps,
+  InfoTooltipContent,
+} from "./ui/info-tooltip";
 
 type AppFormCardRootProps = {
   title: string;
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
-  disabled?: boolean;
+  disabled?: { isDisabled: boolean; reasonForDisabling: string };
   className?: string;
   value: ShuffleInput | ShuffleOutput;
 };
@@ -37,7 +41,7 @@ const AppFormCardRoot = ({
   description,
   image,
   app,
-  disabled = false,
+  disabled = undefined,
   className,
   value,
 }: AppFormCardRootProps) => {
@@ -49,6 +53,12 @@ const AppFormCardRoot = ({
 
   const toggleIsDisabled = (value as ShuffleOutput)?.disabled;
   const toggleValue = value.type === null ? "" : value.type;
+  const tooltipContent =
+    disabled !== undefined
+      ? ({ description: disabled.reasonForDisabling } as InfoTooltipContent)
+      : null;
+
+  console.log("title=", title, "disabled=", tooltipContent);
 
   return (
     <ToggleGroup.Item
@@ -64,6 +74,8 @@ const AppFormCardRoot = ({
         className={cn("m-4 min-h-[96%] md:min-w-[240px]", className)}
         noClickBehavior
         showFullTitle
+        disabled={toggleIsDisabled}
+        tooltipContent={tooltipContent}
         key={`${title}-${description}-dashboard-card-component`}
       />
     </ToggleGroup.Item>
@@ -118,16 +130,20 @@ type ChangeSongOrderProps = {
 } & AppFormCardProps;
 
 const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
-  let { disabled, reasonForDisabling } = determineWhetherButtonIsDisabled(
+  let { isDisabled, reasonForDisabling } = determineWhetherButtonIsDisabled(
     shuffleInput,
     user
   );
 
   const radioValue: ShuffleOutput = {
     type: "song-order",
-    disabled,
+    disabled: isDisabled,
     reasonForDisabling,
   };
+
+  const tooltipInfo = isDisabled
+    ? { isDisabled: true, reasonForDisabling: reasonForDisabling! }
+    : undefined;
 
   return (
     <>
@@ -137,8 +153,7 @@ const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
         image={<ShufflePlaylistIcon className="h-[70%] w-[70%]" />}
         app={app}
         value={radioValue}
-        disabled={disabled}
-        className={disabled ? "cursor-not-allowed opacity-50" : ""}
+        disabled={tooltipInfo}
         key={"change=song-order-output-for-" + app}
       />
     </>
@@ -173,12 +188,12 @@ function determineWhetherButtonIsDisabled(
   shuffleInput: ShuffleInput,
   user: SpotifyApi.CurrentUsersProfileResponse | undefined
 ) {
-  let disabled = false;
+  let isDisabled = false;
   let reasonForDisabling = undefined;
 
   // Disable button if user is shuffling liked songs
   if (shuffleInput.type === "liked-songs") {
-    disabled = true;
+    isDisabled = true;
     reasonForDisabling =
       "You cannot change the song order of your Liked Songs.";
   }
@@ -188,11 +203,11 @@ function determineWhetherButtonIsDisabled(
     (shuffleInput?.playlist as Playlist)?.owner.id === user?.id;
 
   if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
-    disabled = true;
+    isDisabled = true;
     reasonForDisabling =
       "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
   }
-  return { disabled, reasonForDisabling };
+  return { isDisabled, reasonForDisabling };
 }
 
 export const AppFormCard = AppFormCardRoot as typeof AppFormCardRoot & {
