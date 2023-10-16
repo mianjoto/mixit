@@ -22,6 +22,8 @@ import spotifyApi from "../../../../lib/spotify-auth";
 import { Button } from "@/components/ui/button";
 import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";
 import InfoTooltip from "@/components/ui/info-tooltip";
+import ShuffleSettings from "@/components/shuffle-settings";
+import ChooseShuffleSettingsAndMix from "../../../components/choose-shuffle-settings-and-mix-form";
 
 const NULL_SHUFFLE_INPUT: ShuffleInput = { type: null, playlist: undefined };
 const NULL_SHUFFLE_OUTPUT: ShuffleOutput = {
@@ -123,18 +125,12 @@ export default function Shuffler() {
       )}
 
       {isReadyToMix && (
-        <Button
-          size="cta"
-          willRedirect={false}
-          onClick={() =>
-            useShufflerApp(
-              { input: shuffleInput!, output: shuffleOutput! },
-              session!
-            )
-          }
-        >
-          Mix now
-        </Button>
+        <ChooseShuffleSettingsAndMix
+          app={app}
+          session={session!}
+          shuffleInput={shuffleInput}
+          shuffleOutput={shuffleOutput}
+        />
       )}
     </>
   );

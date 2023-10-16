@@ -36,3 +36,9 @@ export type ShuffleOutput = {
 };
 
 export type MixitInput = { input: ShuffleInput; output: ShuffleOutput };
+
+export type ShuffleOption = {
+  description: string;
+  id: string;
+  defaultEnabled?: boolean;
+};
