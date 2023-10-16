@@ -1,4 +1,3 @@
-"use client";
 import { Apps } from "@/types/apps";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { ShuffleInput, ShuffleOutputType } from "@/types/mixit";

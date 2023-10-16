@@ -1,4 +1,3 @@
-"use client";
 import { AppFormCard } from "@/components/app-form-card";
 import { DashboardShelf } from "@/components/dashboard-shelf";
 import { Apps } from "@/types/apps";
