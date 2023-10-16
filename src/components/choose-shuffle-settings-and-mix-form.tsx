@@ -29,7 +29,7 @@ const ChooseShuffleSettingsAndMix = ({
   return (
     <section className="flex flex-col gap-20">
       <header className="flex flex-col gap-8">
-        <DashboardHeading text="You’re ready to mix!" />
+        <DashboardHeading text="You're ready to mix!" />
         <Text textColor="gray" className="max-w-fit">
           For a custom mix, feel free to change settings about how {app} mixes
           your music.
