@@ -58,6 +58,7 @@ const renderOptions = (app: Apps) => {
       <ShuffleSettingOption
         description={option.description}
         id={option.id}
+        key={option.id}
         checkedBgColorVariant={selectedAppColorVariant}
       />
     );
