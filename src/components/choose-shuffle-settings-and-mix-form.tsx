@@ -5,7 +5,7 @@ import { Apps } from "@/types/apps";
 import ShuffleSettings from "./shuffle-settings";
 import { Text } from "@/components/ui/text";
 import { Button } from "./ui/button";
-import { useShufflerApp } from "../../lib/mixit";
+import { useShufflerApp } from "../../lib/mixit-apps";
 import { Session } from "next-auth";
 import { useOptions } from "@/hooks/useOptions";
 
@@ -48,7 +48,7 @@ const ChooseShuffleSettingsAndMix = ({
         onClick={() =>
           useShufflerApp({
             data: { input: shuffleInput!, output: shuffleOutput! },
-            options: enabledOptions,
+            shuffleOptions: enabledOptions,
             session: session!,
           })
         }

@@ -17,7 +17,7 @@ import {
   ShuffleOutputType,
 } from "@/types/mixit";
 import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
-import { useShufflerApp } from "../../../../lib/mixit";
+import { useShufflerApp } from "../../../../lib/mixit-apps";
 import spotifyApi from "../../../../lib/spotify-auth";
 import { Button } from "@/components/ui/button";
 import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";

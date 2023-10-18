@@ -1,12 +1,18 @@
 import { ShuffleOption } from "@/types/mixit";
 
-const Shuffler: ShuffleOption[] = [
-  {
-    id: "prefer-older-songs",
-    description: "Prefer songs you haven't listened to in a while",
-    defaultEnabled: true,
-  },
-];
+/**
+ * The percentage chance for the shuffler to choose a song that's "older" rather
+ * than newer
+ */
+export const PREFER_OLDER_SONGS_BIAS = 0.75;
+
+export const PreferOlderSongs = {
+  id: "prefer-older-songs",
+  description: "Prefer songs you haven't listened to in a while",
+  defaultEnabled: true,
+} as ShuffleOption;
+
+const Shuffler: ShuffleOption[] = [PreferOlderSongs];
 
 const Blender: ShuffleOption[] = [
   {

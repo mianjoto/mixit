@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.23.2",
     "@mui/base": "^5.0.0-beta.13",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.3",
@@ -25,6 +27,7 @@
     "@tanstack/react-query": "^4.35.3",
     "@tanstack/react-query-devtools": "^4.35.7",
     "@total-typescript/ts-reset": "^0.4.2",
+    "@types/jest": "^29.5.6",
     "@uidotdev/usehooks": "^2.3.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -44,6 +47,10 @@
   "devDependencies": {
     "@shrutibalasa/tailwind-grid-auto-fit": "^1.1.0",
     "@tanstack/eslint-plugin-query": "^4.34.1",
+    "@testing-library/dom": "^9.3.3",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/spotify-web-api-node": "^5.0.7",
@@ -51,6 +58,7 @@
     "@typescript-eslint/parser": "^6.2.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.14",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "8.9.0",
     "eslint-plugin-react": "^7.33.1",
