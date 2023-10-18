@@ -1,4 +1,4 @@
-import { ShuffleInput, ShuffleOutput } from "@/types/mixit";
+import { ShuffleInput, ShuffleOption, ShuffleOutput } from "@/types/mixit";
 import * as ShuffleOptions from "@/data/objects/shuffle-options";
 import { DashboardHeading } from "./dashboard";
 import { Apps } from "@/types/apps";
@@ -26,24 +26,35 @@ const ChooseShuffleSettingsAndMix = ({
 
   const { enabledOptions, toggleOption } = useOptions(selectedAppOptions);
 
+  function handleVisibleOptions(option: ShuffleOption): boolean {
+    // Ignore if creating new playlist, as all options should be visible
+    if (shuffleOutput.type === "new-playlist") {
+      return true;
+    }
+
+    return option.id !== ShuffleOptions.PreferOlderSongs.id;
+  }
+
   return (
-    <section className="flex flex-col gap-20">
-      <header className="flex flex-col gap-8">
-        <DashboardHeading text="You're ready to mix!" />
-        <Text textColor="gray" className="max-w-fit">
-          For a custom mix, feel free to change settings about how {app} mixes
-          your music.
-        </Text>
-      </header>
+    <>
+      <section className="flex flex-col gap-20">
+        <header className="flex flex-col gap-8">
+          <DashboardHeading text="You're ready to mix!" />
+          <Text textColor="gray" className="max-w-fit">
+            For a custom mix, feel free to change settings about how {app} mixes
+            your music.
+          </Text>
+        </header>
 
-      <ShuffleSettings
-        app={app}
-        enabledOptions={enabledOptions}
-        toggleOption={toggleOption}
-      />
-
+        <ShuffleSettings
+          app={app}
+          excludeOptionsFn={handleVisibleOptions}
+          enabledOptions={enabledOptions}
+          toggleOption={toggleOption}
+        />
+      </section>
       <Button
-        size="cta"
+        size="default"
         willRedirect={false}
         onClick={() =>
           useShufflerApp({
@@ -55,7 +66,7 @@ const ChooseShuffleSettingsAndMix = ({
       >
         Mix now
       </Button>
-    </section>
+    </>
   );
 };
 

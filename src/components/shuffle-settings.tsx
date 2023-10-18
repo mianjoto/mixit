@@ -1,6 +1,6 @@
 import { SettingsIcon } from "@/assets/svg";
 import { Apps } from "@/types/apps";
-import { ShuffleOption } from "@/types/mixit";
+import { ShuffleOption, ShuffleOutput } from "@/types/mixit";
 import * as Accordion from "@radix-ui/react-accordion";
 import {
   AccordionContent,
@@ -13,16 +13,24 @@ import { APP_OPTIONS } from "./choose-shuffle-settings-and-mix-form";
 
 export type ShuffleSettingsProps = {
   app: Apps;
+  excludeOptionsFn: (option: ShuffleOption) => boolean;
   enabledOptions: ShuffleOption[];
   toggleOption: (option: ShuffleOption) => void;
 };
 
 const ShuffleSettings = ({
   app,
+  excludeOptionsFn,
   enabledOptions,
   toggleOption,
 }: ShuffleSettingsProps) => {
   const { selectedAppOptions, selectedAppColorVariant } = getOptionsForApp(app);
+
+  const availableOptions = selectedAppOptions.filter(excludeOptionsFn);
+
+  if (availableOptions.length === 0) {
+    return null;
+  }
 
   return (
     <Accordion.Root
@@ -38,7 +46,7 @@ const ShuffleSettings = ({
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          {selectedAppOptions.map((option) => {
+          {availableOptions.map((option) => {
             console.log("Rendering ", option.id, ":", option);
             return (
               <li
@@ -66,6 +74,7 @@ const ShuffleSettings = ({
 
 const getOptionsForApp = (app: Apps) => {
   const selectedAppOptions = APP_OPTIONS[app];
+
   const selectedAppColorVariant = {
     [Apps.Shuffler]: "accent-1",
     [Apps.Blender]: "accent-2",
