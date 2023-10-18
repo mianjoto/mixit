@@ -167,12 +167,12 @@ export function getRandomOffset(
   const lowerBound = 0;
 
   if (shuffleOptions?.includes(PreferOlderSongs)) {
-    // const randomFloat = Math.random();
+    const randomFloat = Math.random();
 
-    // if (randomFloat < PREFER_OLDER_SONGS_BIAS) {
-    const olderThird = Math.floor((2 * (upperBound - lowerBound)) / 3);
-    return Math.floor(Math.random() * (upperBound - olderThird) + olderThird);
-    // }
+    if (randomFloat < PREFER_OLDER_SONGS_BIAS) {
+      const olderThird = Math.floor((2 * (upperBound - lowerBound)) / 3);
+      return Math.floor(Math.random() * (upperBound - olderThird) + olderThird);
+    }
   }
 
   return Math.floor(Math.random() * (upperBound - lowerBound) + lowerBound);
