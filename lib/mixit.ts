@@ -53,8 +53,13 @@ export function getLazyWindowPaginationOptions(
   playlist: SpotifyApi.PlaylistObjectFull
 ) {
   const totalNumberOfTracks = playlist.tracks.total;
+  let windowSize = MAX_PLAYLIST_LENGTH;
+  if (totalNumberOfTracks < MAX_PLAYLIST_LENGTH) {
+    windowSize = totalNumberOfTracks;
+  }
+
   const randomOffset = getRandomOffset(
-    MAX_SONGS_PER_REQUEST,
+    windowSize,
     totalNumberOfTracks,
     undefined
   );
@@ -161,6 +166,10 @@ export function getRandomOffset(
 ): number {
   if (windowSize === 0) {
     windowSize = 1;
+  }
+
+  if (windowSize === totalNumberOfTracks) {
+    return 0;
   }
 
   const upperBound = totalNumberOfTracks - windowSize - 1;
