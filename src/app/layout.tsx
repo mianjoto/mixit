@@ -25,7 +25,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           w-screen overflow-x-hidden overscroll-none bg-background`}
         >
           {children}
-          <ReactQueryDevtools initialIsOpen={false} />
           <Toaster />
         </body>
       </ReactQueryProvider>
