@@ -14,7 +14,7 @@ import {
 import { signIn } from "next-auth/react";
 import { Session } from "next-auth";
 
-const MIN_TRACKS_FOR_RANDOM_SAMPLING = 500;
+const MIN_TRACKS_FOR_RANDOM_SAMPLING = 201;
 const MAX_CHERRY_PICKS = 5;
 const SONGS_REQUESTED_PER_CHERRY_PICK = 20;
 
@@ -46,7 +46,24 @@ async function lazyWindowRandomSongs(
 ) {
   const paginationOptions = getLazyWindowPaginationOptions(playlist);
   console.log("paginationOptions for lazy sliding=", paginationOptions);
-  return await getTracksSliceFromPlaylist(spotify, playlist, paginationOptions);
+
+  const selectedSongUris: string[] = [];
+
+  await Promise.all(
+    paginationOptions.map(async (paginationOption) => {
+      const sliceOfTracks = await getTracksSliceFromPlaylist(
+        spotify,
+        playlist,
+        paginationOption
+      );
+
+      sliceOfTracks.map((track) => {
+        selectedSongUris.push(track);
+      });
+    })
+  );
+
+  return selectedSongUris;
 }
 
 export function getLazyWindowPaginationOptions(
@@ -64,10 +81,20 @@ export function getLazyWindowPaginationOptions(
     undefined
   );
 
-  const paginationOptions = {
-    limit: MAX_PLAYLIST_LENGTH,
-    offset: randomOffset,
-  };
+  const paginationOptions = [
+    {
+      limit: MAX_SONGS_PER_REQUEST,
+      offset: randomOffset,
+    },
+  ];
+
+  // If there are more than 50 songs, get the next 50 songs
+  if (totalNumberOfTracks > MAX_SONGS_PER_REQUEST) {
+    paginationOptions.push({
+      limit: MAX_SONGS_PER_REQUEST,
+      offset: randomOffset + MAX_SONGS_PER_REQUEST,
+    });
+  }
 
   return paginationOptions;
 }
