@@ -16,11 +16,7 @@ export default function Index() {
       <CallToAction />
       <Footer />
       <div className="relative w-full">
-        <Separator
-          color="gradient"
-          horizontalHeight="15px"
-          className="absolute bottom-0 w-screen"
-        />
+        <Separator color="gradient" className="absolute bottom-0 w-screen" />
       </div>
     </>
   );
