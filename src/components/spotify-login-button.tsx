@@ -2,13 +2,15 @@
 
 import React from "react";
 import { signIn } from "next-auth/react";
-import { cn } from "../../lib/utils";
+import getUrl, { cn } from "../../lib/utils";
 
 const SpotifyLoginButton = () => {
+  const callbackUrl = getUrl("/dashboard");
+
   const handleClick = () => {
     signIn("spotify", {
       redirect: false,
-      callbackUrl: "http://localhost:3000/dashboard",
+      callbackUrl: callbackUrl,
     });
   };
 
