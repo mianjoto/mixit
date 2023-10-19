@@ -1,18 +1,34 @@
 import { DashboardCard } from "./dashboard-card";
 import {
   cleanPlaylistAttributes,
+  cn,
   getPlaylistCoverImage,
+  getRingColorFromApp,
 } from "../../lib/utils";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
-import { Playlist } from "../../lib/spotify-query";
 import { MusicIcon } from "@/assets/svg";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+} from "@/contexts/selected-playlist-context";
+import { useContext } from "react";
+import { Apps } from "@/types/apps";
+import { Playlist } from "@/types/spotify";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
+  app?: Apps | null;
+  bgColor?: "secondary" | "tertiary";
   small?: boolean;
+  className?: string;
 }
 
-const PlaylistCard = ({ playlist, small = false }: PlaylistCardProps) => {
+const PlaylistCard = ({
+  playlist,
+  app = null,
+  bgColor,
+  className,
+  small = false,
+}: PlaylistCardProps) => {
   if (playlist === null) {
     return <PlaylistCardPlaceholder />;
   }
@@ -27,13 +43,47 @@ const PlaylistCard = ({ playlist, small = false }: PlaylistCardProps) => {
 
   const image = getImageFromPlaylist(playlist);
 
+  const { selectedPlaylist, setSelectedPlaylist } = useContext(
+    SelectedPlaylistContext
+  ) as SelectedPlaylistContextType;
+
+  const handlePlaylistClick = () => {
+    // Enable toggling on and off
+    if (selectedPlaylist !== playlist) {
+      setSelectedPlaylist(playlist);
+    } else {
+      setSelectedPlaylist(null);
+    }
+  };
+
+  // Highlight selected playlist with a ring
+  if (selectedPlaylist === playlist) {
+    let ringColor = "ring-body";
+    if (app !== null) {
+      ringColor = getRingColorFromApp(app);
+    }
+    className = cn(
+      "ring-inset ring-4 transition duration-200",
+      ringColor,
+      className
+    );
+  }
+
+  // Dim non-selected playlists
+  if (selectedPlaylist !== playlist && selectedPlaylist !== null) {
+    className = cn("opacity-50 transition duration-400", className);
+  }
+
   return (
     <DashboardCard
       title={playlist?.name}
       description={playlist?.description as string}
       image={image}
-      onClick={() => "/404-not-implemented"}
+      descriptionClamp="one-line"
+      bgColor={bgColor}
+      onClick={handlePlaylistClick}
       small={small}
+      className={className}
       key={playlist?.id}
     />
   );

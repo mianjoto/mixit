@@ -1,3 +1,5 @@
+import { AppData } from "@/data/records/apps";
+import { Apps } from "@/types/apps";
 import { Link, LinkOrHref } from "@/types/links";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -92,4 +94,16 @@ export function getSmallestImageFromArray(images: SpotifyApi.ImageObject[]) {
       return smallestImage;
     }
   });
+}
+
+export function getTextColorFromApp(app: Apps) {
+  return AppData[app].textColor;
+}
+
+export function getBgColorFromApp(app: Apps) {
+  return AppData[app].bgColor;
+}
+
+export function getRingColorFromApp(app: Apps) {
+  return AppData[app].ringColor;
 }

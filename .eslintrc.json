@@ -5,10 +5,11 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "next/core-web-vitals"
   ],
   "overrides": [
     {

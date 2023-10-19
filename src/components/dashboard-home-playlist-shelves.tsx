@@ -5,8 +5,8 @@ import { UserPlaylistShelf } from "./user-playlist-shelf";
 import { useContext } from "react";
 import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
 import { DashboardContentShelf } from "./dashboard-content-shelf";
-import { Playlist } from "../../lib/spotify-query";
 import SpotifyLoginButton from "./spotify-login-button";
+import { Playlist } from "@/types/spotify";
 
 const DashboardHomePlaylistShelves = () => {
   const { data: session } = useSession();

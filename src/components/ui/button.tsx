@@ -15,7 +15,8 @@ const buttonVariants = cva(
           "border-primary bg-transparent text-primary shadow-[inset_0px_0px_0px_3px_theme(colors.primary.DEFAULT)] hover:border-primary-700 hover:bg-primary/[.1] hover:text-primary/[.6] active:translate-y-1 active:bg-primary/[.05]",
       },
       size: {
-        default: "px-24 py-8 text-base tracking-tight",
+        default:
+          "w-full px-24 py-8 text-base font-bold tracking-tight md:w-fit",
         cta: "w-full px-32 py-12 text-lg tracking-tight lg:w-fit lg:px-56 lg:text-[32px]",
       },
     },
@@ -29,7 +30,7 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  href: LinkType | string;
+  href?: LinkType | string;
   willRedirect?: boolean;
 }
 
@@ -38,10 +39,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     { href, willRedirect = true, variant, size, className, children, ...props },
     ref
   ) => {
-    if (willRedirect) {
+    if (href) {
       return (
         <LinkWrapper
-          href={href}
+          href={href!}
           className={cn(buttonVariants({ variant, size, className }))}
           isInteractive={false}
         >

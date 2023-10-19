@@ -16,7 +16,9 @@ type AppFeatureDataRecord = Record<
     description: string;
     shortDescription: string;
     icon: any;
-    iconBgColorClass: string;
+    textColor: string;
+    bgColor: string;
+    ringColor: string;
     href: string;
     appType: Apps | Features;
   }
@@ -25,10 +27,12 @@ type AppFeatureDataRecord = Record<
 export const AppData: AppFeatureDataRecord = {
   [Apps.Shuffler]: {
     name: "Shuffler",
-    description: "Never repeat songs with a truly shuffled queue",
+    description: "Shuffle your playlists to ensure a random mix every time.",
     shortDescription: "Truly shuffle your music",
     icon: ShufflerIcon,
-    iconBgColorClass: ColorData["Accent-1"].bgClass,
+    textColor: ColorData["Accent-1"].textClass,
+    bgColor: ColorData["Accent-1"].bgClass,
+    ringColor: ColorData["Accent-1"].ringClass,
     href: "/shuffler",
     appType: Apps.Shuffler,
   },
@@ -37,7 +41,9 @@ export const AppData: AppFeatureDataRecord = {
     description: "Randomly shuffle from all of your playlists",
     shortDescription: "Blend from all playlists",
     icon: BlenderIcon,
-    iconBgColorClass: ColorData["Accent-2"].bgClass,
+    textColor: ColorData["Accent-2"].textClass,
+    bgColor: ColorData["Accent-2"].bgClass,
+    ringColor: ColorData["Accent-2"].ringClass,
     href: "/blender",
     appType: Apps.Blender,
   },
@@ -46,7 +52,9 @@ export const AppData: AppFeatureDataRecord = {
     description: "Choose genres to blend into a new playlist",
     shortDescription: "Choose genres to blend",
     icon: PickAndMixIcon,
-    iconBgColorClass: ColorData["Accent-3"].bgClass,
+    textColor: ColorData["Accent-3"].textClass,
+    bgColor: ColorData["Accent-3"].bgClass,
+    ringColor: ColorData["Accent-3"].ringClass,
     href: "/pick-and-mix",
     appType: Apps.PickAndMix,
   },
@@ -55,7 +63,9 @@ export const AppData: AppFeatureDataRecord = {
     description: "Go back in time to rediscover your old favs",
     shortDescription: "Go back in time",
     icon: TimeMachineIcon,
-    iconBgColorClass: ColorData["Accent-4"].bgClass,
+    textColor: ColorData["Accent-4"].textClass,
+    bgColor: ColorData["Accent-4"].bgClass,
+    ringColor: ColorData["Accent-4"].ringClass,
     href: "/time-machine",
     appType: Apps.TimeMachine,
   },
@@ -67,7 +77,7 @@ export const FeatureData: AppFeatureDataRecord = {
     description: "Look at what tracks are coming up next.",
     shortDescription: "See upcoming tracks",
     icon: QueueIcon,
-    iconBgColorClass: ColorData["Primary"].bgClass,
+    bgColor: ColorData["Primary"].bgClass,
     href: "/queue",
     appType: Features.Queue,
   },

@@ -1,7 +1,10 @@
+"use client";
+
 import { cva, VariantProps } from "class-variance-authority";
-import { HTMLAttributes } from "react";
+import React, { HTMLAttributes } from "react";
 import { cn } from "../../lib/utils";
 import { DashboardCard } from "./dashboard-card";
+import * as Separator from "@radix-ui/react-separator";
 
 const dashboardShelfVariants = cva("", {
   variants: {
@@ -17,12 +20,18 @@ const dashboardShelfVariants = cva("", {
       "three-col": "grid grid-cols-3 gap-x-12 gap-y-8",
     },
   },
-  defaultVariants: { desktopBehavior: "grid", mobileBehavior: "default" },
+  defaultVariants: {
+    desktopBehavior: "grid",
+    mobileBehavior: "default",
+  },
 });
 
 export interface DashboardShelfProps
   extends HTMLAttributes<HTMLElement>,
-    VariantProps<typeof dashboardShelfVariants> {}
+    VariantProps<typeof dashboardShelfVariants> {
+  withSeparators?: boolean;
+  className?: string;
+}
 
 const generateLoadingCards = (numberOfCards: number = 3) => {
   const cards = [];
@@ -37,15 +46,59 @@ const LOADING_CARDS = generateLoadingCards();
 export const DashboardShelf = ({
   desktopBehavior,
   mobileBehavior,
+  withSeparators = false,
+  className,
   children,
 }: DashboardShelfProps) => {
+  let content;
+
+  if (children === undefined) {
+    content = LOADING_CARDS;
+  }
+
+  if (withSeparators && children !== undefined) {
+    content = separateContent(children);
+  } else {
+    content = children;
+  }
+
   return (
     <section
       className={cn(
-        dashboardShelfVariants({ desktopBehavior, mobileBehavior })
+        dashboardShelfVariants({
+          desktopBehavior,
+          mobileBehavior,
+          className,
+        })
       )}
     >
-      {children || LOADING_CARDS}
+      {content}
     </section>
   );
 };
+
+function separateContent(content: React.ReactNode): React.ReactNode {
+  const contentArray = React.Children.toArray(content);
+  if (contentArray.length === 1) {
+    return contentArray;
+  }
+
+  return contentArray.map((element, index) => {
+    const isLastElement = index === contentArray.length - 1;
+
+    if (isLastElement) {
+      return element;
+    }
+
+    return (
+      <>
+        {element}
+        <Separator.Root
+          orientation="vertical"
+          className="my-40 w-[3px] min-w-[3px] bg-[#D9D9D9]/20"
+          key={"separator-" + index}
+        />
+      </>
+    );
+  });
+}

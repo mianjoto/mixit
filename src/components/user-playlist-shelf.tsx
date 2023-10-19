@@ -2,8 +2,8 @@
 
 import { DashboardContentShelf } from "./dashboard-content-shelf";
 import PlaylistCard from "./playlist-card";
-import { Playlist } from "../../lib/spotify-query";
 import { DashboardShelfProps } from "./dashboard-shelf";
+import { Playlist } from "@/types/spotify";
 
 type UserPlaylistShelfProps = {
   headingText: string;
@@ -22,6 +22,10 @@ export function UserPlaylistShelf({
 }: UserPlaylistShelfProps) {
   if (filterFn !== undefined) {
     playlists = playlists.filter(filterFn);
+  }
+
+  if (playlists.length === 0) {
+    return null;
   }
 
   const playlistCards = playlists.map((playlist) => (

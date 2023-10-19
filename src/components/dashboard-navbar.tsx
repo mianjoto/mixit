@@ -92,8 +92,8 @@ const desktopNavbarContent = (): React.ReactElement => {
     <div className="sticky left-0 top-0 hidden h-screen w-fit items-center justify-center bg-background px-16 py-16 md:flex">
       <NavigationMenu.Root className="flex h-full flex-col items-center justify-between rounded-2xl bg-tertiary px-16 py-64">
         <MixitHomeLogo
+          linkToDashboard
           fill="#fff"
-          height="auto"
           width="80"
           className="h-fit w-fit max-w-[80px]"
         />
