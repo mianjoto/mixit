@@ -24,6 +24,10 @@ export function UserPlaylistShelf({
     playlists = playlists.filter(filterFn);
   }
 
+  if (playlists.length === 0) {
+    return null;
+  }
+
   const playlistCards = playlists.map((playlist) => (
     <PlaylistCard playlist={playlist} key={playlist.id} small={smallCards} />
   ));
