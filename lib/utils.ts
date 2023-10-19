@@ -107,3 +107,9 @@ export function getBgColorFromApp(app: Apps) {
 export function getRingColorFromApp(app: Apps) {
   return AppData[app].ringColor;
 }
+
+const getUrl = (path: string) => {
+  return `${process.env.NEXT_PUBLIC_DOMAIN}${path}`;
+};
+
+export default getUrl;
