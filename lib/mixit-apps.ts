@@ -39,12 +39,19 @@ export async function useShufflerApp({
   const shuffledTracks: string[] = fisherYatesShuffle(tracks);
 
   if (data.output.type === "new-playlist") {
-    return await createPlaylistAndPopulateWithTracks(
+    const result = await createPlaylistAndPopulateWithTracks(
       "Mixit Playlist",
       shuffledTracks,
       session
     );
+
+    return result;
   } else {
-    return replaceTracksInPlaylist(playlist.id, shuffledTracks, session);
+    const result = await replaceTracksInPlaylist(
+      playlist.id,
+      shuffledTracks,
+      session
+    );
+    return result;
   }
 }

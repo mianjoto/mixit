@@ -3,6 +3,7 @@ import spotifyApi from "./spotify-auth";
 import { signIn } from "next-auth/react";
 import { Session } from "next-auth";
 import { LikedSongsId, LikedSongsPlaylist, Playlist } from "@/types/spotify";
+import { refreshAccessToken } from "./auth";
 
 interface getTopPlaylistOptions {
   session: Session | null;
@@ -210,7 +211,7 @@ export async function createPlaylistAndPopulateWithTracks(
   playlistName: string,
   trackUris: SpotifyApi.TrackObjectFull["uri"][],
   session: Session
-): Promise<SpotifyApi.CreatePlaylistResponse | undefined> {
+) {
   if (trackUris.length === 0) {
     Promise.reject("Did not receive any tracks to create the new playlist");
   }
@@ -251,14 +252,14 @@ export async function createPlaylistAndPopulateWithTracks(
     }
   }
 
-  return playlist;
+  return playlist.uri;
 }
 
 export async function replaceTracksInPlaylist(
   playlistId: string,
   trackUris: SpotifyApi.TrackObjectFull["uri"][],
   session: Session
-): Promise<SpotifyApi.PlaylistSnapshotResponse["snapshot_id"]> {
+): Promise<SpotifyApi.TrackObjectFull["uri"]> {
   if (!session) {
     signIn("spotify");
     return Promise.reject("No session");
@@ -275,7 +276,8 @@ export async function replaceTracksInPlaylist(
     Promise.reject("Failed to replace tracks in playlist");
   }
 
-  return replaceTracksResponse.body.snapshot_id;
+  const playlistUri = `spotify:playlist:${playlistId}`;
+  return playlistUri;
 }
 
 export function getSpotifyApi(session: Session): SpotifyWebApi {
@@ -284,6 +286,13 @@ export function getSpotifyApi(session: Session): SpotifyWebApi {
     spotifyApi.getAccessToken() !== session.accessToken
   ) {
     spotifyApi.setAccessToken(session.accessToken);
+  }
+
+  if (session.error === "RefreshAccessTokenError") {
+    console.log(
+      "Refresh access token error found while getting the spotifyApi, attempting to refresh..."
+    );
+    refreshAccessToken(session.accessToken);
   }
 
   return spotifyApi;

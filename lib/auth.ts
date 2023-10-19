@@ -10,7 +10,7 @@ interface Token extends JWT {
   accessTokenExpires: number;
 }
 
-async function refreshAccessToken(token: Token) {
+export async function refreshAccessToken(token: Token) {
   console.log("Spotify token=", token);
   try {
     spotifyApi.setAccessToken(token.accessToken);
@@ -28,6 +28,7 @@ async function refreshAccessToken(token: Token) {
       accessToken: refreshedToken.access_token,
       accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
+      error: null,
     };
   } catch (error) {
     console.error(error);

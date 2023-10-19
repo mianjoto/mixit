@@ -8,6 +8,8 @@ import { Button } from "./ui/button";
 import { useShufflerApp } from "../../lib/mixit-apps";
 import { Session } from "next-auth";
 import { useOptions } from "@/hooks/useOptions";
+import { useToast } from "@/hooks/useToast";
+import { OpenOnSpotifyToastAction, ToastAction } from "./ui/toast";
 
 type ChooseShuffleSettingsAndMixProps = {
   app: Apps;
@@ -22,6 +24,8 @@ const ChooseShuffleSettingsAndMix = ({
   shuffleInput,
   shuffleOutput,
 }: ChooseShuffleSettingsAndMixProps) => {
+  const { toast } = useToast();
+
   const selectedAppOptions = APP_OPTIONS[app];
 
   const { enabledOptions, toggleOption } = useOptions(selectedAppOptions);
@@ -33,6 +37,31 @@ const ChooseShuffleSettingsAndMix = ({
     }
 
     return option.id !== ShuffleOptions.PreferOlderSongs.id;
+  }
+
+  const playlistName =
+    shuffleInput.type === "liked-songs"
+      ? "Liked Songs"
+      : shuffleInput.playlist?.name;
+
+  async function handleSubmitButton() {
+    await useShufflerApp({
+      data: { input: shuffleInput!, output: shuffleOutput! },
+      shuffleOptions: enabledOptions,
+      session: session!,
+    }).then((playlistUri) => {
+      console.log("Received uri=", playlistUri);
+      toast({
+        title: "Nice mix!",
+        description: `You successfully shuffled ${playlistName} using the Shuffler. Check Spotify for your new mix.`,
+        action: (
+          <OpenOnSpotifyToastAction
+            altText={"Open playlist on Spotify"}
+            uri={playlistUri?.toString()!}
+          />
+        ),
+      });
+    });
   }
 
   return (
@@ -53,17 +82,7 @@ const ChooseShuffleSettingsAndMix = ({
           toggleOption={toggleOption}
         />
       </section>
-      <Button
-        size="default"
-        willRedirect={false}
-        onClick={() =>
-          useShufflerApp({
-            data: { input: shuffleInput!, output: shuffleOutput! },
-            shuffleOptions: enabledOptions,
-            session: session!,
-          })
-        }
-      >
+      <Button size="default" willRedirect={false} onClick={handleSubmitButton}>
         Mix now
       </Button>
     </>
