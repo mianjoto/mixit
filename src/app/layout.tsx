@@ -4,6 +4,7 @@ import ModalProvider from "../providers/modal-provider";
 import ReactQueryProvider from "@/providers/react-query-provider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/toaster";
+import SelectedPlaylistProvider from "@/providers/selected-playlist-provider";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -19,14 +20,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <ReactQueryProvider>
-        <ModalProvider />
-        <body
-          className={`${notoSans.className}
+        <SelectedPlaylistProvider>
+          <ModalProvider />
+          <body
+            className={`${notoSans.className}
           w-screen overflow-x-hidden overscroll-none bg-background`}
-        >
-          {children}
-          <Toaster />
-        </body>
+          >
+            {children}
+            <Toaster />
+          </body>
+        </SelectedPlaylistProvider>
       </ReactQueryProvider>
     </html>
   );
