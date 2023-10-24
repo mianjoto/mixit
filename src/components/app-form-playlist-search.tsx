@@ -11,17 +11,20 @@ import { SearchInput } from "./ui/search-input";
 import { Apps } from "@/types/apps";
 import { Playlist } from "@/types/spotify";
 import { ShuffleInput } from "@/types/mixit";
+import { SelectedPlaylistType } from "@/contexts/selected-playlist-context";
 
 type AppFormPlaylistSearchProps = {
   session: Session;
   app: Apps;
   shuffleInput: ShuffleInput;
+  populateWithPlaylist?: SelectedPlaylistType | undefined;
 };
 
 export function AppFormPlaylistSearch({
   session,
   app,
   shuffleInput,
+  populateWithPlaylist,
 }: AppFormPlaylistSearchProps) {
   const [query, setQuery] = useState<string | null>(null);
   const debouncedQuery = useDebounce(query, 250);
@@ -38,6 +41,10 @@ export function AppFormPlaylistSearch({
   });
 
   let renderedResults;
+
+  if (populateWithPlaylist) {
+    renderedResults = renderPlaylist(populateWithPlaylist as Playlist, app);
+  }
 
   if (!searchResults || !searchResults.items) {
     if (shuffleInput.playlist) {

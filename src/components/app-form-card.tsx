@@ -20,6 +20,7 @@ type AppFormCardRootProps = {
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
+  isSelected?: boolean;
   disabled?: { isDisabled: boolean; reasonForDisabling: string };
   className?: string;
   value: ShuffleInput | ShuffleOutput;
@@ -41,18 +42,20 @@ const AppFormCardRoot = ({
   description,
   image,
   app,
+  isSelected = false,
   disabled = undefined,
   className,
   value,
 }: AppFormCardRootProps) => {
   const imageWithColor = getImageWithAccentColor(image, app);
   const ringColor = COLOR_VARIANTS[app];
-  const ringClass = !disabled
-    ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
-    : "";
+  const ringClass =
+    !disabled || isSelected
+      ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
+      : "";
 
   const toggleIsDisabled = (value as ShuffleOutput)?.disabled;
-  const toggleValue = value.type === null ? "" : value.type;
+  const toggleValue = value.type === null ? "" : (value.type as string);
   const tooltipContent =
     disabled !== undefined
       ? ({ description: disabled.reasonForDisabling } as InfoTooltipContent)
@@ -90,9 +93,9 @@ const AppFormCardRoot = ({
 
 type AppFormCardProps = {
   app: Apps;
-};
+} & Pick<AppFormCardRootProps, "isSelected">;
 
-const LikedSongs = ({ app }: AppFormCardProps) => {
+const LikedSongs = ({ app, isSelected }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
       title="Liked Songs"
@@ -101,11 +104,12 @@ const LikedSongs = ({ app }: AppFormCardProps) => {
       app={app}
       value={{ type: "liked-songs" } as ShuffleInput}
       key={"liked-songs-input-for-" + app}
+      isSelected={isSelected}
     />
   );
 };
 
-const Playlists = ({ app }: AppFormCardProps) => {
+const Playlists = ({ app, isSelected }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
       title="Playlist"
@@ -114,6 +118,7 @@ const Playlists = ({ app }: AppFormCardProps) => {
       app={app}
       value={{ type: "all-playlists" } as ShuffleInput}
       key={"playlists-input-for-" + app}
+      isSelected={isSelected}
     />
   );
 };

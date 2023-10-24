@@ -50,7 +50,6 @@ const ChooseShuffleSettingsAndMix = ({
       shuffleOptions: enabledOptions,
       session: session!,
     }).then((playlistUri) => {
-      console.log("Received uri=", playlistUri);
       toast({
         title: "Nice mix!",
         description: `You successfully shuffled ${playlistName} using the Shuffler. Check Spotify for your new mix.`,

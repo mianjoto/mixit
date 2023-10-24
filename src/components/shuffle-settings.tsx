@@ -47,7 +47,6 @@ const ShuffleSettings = ({
         </AccordionTrigger>
         <AccordionContent>
           {availableOptions.map((option) => {
-            console.log("Rendering ", option.id, ":", option);
             return (
               <li
                 className="flex flex-row items-center justify-between"
