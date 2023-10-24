@@ -59,7 +59,7 @@ const SelectAppModal = () => {
           description={playlist.description}
           image={getPlaylistCoverImage(playlist)?.url}
           noClickBehavior
-          className="w-full max-w-[300px] bg-secondary md:h-full md:w-full md:max-w-none"
+          className="w-full max-w-[300px] bg-secondary md:h-full md:w-full md:max-w-[300px]"
         />
         <aside className="flex w-full flex-col gap-20">
           <div className="flex w-full flex-col gap-8">
