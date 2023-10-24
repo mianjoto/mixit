@@ -7,10 +7,6 @@ export function useOptions(options: ShuffleOption[]) {
   const [enabledOptions, setEnabledOptions] =
     useState<ShuffleOption[]>(defaultEnabled);
 
-  useEffect(() => {
-    console.log(enabledOptions);
-  }, [enabledOptions]);
-
   const toggleOption = (option: ShuffleOption) => {
     setEnabledOptions((prevEnabled) => {
       const newEnabled = [...prevEnabled];

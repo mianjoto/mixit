@@ -29,7 +29,12 @@ export function UserPlaylistShelf({
   }
 
   const playlistCards = playlists.map((playlist) => (
-    <PlaylistCard playlist={playlist} key={playlist.id} small={smallCards} />
+    <PlaylistCard
+      playlist={playlist}
+      key={playlist.id}
+      small={smallCards}
+      showSelectAppModalOnClick
+    />
   ));
 
   return (

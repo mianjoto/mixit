@@ -84,7 +84,9 @@ const mobileNavbarContent = MobileNavbarWrapper(
         textProps={{ className: "text-xs" }}
       />
     </div>
-  </NavigationMenu.Root>
+  </NavigationMenu.Root>,
+  "lg",
+  true
 );
 
 const desktopNavbarContent = (): React.ReactElement => {

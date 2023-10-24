@@ -2,6 +2,7 @@
 
 import SelectedPlaylistContext, {
   SelectedPlaylistContextType,
+  SelectedPlaylistType,
 } from "@/contexts/selected-playlist-context";
 import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
 import { Apps } from "@/types/apps";
@@ -17,12 +18,7 @@ import {
   ShuffleOutputType,
 } from "@/types/mixit";
 import { ChooseShuffleInputForm } from "../../../components/choose-shuffle-input-form";
-import { useShufflerApp } from "../../../../lib/mixit-apps";
-import spotifyApi from "../../../../lib/spotify-auth";
-import { Button } from "@/components/ui/button";
 import { ChooseShuffleOutputForm } from "@/components/choose-shuffle-output-form";
-import InfoTooltip from "@/components/ui/info-tooltip";
-import ShuffleSettings from "@/components/shuffle-settings";
 import ChooseShuffleSettingsAndMix from "../../../components/choose-shuffle-settings-and-mix-form";
 
 const NULL_SHUFFLE_INPUT: ShuffleInput = { type: null, playlist: undefined };
@@ -32,6 +28,12 @@ const NULL_SHUFFLE_OUTPUT: ShuffleOutput = {
   reasonForDisabling: undefined,
 };
 
+type ShuffleFormState = {
+  showSearchInput: boolean;
+  showShuffleOutput: boolean;
+  showMixButton: boolean;
+};
+
 export default function Shuffler() {
   const [shuffleInput, setShuffleInput] = useState<
     ShuffleInput | typeof NULL_SHUFFLE_INPUT
@@ -39,6 +41,12 @@ export default function Shuffler() {
   const [shuffleOutput, setShuffleOutput] = useState<
     ShuffleOutput | typeof NULL_SHUFFLE_OUTPUT
   >(NULL_SHUFFLE_OUTPUT);
+  const [selectedPlaylistFromDashboard, setSelectedPlaylistFromDashboard] =
+    useState<SelectedPlaylistType>(null);
+
+  const [formState, setFormState] = useState<ShuffleFormState | undefined>(
+    undefined
+  );
 
   const { user } = useContext(SpotifyContext) as SpotifyContextType;
 
@@ -49,10 +57,43 @@ export default function Shuffler() {
 
   const app = Apps.Shuffler;
 
-  function handleShuffleInput(value: ShuffleInputType): void {
-    if (!value) {
+  // Whenever a new playlist is selected, store it in shuffleInput
+  useEffect(() => {
+    if (shuffleInput !== NULL_SHUFFLE_INPUT && shuffleInput !== null) {
+      const newShuffleInput = {
+        type: shuffleInput.type,
+        playlist: selectedPlaylist,
+      } as ShuffleInput;
+      setShuffleInput(newShuffleInput);
+      return;
+    }
+
+    // If playlist was chosen in dashboard (which would cause a null shuffleInput), store in ShuffleInput
+    if (selectedPlaylist && !formState?.showShuffleOutput) {
+      setSelectedPlaylistFromDashboard(selectedPlaylist);
+      setShuffleInput({
+        type: "all-playlists",
+        playlist: selectedPlaylist,
+      });
+    }
+  }, [selectedPlaylist]);
+
+  function handleShuffleInputChange(value: ShuffleInputType): void {
+    if (
+      (!value && !selectedPlaylistFromDashboard) ||
+      (!value && selectedPlaylistFromDashboard && formState?.showShuffleOutput)
+    ) {
       setShuffleInput(NULL_SHUFFLE_INPUT);
       setSelectedPlaylist(null);
+      return;
+    }
+
+    // If playlist was chosen in dashboard (which would cause a null shuffleInput), store in ShuffleInput
+    if (!value && selectedPlaylistFromDashboard) {
+      setShuffleInput({
+        type: "all-playlists",
+        playlist: selectedPlaylistFromDashboard,
+      });
       return;
     }
 
@@ -62,69 +103,86 @@ export default function Shuffler() {
     } else {
       setShuffleInput({ type: value, playlist: undefined });
     }
+
+    setSelectedPlaylistFromDashboard(null);
   }
 
-  function handleShuffleOutput(value: ShuffleOutputType): void {
+  function handleShuffleOutputChange(value: ShuffleOutputType): void {
     setShuffleOutput({ type: value });
   }
 
-  // Whenever a new playlist is selected, store it in shuffleInput
+  // Determine what options should be visible depending on the form state
+  const newFormState = {} as ShuffleFormState;
   useEffect(() => {
-    if (shuffleInput !== null) {
-      const newShuffleInput = {
-        type: shuffleInput.type,
-        playlist: selectedPlaylist,
-      } as ShuffleInput;
-      setShuffleInput(newShuffleInput);
+    // Hide remaining form if unselecting the ShuffleInput
+    if (shuffleInput.type === null) {
+      if (selectedPlaylistFromDashboard) {
+        setSelectedPlaylistFromDashboard(null);
+        setSelectedPlaylist(null);
+      }
+      // Reset selected playlist if previously chosen from dashboard
+      newFormState.showSearchInput = false;
+      newFormState.showShuffleOutput = false;
+      newFormState.showMixButton = false;
+      setFormState(newFormState);
+      return;
     }
-  }, [selectedPlaylist]);
 
-  let showChooseOutput =
-    shuffleInput?.type === "liked-songs" || selectedPlaylist !== null;
-  let showSearchInput =
-    shuffleInput?.type === ("all-playlists" as PlaylistShuffleType);
-
-  let isReadyToMix = false;
-  if (shuffleInput?.type === "liked-songs") {
-    if (shuffleOutput?.type) {
-      isReadyToMix = true;
+    if (
+      selectedPlaylistFromDashboard !== null ||
+      shuffleInput?.type ===
+        ("all-playlists" as
+          | PlaylistShuffleType
+          | "user-playlists" as PlaylistShuffleType)
+    ) {
+      newFormState.showSearchInput = true;
     }
-  } else if (
-    shuffleInput?.playlist !== undefined &&
-    shuffleOutput?.type !== undefined &&
-    shuffleOutput?.disabled !== true
-  ) {
-    isReadyToMix = true;
-  }
 
-  shuffleInput?.playlist !== undefined && shuffleOutput?.type !== undefined;
+    if (shuffleInput?.type === "liked-songs" || selectedPlaylist !== null) {
+      newFormState.showShuffleOutput = true;
+    }
+
+    if (shuffleInput?.type === "liked-songs") {
+      if (shuffleOutput?.type) {
+        newFormState.showMixButton = true;
+      }
+    } else if (
+      shuffleInput?.playlist !== undefined &&
+      shuffleOutput?.type !== undefined &&
+      shuffleOutput?.disabled !== true
+    ) {
+      newFormState.showMixButton = true;
+    }
+
+    setFormState(newFormState);
+  }, [shuffleInput, shuffleOutput]);
 
   return (
     <>
       <AppDashboardHeading app={app} />
       <ChooseShuffleInputForm
-        handleShuffleInputFn={handleShuffleInput}
+        handleShuffleInputFn={handleShuffleInputChange}
+        shuffleInput={shuffleInput}
+        selectedPlaylistFromDashboard={selectedPlaylistFromDashboard}
         app={app}
       />
-
-      {showSearchInput && (
+      {formState?.showSearchInput && (
         <AppFormPlaylistSearch
           session={session!}
           app={app}
           shuffleInput={shuffleInput!}
+          populateWithPlaylist={selectedPlaylistFromDashboard}
         />
       )}
-
-      {showChooseOutput && (
+      {formState?.showShuffleOutput && (
         <ChooseShuffleOutputForm
-          handleShuffleOutput={handleShuffleOutput}
+          handleShuffleOutput={handleShuffleOutputChange}
           app={app}
           user={user}
           shuffleInput={shuffleInput}
         />
       )}
-
-      {isReadyToMix && (
+      {formState?.showMixButton && (
         <ChooseShuffleSettingsAndMix
           app={app}
           session={session!}

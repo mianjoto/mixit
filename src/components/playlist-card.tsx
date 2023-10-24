@@ -13,12 +13,15 @@ import SelectedPlaylistContext, {
 import { useContext } from "react";
 import { Apps } from "@/types/apps";
 import { Playlist } from "@/types/spotify";
+import useSelectAppModal from "@/hooks/useSelectAppModal";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
   app?: Apps | null;
   bgColor?: "secondary" | "tertiary";
   small?: boolean;
+  showSelectAppModalOnClick?: boolean;
+  noClickBehavior?: boolean;
   className?: string;
 }
 
@@ -28,6 +31,8 @@ const PlaylistCard = ({
   bgColor,
   className,
   small = false,
+  noClickBehavior = false,
+  showSelectAppModalOnClick = false,
 }: PlaylistCardProps) => {
   if (playlist === null) {
     return <PlaylistCardPlaceholder />;
@@ -41,13 +46,24 @@ const PlaylistCard = ({
     cleanPlaylistAttributes(playlist);
   }
 
-  const image = getImageFromPlaylist(playlist);
-
   const { selectedPlaylist, setSelectedPlaylist } = useContext(
     SelectedPlaylistContext
   ) as SelectedPlaylistContextType;
 
+  const image = getImageFromPlaylist(playlist);
+  const { onOpen: openSelectAppModal } = useSelectAppModal();
+
   const handlePlaylistClick = () => {
+    if (noClickBehavior) {
+      return;
+    }
+
+    // Show modal if modal selector
+    if (showSelectAppModalOnClick) {
+      openSelectAppModal(playlist);
+      return;
+    }
+
     // Enable toggling on and off
     if (selectedPlaylist !== playlist) {
       setSelectedPlaylist(playlist);

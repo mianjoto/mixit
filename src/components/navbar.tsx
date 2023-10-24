@@ -236,7 +236,8 @@ const RenderNavbarLinkElement = (
 
 const MobileNavbarWrapper = (
   navbarContent: React.ReactNode,
-  hiddenAt: "md" | "lg" = "lg"
+  hiddenAt: "md" | "lg" = "lg",
+  logoLinksToDashboard: boolean = false
 ) => {
   const hiddenAtClass = hiddenAt === "md" ? "md:hidden" : "lg:hidden";
 
@@ -249,7 +250,10 @@ const MobileNavbarWrapper = (
         hiddenAtClass
       )}
     >
-      <MixitHomeLogo className="w-fit max-w-[70px]" />
+      <MixitHomeLogo
+        className="w-fit max-w-[70px]"
+        linkToDashboard={logoLinksToDashboard}
+      />
       <Accordion.Item value={hideAccordion ? "" : "item-1"} className="group">
         <AccordionTrigger suppressHydrationWarning />
         <Accordion.Content className="absolute right-0 top-[60px] z-30 flex flex-col gap-64 overflow-hidden rounded-bl-3xl bg-background text-body data-[state=closed]:animate-accordionSlideUp data-[state=open]:animate-accordionSlideDown">

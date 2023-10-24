@@ -81,7 +81,6 @@ const OpenOnSpotifyToastAction = React.forwardRef<
 >(({ className, uri, ...props }, ref) => {
   const router = useRouter();
 
-  console.log("href=");
   return (
     <ToastPrimitives.Action
       ref={ref}
