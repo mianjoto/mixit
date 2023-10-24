@@ -2,13 +2,24 @@
 
 import { useSession } from "next-auth/react";
 import { UserPlaylistShelf } from "./user-playlist-shelf";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import SpotifyContext, { SpotifyContextType } from "@/contexts/spotify-context";
 import { DashboardContentShelf } from "./dashboard-content-shelf";
 import SpotifyLoginButton from "./spotify-login-button";
 import { Playlist } from "@/types/spotify";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+} from "@/contexts/selected-playlist-context";
 
 const DashboardHomePlaylistShelves = () => {
+  // Reset selected playlist every time page is accessed
+  const { setSelectedPlaylist } = useContext(
+    SelectedPlaylistContext
+  ) as SelectedPlaylistContextType;
+  useEffect(() => {
+    setSelectedPlaylist(null);
+  }, []);
+
   const { data: session } = useSession();
   const {
     user,
