@@ -89,7 +89,7 @@ export default function Shuffler() {
     }
 
     // If playlist was chosen in dashboard (which would cause a null shuffleInput), store in ShuffleInput
-    if (!value && selectedPlaylistFromDashboard) {
+    if (!value && selectedPlaylistFromDashboard && !shuffleInput) {
       setShuffleInput({
         type: "all-playlists",
         playlist: selectedPlaylistFromDashboard,
@@ -104,6 +104,7 @@ export default function Shuffler() {
       setShuffleInput({ type: value, playlist: undefined });
     }
 
+    setSelectedPlaylistFromDashboard(NULL_SHUFFLE_INPUT);
     setSelectedPlaylistFromDashboard(null);
   }
 
@@ -114,22 +115,23 @@ export default function Shuffler() {
   // Determine what options should be visible depending on the form state
   const newFormState = {} as ShuffleFormState;
   useEffect(() => {
+    // Reset selected playlist if previously chosen from dashboard
+    newFormState.showSearchInput = false;
+    newFormState.showShuffleOutput = false;
+    newFormState.showMixButton = false;
+
     // Hide remaining form if unselecting the ShuffleInput
     if (shuffleInput.type === null) {
       if (selectedPlaylistFromDashboard) {
         setSelectedPlaylistFromDashboard(null);
         setSelectedPlaylist(null);
       }
-      // Reset selected playlist if previously chosen from dashboard
-      newFormState.showSearchInput = false;
-      newFormState.showShuffleOutput = false;
-      newFormState.showMixButton = false;
       setFormState(newFormState);
       return;
     }
 
     if (
-      selectedPlaylistFromDashboard !== null ||
+      selectedPlaylistFromDashboard ||
       shuffleInput?.type ===
         ("all-playlists" as
           | PlaylistShuffleType

@@ -20,7 +20,7 @@ type AppFormCardRootProps = {
   description: string;
   image: string | React.JSX.Element;
   app: Apps;
-  isSelected?: boolean;
+  defaultSelected?: boolean;
   disabled?: { isDisabled: boolean; reasonForDisabling: string };
   className?: string;
   value: ShuffleInput | ShuffleOutput;
@@ -42,7 +42,7 @@ const AppFormCardRoot = ({
   description,
   image,
   app,
-  isSelected = false,
+  defaultSelected = false,
   disabled = undefined,
   className,
   value,
@@ -50,7 +50,7 @@ const AppFormCardRoot = ({
   const imageWithColor = getImageWithAccentColor(image, app);
   const ringColor = COLOR_VARIANTS[app];
   const ringClass =
-    !disabled || isSelected
+    !disabled || defaultSelected
       ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
       : "";
 
@@ -60,6 +60,8 @@ const AppFormCardRoot = ({
     disabled !== undefined
       ? ({ description: disabled.reasonForDisabling } as InfoTooltipContent)
       : null;
+
+  const dataState = defaultSelected ? "on" : "off";
 
   const card = (
     <DashboardCard
@@ -82,6 +84,7 @@ const AppFormCardRoot = ({
   return (
     <ToggleGroup.Item
       value={toggleValue}
+      data-state={dataState}
       disabled={toggleIsDisabled ?? toggleIsDisabled}
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
       key={`${title}-${description}-dashboard-card-toggle-group-item`}
@@ -93,9 +96,9 @@ const AppFormCardRoot = ({
 
 type AppFormCardProps = {
   app: Apps;
-} & Pick<AppFormCardRootProps, "isSelected">;
+} & Pick<AppFormCardRootProps, "defaultSelected">;
 
-const LikedSongs = ({ app, isSelected }: AppFormCardProps) => {
+const LikedSongs = ({ app, defaultSelected }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
       title="Liked Songs"
@@ -104,12 +107,12 @@ const LikedSongs = ({ app, isSelected }: AppFormCardProps) => {
       app={app}
       value={{ type: "liked-songs" } as ShuffleInput}
       key={"liked-songs-input-for-" + app}
-      isSelected={isSelected}
+      defaultSelected={defaultSelected}
     />
   );
 };
 
-const Playlists = ({ app, isSelected }: AppFormCardProps) => {
+const Playlists = ({ app, defaultSelected }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
       title="Playlist"
@@ -118,7 +121,7 @@ const Playlists = ({ app, isSelected }: AppFormCardProps) => {
       app={app}
       value={{ type: "all-playlists" } as ShuffleInput}
       key={"playlists-input-for-" + app}
-      isSelected={isSelected}
+      defaultSelected={defaultSelected}
     />
   );
 };

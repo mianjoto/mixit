@@ -41,8 +41,12 @@ export function AppFormPlaylistSearch({
   });
 
   let renderedResults;
-
-  if (populateWithPlaylist) {
+  console.log("shuffleInput", shuffleInput);
+  if (
+    populateWithPlaylist &&
+    (shuffleInput.type === "user-playlists" ||
+      shuffleInput.type === "all-playlists")
+  ) {
     renderedResults = renderPlaylist(populateWithPlaylist as Playlist, app);
   }
 

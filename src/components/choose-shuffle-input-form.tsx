@@ -47,12 +47,12 @@ export function ChooseShuffleInputForm({
             <AppFormCard.LikedSongs
               app={app}
               key={`liked-songs-input-for-${app}`}
-              isSelected={value === "liked-songs"}
+              defaultSelected={value === "liked-songs"}
             />
             <AppFormCard.Playlists
               app={app}
               key={`playlists-input-for-${app}`}
-              isSelected={value === "all-playlists"}
+              defaultSelected={value === "all-playlists"}
             />
           </>
         </ToggleGroup.Root>
