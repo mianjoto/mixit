@@ -61,8 +61,8 @@ const SelectAppModal = () => {
           noClickBehavior
           className="w-full max-w-[300px] bg-secondary md:h-full md:w-full md:max-w-[300px]"
         />
-        <aside className="flex w-full flex-col gap-20">
-          <div className="flex w-full flex-col gap-8">
+        <aside className="flex w-full flex-1 flex-col gap-20">
+          <div className="flex w-full min-w-max flex-col gap-8">
             {Object.values(AppData).map((app) => {
               return (
                 <button
