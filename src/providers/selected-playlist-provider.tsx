@@ -2,7 +2,9 @@
 
 import { Playlist } from "@/types/spotify";
 import { useState } from "react";
-import SelectedPlaylistContext from "@/contexts/selected-playlist-context";
+import SelectedPlaylistContext, {
+  SelectedPlaylistType,
+} from "@/contexts/selected-playlist-context";
 
 interface SelectedPlaylistProviderProps {
   children: React.ReactNode;
@@ -11,9 +13,8 @@ interface SelectedPlaylistProviderProps {
 export default function SelectedPlaylistProvider({
   children,
 }: SelectedPlaylistProviderProps) {
-  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(
-    null
-  );
+  const [selectedPlaylist, setSelectedPlaylist] =
+    useState<SelectedPlaylistType | null>(null);
 
   return (
     <SelectedPlaylistContext.Provider
