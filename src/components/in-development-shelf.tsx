@@ -17,26 +17,28 @@ const InDevelopmentShelf = ({ app }: InDevelopmentShelfProps) => {
   const randomMessage = getRandomFrom(InDevelopmentMessages);
 
   return (
-    <section className="mb-64 grid flex-1 place-content-center place-items-center gap-16 text-center">
-      <Heading level={HeadingLevels.h2} alignment={"center"}>
-        {wrenchEmoji} {randomMessage} {wrenchEmoji}
-      </Heading>
+    <section className="mb-64 grid flex-1 place-content-center place-items-center gap-12 text-center">
+      <header className="grid place-content-center place-items-center gap-4">
+        <Heading level={HeadingLevels.h2} alignment={"center"}>
+          {wrenchEmoji} {randomMessage} {wrenchEmoji}
+        </Heading>
 
-      <Heading
-        level={HeadingLevels.h3}
-        alignment={"center"}
-        className="max-w-[30ch] text-base leading-tight"
-      >
-        While we develop the{" "}
-        <span className={cn(selectedAppData.textColor, "cursor-not-allowed")}>
-          {selectedAppData.name}
-        </span>
-        , try out the{" "}
-        <Link href={Links.apps.Shuffler.href} className="text-accent-1">
-          Shuffler
-        </Link>
-        .
-      </Heading>
+        <Heading
+          level={HeadingLevels.h3}
+          alignment={"center"}
+          className="max-w-[30ch] text-base leading-tight"
+        >
+          While we develop the{" "}
+          <span className={cn(selectedAppData.textColor, "cursor-not-allowed")}>
+            {selectedAppData.name}
+          </span>
+          , try out the{" "}
+          <Link href={Links.apps.Shuffler.href} className="text-accent-1">
+            Shuffler
+          </Link>
+          .
+        </Heading>
+      </header>
 
       <p className="text-sm text-gray">
         Check out the progress on GitHub{" "}
