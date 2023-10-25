@@ -47,6 +47,7 @@ const ContactForm = ({ className, ...props }: ContactFormProps) => {
     <Form.Root
       className={cn("flex flex-col gap-16", className)}
       onSubmit={handleSubmit(processForm)}
+      autoComplete="off"
       {...props}
     >
       <Form.Field name="name">
@@ -64,6 +65,7 @@ const ContactForm = ({ className, ...props }: ContactFormProps) => {
             className="placeholder:text-gray"
             placeholder="Enter your name"
             required
+            autoComplete="off"
             {...register("name")}
           />
         </Form.Control>
@@ -90,6 +92,7 @@ const ContactForm = ({ className, ...props }: ContactFormProps) => {
             className="placeholder:text-gray"
             placeholder="Enter your email address"
             required
+            autoComplete="off"
             {...register("email")}
           />
         </Form.Control>
