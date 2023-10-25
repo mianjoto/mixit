@@ -19,6 +19,7 @@ type AppFeatureDataRecord = Record<
     textColor: string;
     bgColor: string;
     ringColor: string;
+    decorationColor: string;
     href: string;
     appType: Apps | Features;
   }
@@ -33,6 +34,7 @@ export const AppData: AppFeatureDataRecord = {
     textColor: ColorData["Accent-1"].textClass,
     bgColor: ColorData["Accent-1"].bgClass,
     ringColor: ColorData["Accent-1"].ringClass,
+    decorationColor: ColorData["Accent-1"].decorationClass,
     href: "/shuffler",
     appType: Apps.Shuffler,
   },
@@ -44,6 +46,7 @@ export const AppData: AppFeatureDataRecord = {
     textColor: ColorData["Accent-2"].textClass,
     bgColor: ColorData["Accent-2"].bgClass,
     ringColor: ColorData["Accent-2"].ringClass,
+    decorationColor: ColorData["Accent-2"].decorationClass,
     href: "/blender",
     appType: Apps.Blender,
   },
@@ -55,6 +58,7 @@ export const AppData: AppFeatureDataRecord = {
     textColor: ColorData["Accent-3"].textClass,
     bgColor: ColorData["Accent-3"].bgClass,
     ringColor: ColorData["Accent-3"].ringClass,
+    decorationColor: ColorData["Accent-3"].decorationClass,
     href: "/pick-and-mix",
     appType: Apps.PickAndMix,
   },
@@ -66,6 +70,7 @@ export const AppData: AppFeatureDataRecord = {
     textColor: ColorData["Accent-4"].textClass,
     bgColor: ColorData["Accent-4"].bgClass,
     ringColor: ColorData["Accent-4"].ringClass,
+    decorationColor: ColorData["Accent-4"].decorationClass,
     href: "/time-machine",
     appType: Apps.TimeMachine,
   },

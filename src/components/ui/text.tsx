@@ -47,6 +47,11 @@ const textVariants = cva("text-base leading-[24px]", {
       body: "decoration-body",
       gray: "decoration-gray",
       background: "decoration-background",
+      "accent-1": "decoration-accent-1",
+      "accent-2": "decoration-accent-2",
+      "accent-3": "decoration-accent-3",
+      "accent-4": "decoration-accent-4",
+      "accent-5": "decoration-accent-5",
     },
   },
   defaultVariants: {
