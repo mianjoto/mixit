@@ -5,6 +5,7 @@ import { NavbarHeight } from "@/data/objects/navbar-data";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { HeadingLevels } from "@/types/text";
+import Footer from "@/components/footer";
 
 export default function ContactPage() {
   return (
@@ -34,6 +35,7 @@ export default function ContactPage() {
           <ContactForm className="w-full" />
         </article>
       </Section>
+      <Footer />
     </>
   );
 }
