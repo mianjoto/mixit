@@ -27,7 +27,7 @@ const InDevelopmentShelf = ({ app }: InDevelopmentShelfProps) => {
         alignment={"center"}
         className="max-w-[30ch] text-base leading-tight"
       >
-        While we develop the the{" "}
+        While we develop the{" "}
         <span className={cn(selectedAppData.textColor, "cursor-not-allowed")}>
           {selectedAppData.name}
         </span>
