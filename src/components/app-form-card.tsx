@@ -49,10 +49,9 @@ const AppFormCardRoot = ({
 }: AppFormCardRootProps) => {
   const imageWithColor = getImageWithAccentColor(image, app);
   const ringColor = COLOR_VARIANTS[app];
-  const ringClass =
-    !disabled || defaultSelected
-      ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
-      : "";
+  const ringClass = !disabled
+    ? "ring-inset data-[state=off]:ring-0 data-[state=on]:ring-4"
+    : "";
 
   const toggleIsDisabled = (value as ShuffleOutput)?.disabled;
   const toggleValue = value.type === null ? "" : (value.type as string);
@@ -60,8 +59,6 @@ const AppFormCardRoot = ({
     disabled !== undefined
       ? ({ description: disabled.reasonForDisabling } as InfoTooltipContent)
       : null;
-
-  const dataState = defaultSelected ? "on" : "off";
 
   const card = (
     <DashboardCard
@@ -84,7 +81,7 @@ const AppFormCardRoot = ({
   return (
     <ToggleGroup.Item
       value={toggleValue}
-      data-state={dataState}
+      defaultChecked={defaultSelected}
       disabled={toggleIsDisabled ?? toggleIsDisabled}
       className={cn(ringColor, ringClass, `rounded-[18px] `)}
       key={`${title}-${description}-dashboard-card-toggle-group-item`}
@@ -126,7 +123,7 @@ const Playlists = ({ app, defaultSelected }: AppFormCardProps) => {
   );
 };
 
-const CreateNewPlaylist = ({ app }: AppFormCardProps) => {
+const CreateNewPlaylist = ({ app, defaultSelected }: AppFormCardProps) => {
   return (
     <AppFormCardRoot
       title="Create new playlist"
@@ -134,6 +131,7 @@ const CreateNewPlaylist = ({ app }: AppFormCardProps) => {
       image={<PlaylistIcon className="h-[70%] w-[70%]" />}
       app={app}
       value={{ type: "new-playlist" } as ShuffleOutput}
+      defaultSelected={defaultSelected}
     />
   );
 };
@@ -143,8 +141,13 @@ type ChangeSongOrderProps = {
   shuffleInput: ShuffleInput;
 } & AppFormCardProps;
 
-const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
-  let { isDisabled, reasonForDisabling } = determineWhetherButtonIsDisabled(
+const ChangeSongOrder = ({
+  app,
+  user,
+  shuffleInput,
+  defaultSelected,
+}: ChangeSongOrderProps) => {
+  let { isDisabled, reasonForDisabling } = isChooseSongOrderOutputDisabled(
     shuffleInput,
     user
   );
@@ -169,6 +172,7 @@ const ChangeSongOrder = ({ app, user, shuffleInput }: ChangeSongOrderProps) => {
         value={radioValue}
         disabled={tooltipInfo}
         key={"change=song-order-output-for-" + app}
+        defaultSelected={defaultSelected}
       />
     </>
   );
@@ -198,7 +202,12 @@ function getImageWithAccentColor(
   );
 }
 
-function determineWhetherButtonIsDisabled(
+export const LIKED_SONGS_SONG_ORDER_DISABLED_REASON =
+  "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
+export const USER_NOT_OWNER_SONG_ORDER_DISABLED_REASON =
+  "You cannot change the song order of your Liked Songs.";
+
+export function isChooseSongOrderOutputDisabled(
   shuffleInput: ShuffleInput,
   user: SpotifyApi.CurrentUsersProfileResponse | undefined
 ) {
@@ -208,8 +217,7 @@ function determineWhetherButtonIsDisabled(
   // Disable button if user is shuffling liked songs
   if (shuffleInput.type === "liked-songs") {
     isDisabled = true;
-    reasonForDisabling =
-      "You cannot change the song order of your Liked Songs.";
+    reasonForDisabling = LIKED_SONGS_SONG_ORDER_DISABLED_REASON;
   }
 
   // Disable button if the user does not have permission to change the song order
@@ -218,8 +226,7 @@ function determineWhetherButtonIsDisabled(
 
   if (!userOwnsPlaylist && shuffleInput?.playlist !== undefined) {
     isDisabled = true;
-    reasonForDisabling =
-      "You do not own the playlist, so you cannot change the song order of this playlist. You can create a copy of this playlist and try again.";
+    reasonForDisabling = USER_NOT_OWNER_SONG_ORDER_DISABLED_REASON;
   }
   return { isDisabled, reasonForDisabling };
 }

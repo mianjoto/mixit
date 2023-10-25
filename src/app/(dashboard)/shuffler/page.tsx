@@ -100,11 +100,10 @@ export default function Shuffler() {
     if (value === "liked-songs") {
       setShuffleInput({ type: "liked-songs", playlist: undefined });
       setSelectedPlaylist(null);
-    } else {
-      setShuffleInput({ type: value, playlist: undefined });
+      return;
     }
 
-    setSelectedPlaylistFromDashboard(NULL_SHUFFLE_INPUT);
+    setShuffleInput({ type: value, playlist: undefined });
     setSelectedPlaylistFromDashboard(null);
   }
 
@@ -149,8 +148,8 @@ export default function Shuffler() {
         newFormState.showMixButton = true;
       }
     } else if (
-      shuffleInput?.playlist !== undefined &&
-      shuffleOutput?.type !== undefined &&
+      shuffleInput?.playlist &&
+      shuffleOutput?.type &&
       shuffleOutput?.disabled !== true
     ) {
       newFormState.showMixButton = true;
