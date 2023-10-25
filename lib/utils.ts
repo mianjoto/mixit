@@ -78,6 +78,15 @@ export function getPlaylistCoverImage(
   return getSmallestImageFromArray(playlist.images);
 }
 
+export function getRandomFrom<T>(obj: T[]): T {
+  if (obj.length === 0) {
+    throw new Error("Cannot get random element from empty array.");
+  }
+
+  const randomIndex = Math.floor(Math.random() * obj.length);
+  return obj[randomIndex]!;
+}
+
 export function getSmallestImageFromArray(images: SpotifyApi.ImageObject[]) {
   if (images.length === 1) {
     return images[0]!;
