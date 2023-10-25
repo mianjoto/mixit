@@ -6,7 +6,7 @@ import React, { FC } from "react";
 const textVariants = cva("text-base leading-[24px]", {
   variants: {
     level: {
-      p: "max-w-prose text-base",
+      p: "text-base",
       small: "text-sm",
       strong: "font-bold",
       figcaption: "max-w-prose",

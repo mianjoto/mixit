@@ -7,6 +7,9 @@ const config = {
     });
     return config;
   },
+  experimental: {
+    serverActions: true,
+  },
 };
 
 module.exports = config;

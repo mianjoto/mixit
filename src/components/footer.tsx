@@ -40,17 +40,59 @@ const appsLinks = Object.keys(AppData).map((appKey) => {
   );
 });
 
-const MobileFooter: React.FC = () => {
+type MobileFooterProps = { showContactForm: boolean };
+
+const MobileFooter = ({ showContactForm = false }: MobileFooterProps) => {
   const aboutLinks = Object.values(FooterLinks.columnLinks.about.links).map(
     (linkData) => <LinkText link={linkData} key={linkData.text} />
   );
+  const defaultOpenedColumns = ["item-1", "item-2"];
+
+  let contactContent = undefined;
+  if (showContactForm) {
+    contactContent = (
+      <AccordionContent contentGapClass="gap-[20px]" className="mt-20">
+        <div>
+          <Heading level={HeadingLevels.h3} className="mb-[10px]">
+            Want to get in touch?
+          </Heading>
+          <Text textColor="gray">
+            Send me a message, and I'll get back to you as soon as possible.
+          </Text>
+        </div>
+        <ContactForm />
+      </AccordionContent>
+    );
+  } else {
+    contactContent = (
+      <AccordionContent>
+        {Object.values(FooterLinks.columnLinks.contact.links).map((link) => (
+          <LinkText
+            link={link}
+            className="block"
+            key={link.text}
+            textProps={
+              link.text === "Contact us"
+                ? {
+                    level: TextLevels.span,
+                    underline: true,
+                    underlineColor: "primary",
+                  }
+                : { level: TextLevels.span }
+            }
+          />
+        ))}
+      </AccordionContent>
+    );
+    defaultOpenedColumns.push("item-3");
+  }
 
   return (
     <>
       <div className="lg:hidden">
         <Accordion.Root
           type="multiple"
-          defaultValue={["item-1", "item-2"]}
+          defaultValue={defaultOpenedColumns}
           className="flex flex-col gap-24"
         >
           <AccordionItem value="item-1">
@@ -86,18 +128,7 @@ const MobileFooter: React.FC = () => {
                 Contact
               </div>
             </AccordionTrigger>
-            <AccordionContent contentGapClass="gap-[20px]" className="mt-20">
-              <div>
-                <Heading level={HeadingLevels.h3} className="mb-[10px]">
-                  Want to get in touch?
-                </Heading>
-                <Text textColor="gray">
-                  Send me a message, and I'll get back to you as soon as
-                  possible.
-                </Text>
-              </div>
-              <ContactForm />
-            </AccordionContent>
+            {contactContent}
           </AccordionItem>
           <Separator />
         </Accordion.Root>
@@ -198,7 +229,11 @@ export const DesktopFooter: React.FC = () => {
   );
 };
 
-const Footer: React.FC = () => {
+type FooterProps = {
+  showContactFormOnMobile?: boolean;
+};
+
+const Footer = ({ showContactFormOnMobile = false }: FooterProps) => {
   return (
     <>
       <Section
@@ -207,7 +242,7 @@ const Footer: React.FC = () => {
         padding
         className="flex flex-col justify-end lg:min-h-[80svh]"
       >
-        <MobileFooter />
+        <MobileFooter showContactForm={showContactFormOnMobile} />
         <DesktopFooter />
       </Section>
     </>

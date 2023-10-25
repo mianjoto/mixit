@@ -14,7 +14,7 @@ export default function Index() {
       <Features />
       <WhyUseMixit />
       <CallToAction />
-      <Footer />
+      <Footer showContactFormOnMobile />
       <div className="relative w-full">
         <Separator color="gradient" className="absolute bottom-0 w-screen" />
       </div>

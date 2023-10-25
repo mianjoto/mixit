@@ -39,6 +39,10 @@ const sectionVariants = cva("", {
       true: "sticky top-0",
       false: "",
     },
+    compensateForFooter: {
+      true: "relative -top-[60px] md:static md:top-0",
+      false: "",
+    },
   },
   defaultVariants: {
     level: "section",
@@ -47,6 +51,7 @@ const sectionVariants = cva("", {
     padding: false,
     fitScreenHeight: false,
     sticky: false,
+    compensateForFooter: false,
   },
 });
 
@@ -70,6 +75,7 @@ interface SectionProps
   grid?: boolean;
   padding?: boolean;
   sticky?: boolean;
+  compensateForFooter?: boolean;
 }
 
 const Section: FC<SectionProps> = ({
@@ -79,6 +85,7 @@ const Section: FC<SectionProps> = ({
   padding = false,
   fitScreenHeight = false,
   sticky = false,
+  compensateForFooter = false,
   className,
   ...props
 }) => {
@@ -94,6 +101,7 @@ const Section: FC<SectionProps> = ({
           padding,
           sticky,
           fitScreenHeight,
+          compensateForFooter,
           className,
         })
       )}
