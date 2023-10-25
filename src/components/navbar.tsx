@@ -118,12 +118,10 @@ const Navbar: React.FC<NavbarProps> = ({
     mobileIsHiddenAtClass
   );
 
-  const desktopClasses =
-    `h-${NavbarHeight.mobile}` +
-    cn(
-      "absolute top-0 z-40 mx-auto hidden h-[60px] w-screen flex-row  bg-background px-32 py-16 md:h-fit md:py-32",
-      desktopIsVisibleAtClass
-    );
+  const desktopClasses = cn(
+    "block z-40 mx-auto hidden md:h-[60px] w-screen flex-row  bg-background px-32 py-16 md:h-fit md:py-32",
+    desktopIsVisibleAtClass
+  );
 
   return (
     <nav

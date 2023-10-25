@@ -16,6 +16,7 @@ export function Hero({}) {
         padding
         container
         fitScreenHeight
+        compensateForFooter
         className={`relative -top-[${NavbarHeight.mobile}] items-end md:grid-rows-none lg:top-0`}
       >
         {/* Content */}
