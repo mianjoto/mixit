@@ -1,0 +1,20 @@
+{
+  "exclamations": [
+    "Yikes...",
+    "Whoops...",
+    "Sorry...",
+    "Oops!",
+    "Weird...",
+    "Hmmm..."
+  ],
+  "descriptions": [
+    "We couldn't find that page. Did we mix too hard?",
+    "Looks like we couldn't find that page.",
+    "That page is nowhere to be found. Did we blend too much?",
+    "We couldn't find that page. Too much mixing?",
+    "We couldn't find that page...",
+    "We can't seem to locate the page you're looking for.",
+    "The page you're trying to access does not exist.",
+    "Can't find that page. Did you shuffle too much?"
+  ]
+}
