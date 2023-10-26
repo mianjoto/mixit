@@ -77,7 +77,7 @@ function Features() {
       <Button
         href="/dashboard"
         size="cta"
-        className="col-span-full mt-20 block w-full md:mt-0 lg:hidden"
+        className="col-span-full mt-16 block w-full md:mt-0 lg:hidden"
       >
         Explore all
       </Button>
