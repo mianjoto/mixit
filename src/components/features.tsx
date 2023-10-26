@@ -37,11 +37,11 @@ function Features() {
             level: TextLevels.p,
             alignment: "center",
             textColor: "gray",
-            className: "text-sm",
+            className: "text-sm max-w-[30ch]",
           }}
           bgColor={"secondary"}
           flexDirection={"col"}
-          className="h-full snap-start scroll-ml-16 items-center gap-16 px-16 py-24 lg:min-w-fit lg:snap-none"
+          className="h-full w-full snap-start scroll-ml-16 items-center gap-16 px-16 py-24 lg:min-w-fit lg:snap-none"
         />
       </Link>
     );
