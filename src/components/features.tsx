@@ -8,33 +8,42 @@ import { Pretitle } from "./ui/pretitle";
 import { Heading } from "./ui/heading";
 import { Text } from "./ui/text";
 import { Button } from "./ui/button";
-import LinkWrapper from "./ui/link-wrapper";
+import { AppData } from "@/data/records/apps";
+import Link from "next/link";
 
 function Features() {
   const appCards: React.JSX.Element[] = [];
   Object.keys(Apps).map((appKey) => {
     const appValue = Apps[appKey as keyof typeof Apps];
+    const selectedAppData = AppData[appValue];
 
     appCards.push(
-      <AppCard
-        key={appValue}
-        app={appValue}
-        appIconProps={{
-          app: appValue,
-          shape: AppIconShapes.Circle,
-          className:
-            "max-w-[128px] max-h-128 md:max-h-[140px] md:max-w-[140px] xl:max-h-[160px] xl:max-w-[160px]",
-        }}
-        headingProps={{ level: HeadingLevels.h3, alignment: "center" }}
-        descriptionProps={{
-          level: TextLevels.p,
-          alignment: "center",
-          textColor: "gray",
-        }}
-        bgColor={"secondary"}
-        flexDirection={"col"}
-        className="min-w-[75%] snap-start items-center gap-16 px-24 py-16 lg:min-w-fit lg:snap-none"
-      />
+      <Link href={selectedAppData.href} className="min-w-[80%]">
+        <AppCard
+          key={appValue}
+          app={appValue}
+          appIconProps={{
+            app: appValue,
+            shape: AppIconShapes.Circle,
+            className:
+              "max-w-[100px] max-h-[100px] md:max-h-[140px] md:max-w-[140px] xl:max-h-[160px] xl:max-w-[160px]",
+          }}
+          headingProps={{
+            level: HeadingLevels.h3,
+            alignment: "center",
+            className: "mb-4 uppercase",
+          }}
+          descriptionProps={{
+            level: TextLevels.p,
+            alignment: "center",
+            textColor: "gray",
+            className: "text-sm max-w-[30ch]",
+          }}
+          bgColor={"secondary"}
+          flexDirection={"col"}
+          className="h-full w-full snap-start scroll-ml-16 items-center gap-16 px-16 py-24 lg:min-w-fit lg:snap-none"
+        />
+      </Link>
     );
   });
 
@@ -48,7 +57,7 @@ function Features() {
     >
       <Section
         level="figure"
-        className="col-span-full row-start-2 inline-flex w-full snap-x snap-mandatory scroll-px-16 flex-row gap-4 overflow-x-auto lg:col-span-6 lg:row-start-1 lg:grid lg:grid-cols-2 lg:grid-rows-[auto]  lg:gap-8 lg:overflow-x-hidden xl:gap-24"
+        className="col-span-full row-start-2 inline-flex w-full snap-x snap-mandatory scroll-px-16 flex-row gap-8 overflow-x-auto pb-4 lg:col-span-6 lg:row-start-1 lg:grid lg:grid-cols-2 lg:grid-rows-[auto]  lg:gap-8 lg:overflow-x-hidden xl:gap-24"
       >
         {appCards}
       </Section>
@@ -57,7 +66,7 @@ function Features() {
         <Heading className="mb-16 max-w-prose lg:mb-40">
           Take control of your music
         </Heading>
-        <Text className="mb-24 max-w-prose lg:mb-64">
+        <Text className="max-w-prose lg:mb-64">
           Whether you have hundreds of Liked Songs or only three playlists,
           Mixit is your new home for shaking up your library.
         </Text>
@@ -68,7 +77,7 @@ function Features() {
       <Button
         href="/dashboard"
         size="cta"
-        className="col-span-full block w-full lg:hidden"
+        className="col-span-full mt-16 block w-full md:mt-0 lg:hidden"
       >
         Explore all
       </Button>

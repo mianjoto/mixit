@@ -37,7 +37,7 @@ const AppCard = ({
     >
       <AppIcon {...appIconProps} />
       <div className="inline-flex flex-col gap-[4px] md:gap-0">
-        <Heading {...headingProps} className="uppercase">
+        <Heading className="uppercase" {...headingProps}>
           {selectedAppData.name}
         </Heading>
         <Text {...descriptionProps}>
