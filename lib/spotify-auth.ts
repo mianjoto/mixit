@@ -5,15 +5,10 @@ const scopes = [
   "playlist-read-collaborative",
   "playlist-modify-private",
   "playlist-modify-public",
-  "user-follow-modify",
   "user-follow-read",
-  "user-read-playback-position",
   "user-top-read",
   "user-read-recently-played",
   "user-library-read",
-  "user-read-playback-state",
-  "user-read-email",
-  "user-read-private",
 ].join(",");
 
 const params = {
