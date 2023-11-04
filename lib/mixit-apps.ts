@@ -27,7 +27,7 @@ export async function useShufflerApp({
   let playlist;
 
   if (data.input.type === "liked-songs") {
-    playlist = await getLikedSongsAsPlaylist(session, shuffleOptions);
+    playlist = await getLikedSongsAsPlaylist(session);
   } else {
     playlist = data.input.playlist as Playlist;
   }

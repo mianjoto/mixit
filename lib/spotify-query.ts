@@ -121,9 +121,7 @@ export async function getTracksSliceFromPlaylist(
       Promise.reject("Failed to get tracks from Liked Songs playlist");
     }
 
-    return likedSongsResponse.body.items.map(
-      (track) => track?.track?.uri as string
-    ) as unknown as string[];
+    return likedSongsResponse.body.items.map((track) => track.track);
   }
 
   // If normal playlist, return tracks as normal
@@ -136,9 +134,7 @@ export async function getTracksSliceFromPlaylist(
     Promise.reject("Failed to get tracks from playlist");
   }
 
-  return tracksResponse.body.items.map(
-    (track) => track?.track?.uri as string
-  ) as unknown as string[];
+  return tracksResponse.body.items.map((track) => track.track);
 }
 
 type AddTracksToPlaylistOptions = {

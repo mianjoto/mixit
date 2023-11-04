@@ -8,6 +8,7 @@ import {
 } from "./spotify-query";
 import { ShuffleOption } from "@/types/mixit";
 import {
+  IncludeExplicitSongs,
   PREFER_OLDER_SONGS_BIAS,
   PreferOlderSongs,
 } from "@/data/objects/shuffle-options";
@@ -34,7 +35,7 @@ export async function getRandomSongsFromPlaylist(
 
   // Lazy sliding window
   if (totalTracksInPlaylist <= MIN_TRACKS_FOR_RANDOM_SAMPLING) {
-    return await lazyWindowRandomSongs(playlist, spotify);
+    return await lazyWindowRandomSongs(playlist, spotify, shuffleOptions);
   }
 
   return await cherryPickRandomSongs(spotify, playlist, shuffleOptions);
@@ -42,7 +43,8 @@ export async function getRandomSongsFromPlaylist(
 
 async function lazyWindowRandomSongs(
   playlist: SpotifyApi.PlaylistObjectFull,
-  spotify: SpotifyWebApi
+  spotify: SpotifyWebApi,
+  options: ShuffleOption[]
 ) {
   const paginationOptions = getLazyWindowPaginationOptions(playlist);
   console.log("paginationOptions for lazy sliding=", paginationOptions);
@@ -51,14 +53,19 @@ async function lazyWindowRandomSongs(
 
   await Promise.all(
     paginationOptions.map(async (paginationOption) => {
-      const sliceOfTracks = await getTracksSliceFromPlaylist(
+      let sliceOfTracks = await getTracksSliceFromPlaylist(
         spotify,
         playlist,
         paginationOption
       );
 
+      // Filter out explicit songs if option is not selected
+      if (!options.includes(IncludeExplicitSongs)) {
+        sliceOfTracks = sliceOfTracks.filter((track) => !track?.explicit);
+      }
+
       sliceOfTracks.map((track) => {
-        selectedSongUris.push(track);
+        selectedSongUris.push(track?.uri as string);
       });
     })
   );
@@ -67,8 +74,7 @@ async function lazyWindowRandomSongs(
 }
 
 export async function getLikedSongsAsPlaylist(
-  session: Session,
-  options: ShuffleOption[]
+  session: Session
 ): Promise<LikedSongsPlaylist> {
   if (!session) {
     signIn("spotify");
@@ -138,28 +144,33 @@ export function getLazyWindowPaginationOptions(
 async function cherryPickRandomSongs(
   spotify: SpotifyWebApi,
   playlist: SpotifyApi.PlaylistObjectFull,
-  shuffleOptions: ShuffleOption[]
+  options: ShuffleOption[]
 ) {
   const totalTracksInPlaylist = playlist.tracks.total;
 
   const allPaginationOptions = getAllCherryPickPaginationOptions(
     totalTracksInPlaylist,
     SONGS_REQUESTED_PER_CHERRY_PICK,
-    shuffleOptions
+    options
   );
 
   const selectedSongUris: string[] = [];
 
   await Promise.all(
     allPaginationOptions.map(async (paginationOption) => {
-      const sliceOfTracks = await getTracksSliceFromPlaylist(
+      let sliceOfTracks = await getTracksSliceFromPlaylist(
         spotify,
         playlist,
         paginationOption
       );
 
+      // Filter out explicit songs if option is not selected
+      if (!options.includes(IncludeExplicitSongs)) {
+        sliceOfTracks = sliceOfTracks.filter((track) => !track?.explicit);
+      }
+
       sliceOfTracks.map((track) => {
-        selectedSongUris.push(track);
+        selectedSongUris.push(track?.uri as string);
       });
     })
   );
