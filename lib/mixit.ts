@@ -1,4 +1,4 @@
-import { Playlist } from "@/types/spotify";
+import { LikedSongsPlaylist, Playlist } from "@/types/spotify";
 import SpotifyWebApi from "spotify-web-api-node";
 import {
   MAX_PLAYLIST_LENGTH,
@@ -64,6 +64,42 @@ async function lazyWindowRandomSongs(
   );
 
   return selectedSongUris;
+}
+
+export async function getLikedSongsAsPlaylist(
+  session: Session,
+  options: ShuffleOption[]
+): Promise<LikedSongsPlaylist> {
+  if (!session) {
+    signIn("spotify");
+    return Promise.reject("No session");
+  }
+
+  const spotify = getSpotifyApi(session);
+
+  // Get the first song so something is requested
+  const likedSongResponse = await spotify.getMySavedTracks();
+  const likedSongs = likedSongResponse.body.items;
+
+  if (likedSongResponse.statusCode !== 200) {
+    Promise.reject("Error getting user");
+  }
+
+  const userId = (await spotify.getMe()).body.id;
+  const totalLikedSongs = likedSongResponse.body.total;
+
+  const likedSongsPlaylist = {
+    name: "Liked Songs",
+    id: "liked-songs-id",
+    userId: userId,
+    tracks: {
+      href: "https://api.spotify.com/v1/me/tracks",
+      total: totalLikedSongs,
+      items: likedSongs,
+    },
+  } as LikedSongsPlaylist;
+
+  return likedSongsPlaylist;
 }
 
 export function getLazyWindowPaginationOptions(
