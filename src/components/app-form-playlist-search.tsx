@@ -120,14 +120,17 @@ function renderSearchResults(
     return <p className="text-body">No results found for "{query}"</p>;
   }
 
-  let playlists = searchResults.items;
-
   // If a playlist has been selected, show it first before any query result
   if (selectedPlaylist !== null) {
-    playlists = playlists.filter((playlist) => playlist !== selectedPlaylist);
-
-    playlists.unshift(selectedPlaylist as Playlist);
+    searchResults.items = [
+      selectedPlaylist,
+      ...searchResults.items.filter(
+        (playlist) => playlist !== selectedPlaylist
+      ),
+    ];
   }
 
-  return playlists.map((playlist) => renderPlaylist(playlist as Playlist, app));
+  return searchResults.items.map((playlist) =>
+    renderPlaylist(playlist as Playlist, app)
+  );
 }
