@@ -174,7 +174,9 @@ export async function createPlaylistAndPopulateWithTracks(
   session: Session
 ) {
   if (trackUris.length === 0) {
-    Promise.reject("Did not receive any tracks to create the new playlist");
+    return Promise.reject(
+      "Did not receive any tracks to create the new playlist"
+    );
   }
 
   if (!session) {
