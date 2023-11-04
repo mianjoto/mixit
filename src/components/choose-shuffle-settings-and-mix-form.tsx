@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { useOptions } from "@/hooks/useOptions";
 import { useToast } from "@/hooks/useToast";
 import { OpenOnSpotifyToastAction, ToastAction } from "./ui/toast";
+import { IncludeExplicitSongs } from "../data/objects/shuffle-options";
 
 type ChooseShuffleSettingsAndMixProps = {
   app: Apps;
@@ -36,7 +37,10 @@ const ChooseShuffleSettingsAndMix = ({
       return true;
     }
 
-    return option.id !== ShuffleOptions.PreferOlderSongs.id;
+    // Only disable exclusionary options as only shuffling in-place
+    const exclusionaryOptions = [IncludeExplicitSongs];
+
+    return !exclusionaryOptions.includes(option);
   }
 
   const playlistName =
