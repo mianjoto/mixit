@@ -2,12 +2,14 @@ import { MixitInput, ShuffleOption } from "@/types/mixit";
 import { Playlist } from "@/types/spotify";
 import {
   createPlaylistAndPopulateWithTracks,
-  getCurrentUser,
-  getLikedSongsAsPlaylist,
   replaceTracksInPlaylist,
 } from "./spotify-query";
 import { Session } from "next-auth";
-import { fisherYatesShuffle, getRandomSongsFromPlaylist } from "./mixit";
+import {
+  fisherYatesShuffle,
+  getRandomSongsFromPlaylist,
+  getLikedSongsAsPlaylist,
+} from "./mixit";
 
 type useShufflerAppParams = {
   data: MixitInput;
@@ -23,6 +25,7 @@ export async function useShufflerApp({
   (SpotifyApi.CreatePlaylistResponse | undefined) | string
 > {
   let playlist;
+
   if (data.input.type === "liked-songs") {
     playlist = await getLikedSongsAsPlaylist(session);
   } else {

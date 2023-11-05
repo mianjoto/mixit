@@ -94,41 +94,6 @@ export async function getCurrentUser({
 
 export const MAX_REQUESTS_FOR_LIKED_SONGS = 10;
 
-export async function getLikedSongsAsPlaylist(
-  session: Session
-): Promise<LikedSongsPlaylist> {
-  if (!session) {
-    signIn("spotify");
-    return Promise.reject("No session");
-  }
-
-  const spotify = getSpotifyApi(session);
-
-  // Get the first song so something is requested
-  const likedSongResponse = await spotify.getMySavedTracks();
-  const likedSongs = likedSongResponse.body.items;
-
-  if (likedSongResponse.statusCode !== 200) {
-    Promise.reject("Error getting user");
-  }
-
-  const userId = (await spotifyApi.getMe()).body.id;
-  const totalLikedSongs = likedSongResponse.body.total;
-
-  const likedSongsPlaylist = {
-    name: "Liked Songs",
-    id: "liked-songs-id",
-    userId: userId,
-    tracks: {
-      href: "https://api.spotify.com/v1/me/tracks",
-      total: totalLikedSongs,
-      items: likedSongs,
-    },
-  } as LikedSongsPlaylist;
-
-  return likedSongsPlaylist;
-}
-
 export const MAX_PLAYLIST_LENGTH = 100;
 export const MAX_SONGS_PER_REQUEST = 50;
 
@@ -156,9 +121,7 @@ export async function getTracksSliceFromPlaylist(
       Promise.reject("Failed to get tracks from Liked Songs playlist");
     }
 
-    return likedSongsResponse.body.items.map(
-      (track) => track?.track?.uri as string
-    ) as unknown as string[];
+    return likedSongsResponse.body.items.map((track) => track.track);
   }
 
   // If normal playlist, return tracks as normal
@@ -171,9 +134,7 @@ export async function getTracksSliceFromPlaylist(
     Promise.reject("Failed to get tracks from playlist");
   }
 
-  return tracksResponse.body.items.map(
-    (track) => track?.track?.uri as string
-  ) as unknown as string[];
+  return tracksResponse.body.items.map((track) => track.track);
 }
 
 type AddTracksToPlaylistOptions = {
@@ -213,7 +174,9 @@ export async function createPlaylistAndPopulateWithTracks(
   session: Session
 ) {
   if (trackUris.length === 0) {
-    Promise.reject("Did not receive any tracks to create the new playlist");
+    return Promise.reject(
+      "Did not receive any tracks to create the new playlist"
+    );
   }
 
   if (!session) {

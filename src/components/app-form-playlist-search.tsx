@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { Session } from "next-auth";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { getSearchResults } from "../../lib/spotify-query";
 import { DashboardHeading } from "./dashboard";
 import { DashboardShelf } from "./dashboard-shelf";
@@ -10,8 +10,11 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { SearchInput } from "./ui/search-input";
 import { Apps } from "@/types/apps";
 import { Playlist } from "@/types/spotify";
-import { ShuffleInput } from "@/types/mixit";
-import { SelectedPlaylistType } from "@/contexts/selected-playlist-context";
+import { ShuffleInput, ShuffleInputType, ShuffleOption } from "@/types/mixit";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+  SelectedPlaylistType,
+} from "@/contexts/selected-playlist-context";
 
 type AppFormPlaylistSearchProps = {
   session: Session;
@@ -28,6 +31,9 @@ export function AppFormPlaylistSearch({
 }: AppFormPlaylistSearchProps) {
   const [query, setQuery] = useState<string | null>(null);
   const debouncedQuery = useDebounce(query, 250);
+  const { selectedPlaylist } = useContext(
+    SelectedPlaylistContext
+  ) as SelectedPlaylistContextType;
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     setQuery(event.currentTarget.value);
@@ -40,32 +46,30 @@ export function AppFormPlaylistSearch({
     staleTime: 5 * 60 * 1000,
   });
 
-  let renderedResults;
-  if (
-    populateWithPlaylist &&
-    (shuffleInput.type === "user-playlists" ||
-      shuffleInput.type === "all-playlists")
-  ) {
-    renderedResults = renderPlaylist(populateWithPlaylist as Playlist, app);
+  function getRenderedResults() {
+    if (
+      populateWithPlaylist &&
+      [
+        "user-playlists" as ShuffleInputType,
+        "all-playlists" as ShuffleInputType,
+      ].includes(shuffleInput.type as ShuffleInputType)
+    ) {
+      return renderPlaylist(populateWithPlaylist as Playlist, app);
+    } else if (!searchResults || !searchResults.items) {
+      return shuffleInput.playlist
+        ? renderPlaylist(shuffleInput.playlist as Playlist, app)
+        : null;
+    } else {
+      return renderSearchResults(
+        searchResults,
+        selectedPlaylist as Playlist,
+        query,
+        app
+      );
+    }
   }
 
-  if (!searchResults || !searchResults.items) {
-    if (shuffleInput.playlist) {
-      renderedResults = renderPlaylist(shuffleInput.playlist as Playlist, app);
-    } else {
-      renderedResults = null;
-    }
-  } else {
-    if (searchResults.total > 0) {
-      renderedResults = searchResults?.items.map((playlist) =>
-        renderPlaylist(playlist as Playlist, app)
-      );
-    } else {
-      renderedResults = (
-        <p className="text-body">No results found for "{query}"</p>
-      );
-    }
-  }
+  let renderedResults = getRenderedResults();
 
   return (
     <section className="flex flex-col gap-16">
@@ -93,5 +97,43 @@ function renderPlaylist(playlist: Playlist, app: Apps) {
       className="h-full"
       app={app}
     />
+  );
+}
+
+function renderSearchResults(
+  searchResults:
+    | SpotifyApi.PagingObject<SpotifyApi.PlaylistObjectSimplified>
+    | undefined,
+  selectedPlaylist: Playlist | null,
+  query: string | null,
+  app: Apps
+) {
+  if (searchResults === undefined) {
+    return (
+      <p className="text-body">
+        No results found... Try searching for something new.
+      </p>
+    );
+  }
+
+  if (searchResults.total === 0) {
+    return <p className="text-body">No results found for "{query}"</p>;
+  }
+
+  // If a playlist has been selected and the user is changing the query, show the playlist first before any query result
+  if (
+    selectedPlaylist !== null &&
+    !searchResults.items.includes(selectedPlaylist)
+  ) {
+    searchResults.items = [
+      selectedPlaylist,
+      ...searchResults.items.filter(
+        (playlist) => playlist !== selectedPlaylist
+      ),
+    ];
+  }
+
+  return searchResults.items.map((playlist) =>
+    renderPlaylist(playlist as Playlist, app)
   );
 }

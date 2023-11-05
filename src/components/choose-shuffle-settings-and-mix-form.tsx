@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { useOptions } from "@/hooks/useOptions";
 import { useToast } from "@/hooks/useToast";
 import { OpenOnSpotifyToastAction, ToastAction } from "./ui/toast";
+import { IncludeExplicitSongs } from "../data/objects/shuffle-options";
 
 type ChooseShuffleSettingsAndMixProps = {
   app: Apps;
@@ -36,7 +37,10 @@ const ChooseShuffleSettingsAndMix = ({
       return true;
     }
 
-    return option.id !== ShuffleOptions.PreferOlderSongs.id;
+    // Only disable exclusionary options as only shuffling in-place
+    const exclusionaryOptions = [IncludeExplicitSongs];
+
+    return !exclusionaryOptions.includes(option);
   }
 
   const playlistName =
@@ -63,23 +67,31 @@ const ChooseShuffleSettingsAndMix = ({
     });
   }
 
+  const shuffleSettingsComponent = (
+    <ShuffleSettings
+      app={app}
+      excludeOptionsFn={handleVisibleOptions}
+      enabledOptions={enabledOptions}
+      toggleOption={toggleOption}
+    />
+  );
+
+  const noOptionsAreAvailable = shuffleSettingsComponent === null;
+  const adviceSubheadingText = noOptionsAreAvailable
+    ? `To customize how ${app} mixes your music, try mixing something new such as a friend's playlist or your Daily Mixes.`
+    : `For a custom mix, feel free to change settings about how ${app} mixes
+  your music.`;
+
   return (
     <>
       <section className="flex flex-col gap-20">
         <header className="flex flex-col gap-8">
           <DashboardHeading text="You're ready to mix!" />
           <Text textColor="gray" className="max-w-fit">
-            For a custom mix, feel free to change settings about how {app} mixes
-            your music.
+            {adviceSubheadingText}
           </Text>
         </header>
-
-        <ShuffleSettings
-          app={app}
-          excludeOptionsFn={handleVisibleOptions}
-          enabledOptions={enabledOptions}
-          toggleOption={toggleOption}
-        />
+        {shuffleSettingsComponent}
       </section>
       <Button size="default" willRedirect={false} onClick={handleSubmitButton}>
         Mix now

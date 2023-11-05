@@ -12,7 +12,13 @@ export const PreferOlderSongs = {
   defaultEnabled: true,
 } as ShuffleOption;
 
-const Shuffler: ShuffleOption[] = [PreferOlderSongs];
+export const IncludeExplicitSongs = {
+  id: "include-explicit-songs",
+  description: "Include explicit songs",
+  defaultEnabled: true,
+} as ShuffleOption;
+
+const Shuffler: ShuffleOption[] = [PreferOlderSongs, IncludeExplicitSongs];
 
 const Blender: ShuffleOption[] = [
   {
