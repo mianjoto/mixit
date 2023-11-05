@@ -120,8 +120,11 @@ function renderSearchResults(
     return <p className="text-body">No results found for "{query}"</p>;
   }
 
-  // If a playlist has been selected, show it first before any query result
-  if (selectedPlaylist !== null) {
+  // If a playlist has been selected and the user is changing the query, show the playlist first before any query result
+  if (
+    selectedPlaylist !== null &&
+    !searchResults.items.includes(selectedPlaylist)
+  ) {
     searchResults.items = [
       selectedPlaylist,
       ...searchResults.items.filter(
