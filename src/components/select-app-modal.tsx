@@ -52,6 +52,7 @@ const SelectAppModal = () => {
       description="Select an app or listen on Spotify"
       isOpen={true}
       onChange={onChange}
+      fullHeight
     >
       <article className="flex w-3/4 flex-col items-center gap-24 md:w-auto md:flex-row md:items-start">
         <DashboardCard

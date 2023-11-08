@@ -122,3 +122,10 @@ const getUrl = (path: string) => {
 };
 
 export default getUrl;
+
+const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
+
+export function moreThanOneDayAgo(otherTime: number): boolean {
+  const currentTime = Date.now();
+  return currentTime - otherTime > MILLISECONDS_IN_A_DAY;
+}

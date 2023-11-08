@@ -5,6 +5,7 @@ import ReactQueryProvider from "@/providers/react-query-provider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/toaster";
 import SelectedPlaylistProvider from "@/providers/selected-playlist-provider";
+import VisitEventHandler from "@/components/visit-event-handler";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <ReactQueryProvider>
         <SelectedPlaylistProvider>
           <ModalProvider />
+          <VisitEventHandler />
           <body
             className={`${notoSans.className}
           w-screen overflow-x-hidden overscroll-none bg-background`}

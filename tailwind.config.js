@@ -33,7 +33,7 @@ module.exports = {
         gray: "#A1A1A1",
         success: "#a6e707",
         caution: "#dbc217",
-        danger: "#e43446",
+        danger: "#e24e68",
         info: "#08a2f3",
         "spotify-green": "#1DB954",
         "accent-1": "#FF9785",
