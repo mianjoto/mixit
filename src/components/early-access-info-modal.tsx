@@ -47,7 +47,7 @@ const EarlyAccessInfoModal = () => {
       onChange={onChange}
       titleClassName={"text-left"}
     >
-      <section className="mt-16 flex flex-col gap-[48px]">
+      <section className="mt-8 flex flex-col gap-[48px] md:mt-16">
         <div className="flex flex-col gap-16">
           <p className="text-base text-body">
             Hello there! Mixit is in private development. Access to Mixit's
