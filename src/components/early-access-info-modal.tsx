@@ -18,7 +18,7 @@ const EarlyAccessInfoModal = () => {
     <Modal
       title="👋 Welcome to Mixit!"
       description=""
-      isOpen={isOpen()}
+      isOpen={isOpen}
       onChange={onChange}
       titleClassName={"text-left"}
     >
