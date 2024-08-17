@@ -1,12 +1,12 @@
-import { Link as LinkType } from "@/types/links";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import SpotifyLogo from "@/assets/images/spotify-logo-white.png";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import LinkWrapper, { linkWrapperVariants } from "./ui/link-wrapper";
+import "react-loading-skeleton/dist/skeleton.css";
 import { cn } from "../../lib/utils";
-import WithSkeleton from "./ui/with-skeleton";
 import InfoTooltip, { InfoTooltipContent } from "./ui/info-tooltip";
+import LinkWrapper, { linkWrapperVariants } from "./ui/link-wrapper";
+import WithSkeleton from "./ui/with-skeleton";
 
 interface DashboardCardProps {
   title: string | undefined | null;
@@ -16,23 +16,34 @@ interface DashboardCardProps {
   bgColor?: "secondary" | "tertiary";
   descriptionClamp?: "one-line" | "two-line" | "none";
   noClickBehavior?: boolean;
-  href?: LinkType | string;
+  href?: string;
   onClick?: () => void;
   small?: boolean;
   tooltipContent?: InfoTooltipContent | null;
   disabled?: boolean;
   image?: React.JSX.Element | string | undefined | null;
+  withSpotifyLogo?: boolean;
 }
 
+const SPOTIFY_LOGO_HEADER = (href?: string) => (
+  <Link
+    href={href || "https://www.spotify.com/"}
+    className="z-30 max-w-[80px] py-[4px]"
+  >
+    <Image src={SpotifyLogo} alt="Play on Spotify" />
+  </Link>
+);
 const defaultCardLayout = ({
   image,
   title,
+  href,
   showFullTitle = false,
   bgColor,
   description,
   descriptionClamp,
   tooltipContent,
   disabled,
+  withSpotifyLogo,
   className,
 }: DashboardCardProps) => {
   let descriptionClampClass = "";
@@ -55,6 +66,7 @@ const defaultCardLayout = ({
         className
       )}
     >
+      {withSpotifyLogo ? SPOTIFY_LOGO_HEADER(href) : null}
       <div className="aspect-square h-auto w-full">
         <WithSkeleton
           content={image}
@@ -94,7 +106,9 @@ const smallCardLayout = ({
   description,
   descriptionClamp,
   tooltipContent,
+  href,
   disabled,
+  withSpotifyLogo,
   className,
 }: DashboardCardProps) => {
   let descriptionClampClass = "";
@@ -117,6 +131,7 @@ const smallCardLayout = ({
         className
       )}
     >
+      {withSpotifyLogo ? SPOTIFY_LOGO_HEADER(href) : null}
       <div className="aspect-square h-[60px] w-[60px] md:h-auto md:w-full">
         <WithSkeleton
           content={image}
@@ -164,6 +179,7 @@ const DashboardCardComponent = ({
   image,
   tooltipContent = undefined,
   disabled,
+  withSpotifyLogo = false,
   className,
 }: DashboardCardProps) => {
   if (typeof image === "string") {
@@ -179,6 +195,8 @@ const DashboardCardComponent = ({
     descriptionClamp,
     tooltipContent,
     disabled,
+    withSpotifyLogo,
+    href,
     className,
   };
 

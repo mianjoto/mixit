@@ -1,19 +1,19 @@
-import { DashboardCard } from "./dashboard-card";
+import { MusicIcon } from "@/assets/svg";
+import SelectedPlaylistContext, {
+  SelectedPlaylistContextType,
+} from "@/contexts/selected-playlist-context";
+import useSelectAppModal from "@/hooks/useSelectAppModal";
+import { Apps } from "@/types/apps";
+import { Playlist } from "@/types/spotify";
+import { useContext } from "react";
 import {
   cleanPlaylistAttributes,
   cn,
   getPlaylistCoverImage,
   getRingColorFromApp,
 } from "../../lib/utils";
+import { DashboardCard } from "./dashboard-card";
 import PlaylistCardPlaceholder from "./playlist-card-placeholder";
-import { MusicIcon } from "@/assets/svg";
-import SelectedPlaylistContext, {
-  SelectedPlaylistContextType,
-} from "@/contexts/selected-playlist-context";
-import { useContext } from "react";
-import { Apps } from "@/types/apps";
-import { Playlist } from "@/types/spotify";
-import useSelectAppModal from "@/hooks/useSelectAppModal";
 
 interface PlaylistCardProps {
   playlist: Playlist | undefined | null;
@@ -99,8 +99,10 @@ const PlaylistCard = ({
       bgColor={bgColor}
       onClick={handlePlaylistClick}
       small={small}
+      href={playlist?.external_urls.spotify}
       className={className}
       key={playlist?.id}
+      withSpotifyLogo
     />
   );
 };
@@ -112,7 +114,7 @@ const IMAGE_PLACEHOLDER = (
 );
 
 function getImageFromPlaylist(playlist: Playlist) {
-  if (playlist.images.length > 0) {
+  if (playlist.images?.length > 0) {
     return getPlaylistCoverImage(playlist)?.url;
   }
 
