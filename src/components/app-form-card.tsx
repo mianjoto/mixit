@@ -147,7 +147,7 @@ const ChangeSongOrder = ({
   shuffleInput,
   defaultSelected,
 }: ChangeSongOrderProps) => {
-  let { isDisabled, reasonForDisabling } = isChooseSongOrderOutputDisabled(
+  const { isDisabled, reasonForDisabling } = isChooseSongOrderOutputDisabled(
     shuffleInput,
     user
   );

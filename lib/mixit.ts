@@ -269,7 +269,7 @@ function offsetInfringes(
   const offsetStart = randomOffset;
   const offsetEnd = randomOffset + windowSize;
 
-  for (let selectedOffset of selectedOffsets) {
+  for (const selectedOffset of selectedOffsets) {
     const selectedStart = selectedOffset;
     const selectedEnd = selectedOffset + windowSize;
 
@@ -285,12 +285,12 @@ function offsetInfringes(
 }
 
 export function fisherYatesShuffle<T>(array: T[]): T[] {
-  let shuffledArray = [...array];
+  const shuffledArray = [...array];
 
-  let numberOfTracks = shuffledArray.length;
+  const numberOfTracks = shuffledArray.length;
 
   for (let index = numberOfTracks - 1; index > 0; index--) {
-    let randomIndex = Math.floor(Math.random() * (index + 1));
+    const randomIndex = Math.floor(Math.random() * (index + 1));
 
     const temporaryTrack = shuffledArray[index] as T;
     shuffledArray[index] = shuffledArray[randomIndex] as T;

@@ -69,7 +69,7 @@ export function AppFormPlaylistSearch({
     }
   }
 
-  let renderedResults = getRenderedResults();
+  const renderedResults = getRenderedResults();
 
   return (
     <section className="flex flex-col gap-16">
