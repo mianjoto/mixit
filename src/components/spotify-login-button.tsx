@@ -5,16 +5,16 @@ import { signIn } from "next-auth/react";
 import getUrl, { cn } from "../../lib/utils";
 
 const SpotifyLoginButton = () => {
-  const callbackUrl = getUrl("/dashboard");
+    const callbackUrl = getUrl("/dashboard");
 
-  const handleClick = () => {
-    signIn("spotify", {
-      redirect: false,
-      callbackUrl: callbackUrl,
-    });
-  };
+    const handleClick = () => {
+        signIn("spotify", {
+            redirect: false,
+            callbackUrl: callbackUrl,
+        });
+    };
 
-  const buttonStyles = cn(`
+    const buttonStyles = cn(`
     px-24 
     py-12 
     font-bold
@@ -33,11 +33,11 @@ const SpotifyLoginButton = () => {
     active:translate-y-1
     `);
 
-  return (
-    <button onClick={handleClick} className={buttonStyles} type="button">
-      Log in with Spotify
-    </button>
-  );
+    return (
+        <button onClick={handleClick} className={buttonStyles} type="button">
+            Log in with Spotify
+        </button>
+    );
 };
 
 export default SpotifyLoginButton;

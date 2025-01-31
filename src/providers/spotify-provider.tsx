@@ -6,42 +6,44 @@ import { getCurrentUser, getTopPlaylists } from "../../lib/spotify-query";
 import { useSession } from "next-auth/react";
 
 interface SpotifyProviderProps {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 export default function SpotifyProvider({ children }: SpotifyProviderProps) {
-  const { data: session } = useSession();
+    const { data: session } = useSession();
+    console.log("Data from provider", session);
 
-  const {
-    data: playlists,
-    isError: isPlaylistQueryError,
-    isSuccess: isPlaylistQuerySuccess,
-  } = useQuery({
-    queryKey: ["topPlaylists"],
-    queryFn: () =>
-      getTopPlaylists({ session, paginationOptions: { limit: 50 } }),
-    enabled: !!session,
-    staleTime: 5 * 60 * 1000,
-  });
+    const {
+        data: playlists,
+        isError: isPlaylistQueryError,
+        isSuccess: isPlaylistQuerySuccess,
+    } = useQuery({
+        queryKey: ["topPlaylists"],
+        queryFn: () =>
+            getTopPlaylists({ session, paginationOptions: { limit: 50 } }),
+        enabled: !!session,
+        staleTime: 5 * 60 * 1000,
+    });
 
-  const playlistQueryResult = {
-    playlists,
-    isPlaylistQueryError,
-    isPlaylistQuerySuccess,
-  };
+    const playlistQueryResult = {
+        playlists,
+        isPlaylistQueryError,
+        isPlaylistQuerySuccess,
+    };
+    console.log("playlist result", playlists);
 
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => getCurrentUser({ session }),
-    enabled: !!session,
-    staleTime: 5 * 60 * 1000,
-  });
+    const { data: user } = useQuery({
+        queryKey: ["user"],
+        queryFn: () => getCurrentUser({ session }),
+        enabled: !!session,
+        staleTime: 5 * 60 * 1000,
+    });
 
-  // TODO: Add additional queries here...
+    // TODO: Add additional queries here...
 
-  return (
-    <SpotifyContext.Provider value={{ user, playlistQueryResult }}>
-      {children}
-    </SpotifyContext.Provider>
-  );
+    return (
+        <SpotifyContext.Provider value={{ user, playlistQueryResult }}>
+            {children}
+        </SpotifyContext.Provider>
+    );
 }
