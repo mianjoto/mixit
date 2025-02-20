@@ -1,9 +1,9 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import spotifyApi from "./spotify-auth";
 import { signIn } from "next-auth/react";
-import { Session } from "next-auth";
 import { LikedSongsId, LikedSongsPlaylist, Playlist } from "@/types/spotify";
 import { refreshAccessToken } from "./auth";
+import { Session } from "next-auth";
 
 interface getTopPlaylistOptions {
     session: Session | null;
@@ -244,9 +244,6 @@ export async function replaceTracksInPlaylist(
 }
 
 export function getSpotifyApi(session: Session): SpotifyWebApi {
-    console.log("TRYING ");
-    console.log("Session=", session);
-    console.log("spotifyApi.getAccessToken()", spotifyApi.getAccessToken());
     if (
         !spotifyApi.getAccessToken() ||
         spotifyApi.getAccessToken() !== session.accessToken

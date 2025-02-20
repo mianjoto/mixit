@@ -1,27 +1,27 @@
-import NextAuthOptions from "next-auth";
-import SpotifyProvider from "next-auth/providers/spotify";
-import spotifyApi, { LOGIN_URL } from "./spotify-auth";
+import spotifyApi from "./spotify-auth";
 import { JWT } from "next-auth/jwt";
+import { Account, Session, User } from "@auth/core/types";
+import { AdapterSession, AdapterUser } from "@auth/core/adapters";
 
-interface Token extends JWT {
+interface HydratedToken extends JWT {
     username: string;
     accessToken: string;
     refreshToken: string;
     accessTokenExpires: number;
 }
 
-export async function refreshAccessToken(token: Token) {
-    console.log("Spotify token=", token);
+export async function refreshAccessToken(token: HydratedToken) {
+    //console.log("Spotify token=", token);
     try {
         spotifyApi.setAccessToken(token.accessToken);
         spotifyApi.setRefreshToken(token.refreshToken);
 
         const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
-        console.log("Successfully refreshed spotify access token");
-        console.log(
-            "Spotify refresh token after being refreshed=",
-            refreshedToken.refresh_token
-        );
+        //console.log("Successfully refreshed spotify access token");
+        //console.log(
+        //    "Spotify refresh token after being refreshed=",
+        //    refreshedToken.refresh_token
+        //);
 
         return {
             ...token,
@@ -40,45 +40,49 @@ export async function refreshAccessToken(token: Token) {
     }
 }
 
-export const authConfig: NextAuthOptions = {
-    providers: [
-        SpotifyProvider({
-            clientId: process.env.AUTH_SPOTIFY_ID as string,
-            clientSecret: process.env.AUTH_SPOTIFY_SECRET as string,
-            authorization: LOGIN_URL,
-        }),
-    ],
-    secret: process.env.AUTH_SECRET,
-    callbacks: {
-        async jwt({ token, account, user }) {
-            // Initial sign in
-            if (account && user) {
-                return {
-                    ...token,
-                    accessToken: account.access_token,
-                    refreshToken: account.refresh_token,
-                    username: account.providerAccountId,
-                    accessTokenExpires: (account?.expires_at as number) * 1000,
-                } as Token;
-            }
+export async function assembleJWT(params: {
+    token: JWT;
+    account: Account | null;
+    user: User | AdapterUser;
+}) {
+    const { token, account, user } = params;
 
-            // Return previous token if access token is valid
-            if (Date.now() < (token as Token).accessTokenExpires) {
-                console.log("Existing Spotify API access token is valid");
-                return token as Token;
-            }
+    // Initial sign in
+    if (account && user) {
+        return {
+            ...token,
+            accessToken: account.access_token,
+            refreshToken: account.refresh_token,
+            username: account.providerAccountId,
+            accessTokenExpires: (account?.expires_at as number) * 1000,
+        } as HydratedToken;
+    }
 
-            // Access token is expired, refresh
-            console.log("Spotify API access token has expired, refreshing...");
-            return await refreshAccessToken(token as Token);
-        },
+    // Return previous token if access token is valid
+    if (Date.now() < (token as HydratedToken).accessTokenExpires) {
+        console.log("Existing Spotify API access token is valid");
+        return token as HydratedToken;
+    }
 
-        async session({ session, token }) {
-            session.accessToken = (token as Token).accessToken;
-            session.refreshToken = (token as Token).refreshToken;
-            session.user.name = (token as Token).name;
+    // Access token is expired, refresh
+    //console.log("Spotify API access token has expired, refreshing...");
+    return await refreshAccessToken(token as HydratedToken);
+}
 
-            return session;
-        },
-    },
-};
+type SessionCallbackSessionParam = {
+    user: AdapterUser;
+} & AdapterSession &
+    Session;
+
+export function storeTokensInSession(params: {
+    session: SessionCallbackSessionParam;
+    token: JWT;
+}) {
+    const { session, token } = params;
+
+    session.accessToken = (token as HydratedToken).accessToken;
+    session.refreshToken = (token as HydratedToken).refreshToken;
+    session.user.name = (token as HydratedToken).name;
+
+    return session;
+}

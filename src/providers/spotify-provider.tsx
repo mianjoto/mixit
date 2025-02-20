@@ -11,7 +11,6 @@ interface SpotifyProviderProps {
 
 export default function SpotifyProvider({ children }: SpotifyProviderProps) {
     const { data: session } = useSession();
-    console.log("Data from provider", session);
 
     const {
         data: playlists,
@@ -30,7 +29,6 @@ export default function SpotifyProvider({ children }: SpotifyProviderProps) {
         isPlaylistQueryError,
         isPlaylistQuerySuccess,
     };
-    console.log("playlist result", playlists);
 
     const { data: user } = useQuery({
         queryKey: ["user"],
